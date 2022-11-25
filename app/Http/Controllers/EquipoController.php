@@ -122,6 +122,8 @@ class EquipoController extends Controller{
             $model = '';
           }
 
+          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i>';
+
           array_push($data, [
             "code"        => $item->cod_equipo,
             "nombre"      => AppHelper::clientFormat($item->dsc_equipo),
@@ -133,7 +135,7 @@ class EquipoController extends Controller{
             "numserie"    => $item->num_serie,
             "numparte"    => $item->num_parte,
             "fechacompra" => $item->fch_compra,
-            "numpedido"   => $item->num_pedido
+            "numpedido"   => $ver
           ]);
         }
 

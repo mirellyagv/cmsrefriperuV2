@@ -88,7 +88,7 @@
                 </div>
 
             </div> --}}
-            <script>
+            <style >
                 table.dateTable thead {
                     background-color: rgb(74, 190, 123);
                     color:azure;
@@ -98,7 +98,7 @@
                     background-color: rgb(74, 190, 123);
                     color:azure !important;
                 }
-            </script>
+            </style>
 
             <div class="row fondocabecera">
                 <div class="col-12">
@@ -111,8 +111,8 @@
                 </div>
 
                 <div class="table-responsive-md">
-                    <table id="datatablePrueba" class="table table-striped">
-                        <thead>
+                    <table id="datatablePrueba" class="table  table-bordered">
+                        <thead class="headtable">
                             <tr>
                                 <th scope="col">Codigo</th>
                                 <th scope="col">Nombre</th>
@@ -159,9 +159,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalDetalleEquipoLabel"></h5>
                     <h5 class="modal-title" id="EstadoDetalleEquipo"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> --}}
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
@@ -327,7 +327,8 @@
                         data : 'modelo'
                     },
                     {
-                        data : 'numpedido'
+                        data : 'numpedido',
+                        class: 'centrado'
                     }
                 ],
                 rowReorder: true,
@@ -561,138 +562,166 @@
 
         // }
 
-        // function verdetalle(codigo) {
-        //     $('#modalDetalleEquipo').modal('show');
-        //     var cod_modelo = '';
+        function verdetalle(codigo) {
+            $('#modalDetalleEquipo').modal('show');
+            var cod_modelo = '';
 
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: "{{ url('equipo/modalDetalle') }}",
-        //         data: {
-        //             'cod_equipo': codigo,
-        //         },
-        //         beforeSend: function() {
-        //             $("#equipo-body").LoadingOverlay("show");
-        //         },
-        //         complete: function() {
-        //             $("#equipo-body").LoadingOverlay("hide");
-        //         },
-        //         success: function(result) {
-        //             var data = result;
-        //             //console.log(data);
-        //             cod_modelo = data[0]['cod_modelo'];
-        //             $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
-        //             $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
-        //             $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
-        //             $('#subtipoEquipo').val(data[0]['dsc_subtipo_equipo']);
-        //             $('#marcaEquipo').val(data[0]['dsc_marca']);
-        //             $('#modeloEquipo').val(data[0]['dsc_modelo']);
-        //             $('#actFijoEquipo').val(data[0]['cod_activo']);
-        //             $('#inventarioEquipo').val(data[0]['cod_inventario']);
-        //             $('#numSerieEquipo').val(data[0]['num_serie']);
-        //             $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
-        //             $('#sedeEquipo').val(data[0]['dsc_sede']);
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('equipo/modalDetalle') }}",
+                data: {
+                    'cod_equipo': codigo,
+                },
+                beforeSend: function() {
+                    $("#equipo-body").LoadingOverlay("show");
+                },
+                complete: function() {
+                    $("#equipo-body").LoadingOverlay("hide");
+                },
+                success: function(result) {
+                    var data = result;
+                    //console.log(data);
+                    cod_modelo = data[0]['cod_modelo'];
+                    $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
+                    $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
+                    $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
+                    $('#subtipoEquipo').val(data[0]['dsc_subtipo_equipo']);
+                    $('#marcaEquipo').val(data[0]['dsc_marca']);
+                    $('#modeloEquipo').val(data[0]['dsc_modelo']);
+                    $('#actFijoEquipo').val(data[0]['cod_activo']);
+                    $('#inventarioEquipo').val(data[0]['cod_inventario']);
+                    $('#numSerieEquipo').val(data[0]['num_serie']);
+                    $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
+                    $('#sedeEquipo').val(data[0]['dsc_sede']);
 
-        //             $.ajax({
-        //                 type: 'GET',
-        //                 url: "{{ url('equipo/listaIntervencion') }}",
-        //                 data: {
-        //                     'cod_equipo': codigo,
-        //                     'cod_modelo': cod_modelo
-        //                 },
-        //                 beforeSend: function() {
-        //                     $("#equipo-body").LoadingOverlay("show");
-        //                 },
-        //                 complete: function() {
-        //                     $("#equipo-body").LoadingOverlay("hide");
-        //                 },
-        //                 success: function(result) {
-        //                     var data = result;
-        //                     //console.log(data);
-        //                     var body = '<div class="card-box table-responsive">';
-        //                     // body += '<div class="row">'+'<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset('assets/images/icons/icon_excel.png') }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>'+'</div>';
-        //                     body += '<div class="row">' +
-        //                         '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>';
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('equipo/listaIntervencion') }}",
+                        data: {
+                            'cod_equipo': codigo,
+                            'cod_modelo': cod_modelo
+                        },
+                        beforeSend: function() {
+                            $("#equipo-body").LoadingOverlay("show");
+                        },
+                        complete: function() {
+                            $("#equipo-body").LoadingOverlay("hide");
+                        },
+                        success: function(result) {
+                            var data = result;
+                            //console.log(data);
+                            var body = '<div class="card-box table-responsive">';
+                            // body += '<div class="row">'+'<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset('assets/images/icons/icon_excel.png') }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>'+'</div>';
+                            body += '';
 
-        //                     body +=
-        //                         '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; font-size:16px">' +
-        //                         '<thead>' +
-        //                         '<tr class="headtable"  style="text-align:center;">' +
-        //                         '<th style="width:5%;">Ejec</th>' +
-        //                         '<th style="width:15%;">Fecha Programado</th>' +
-        //                         '<th style="width:15%;">Fecha Ejecutado</th>' +
-        //                         '<th style="width:10%;">Tipo Intervención</th>' +
-        //                         '<th style="width:40%;">Responsable</th>' +
-        //                         '<th style="width:5%;">Plan Asociado</th>' +
-        //                         '<th style="width:20%;">Orden Trabajo Asociado</th>' +
-        //                         '</tr>' +
-        //                         '</thead>' +
-        //                         '<tbody>';
+                            body +=
+                                '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; ">' +
+                                '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
+                                '<div class="row">' +
+                                '<thead>' +
+                                '<tr class="headtable"  style="text-align:center;">' +
+                                '<th style="width:5%;">Ejec</th>' +
+                                '<th style="width:15%;">Fecha Programado</th>' +
+                                '<th style="width:15%;">Fecha Ejecutado</th>' +
+                                '<th style="width:10%;">Tipo Intervención</th>' +
+                                '<th style="width:40%;">Responsable</th>' +
+                                '<th style="width:5%;">Plan Asociado</th>' +
+                                '<th style="width:20%;">Orden Trabajo Asociado</th>' +
+                                '</tr>' +
+                                '</thead>' +
+                                '<tbody>';
+                                
+                            $.each(data, function(index, value) {
+                                //console.log(value)
+                                var colorEdo = '';
+                                switch (value.dsc_estado) {
+                                    case 'ATENDIDO':
+                                        colorEdo = '#2D8B57';
+                                        break;
+                                    case 'PENDIENTE':
+                                        colorEdo = '#FF4601';
+                                        break;
+                                    case 'EN PROCESO':
+                                        colorEdo = '#FFD603';
+                                        break;
+                                    case 'SIN ORDEN DE TRABAJO':
+                                        colorEdo = '#A9A9A9';
+                                        break;
+                                    default:
+                                        colorEdo = '#FFF';
+                                        break;
+                                }
+
+                                fchProg = new Date(value.fch_programacion)
+                                    .toLocaleDateString();
+                                fchEjec = new Date(value.fch_ejecucion)
+                                .toLocaleDateString();
+
+                                body += '<tr>' +
+                                    '<td><ion-icon size="large" style="color:' + colorEdo +
+                                    '" name="ellipse"></ion-icon><span style="display: none">'+value.dsc_estado+'</span></td>' +
+                                    '<td>' + fchProg + '</td>' +
+                                    '<td>' + fchEjec + '</td>' +
+                                    '<td>' + value.dsc_tipo_plan + '</td>' +
+                                    '<td>' + value.dsc_responsable + '</td>' +
+                                    '<td style="text-align:center;">' + value.num_plan +
+                                    '</td>' +
+                                    '<td>' + value.cod_orden_trabajo + '</td>' +
+                                    '</tr>';
+                            });
+
+                            body += '</tbody>' +
+                                '</table>' +
+                                '</div>';
+
+                            $('#intervencion-content').html(body);
+
+                            $("#tbl-det-equipo").DataTable({
+                                responsive: true,
+                                filter: false,
+                                lengthChange: true,
+                                ordering: false,
+                                orderMulti: false,
+                                paging: true,
+                                info: true,
+                                dom: 'Bftrip',
+                                language: {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                },
+                                buttons: [
+                                    {
+                                        extend: "excel",                    // Extend the excel button
+                                        text: 'Excel',
+                                        title: codigo+' Reporte Incidencias', //Nombre de archivo de descarga
+                                        className: 'btn btn-success',
+                                        excelStyles: {                      // Add an excelStyles definition
+                                            cells: "2",                     // to row 2
+                                            style: {                        // The style block
+                                                font: {                     // Style the font
+                                                    name: "Arial",          // Font name
+                                                    size: "14",             // Font size
+                                                    color: "FFFFFF",        // Font Color
+                                                    b: false,               // Remove bolding from header row
+                                                },
+                                                fill: {                     // Style the cell fill (background)
+                                                    pattern: {              // Type of fill (pattern or gradient)
+                                                        color: "457B9D",    // Fill color
+                                                    }
+                                                }
+                                            }
+                                        },
+                                    },
+                                ]
+                            });
 
 
-        //                     $.each(data, function(index, value) {
-        //                         //console.log(value)
-        //                         var colorEdo = '';
-        //                         switch (value.dsc_estado) {
-        //                             case 'ATENDIDO':
-        //                                 colorEdo = '#2D8B57';
-        //                                 break;
-        //                             case 'PENDIENTE':
-        //                                 colorEdo = '#FF4601';
-        //                                 break;
-        //                             case 'EN PROCESO':
-        //                                 colorEdo = '#FFD603';
-        //                                 break;
-        //                             case 'SIN ORDEN DE TRABAJO':
-        //                                 colorEdo = '#A9A9A9';
-        //                                 break;
-        //                         }
+                        }
+                    });
 
-        //                         fchProg = new Date(value.fch_programacion)
-        //                             .toLocaleDateString();
-        //                         fchEjec = new Date(value.fch_ejecucion)
-        //                     .toLocaleDateString();
+                }
+            });
 
-        //                         body += '<tr>' +
-        //                             '<td><ion-icon size="large" style="color:' + colorEdo +
-        //                             '" name="ellipse"></ion-icon></td>' +
-        //                             '<td>' + fchProg + '</td>' +
-        //                             '<td>' + fchEjec + '</td>' +
-        //                             '<td>' + value.dsc_tipo_plan + '</td>' +
-        //                             '<td>' + value.dsc_responsable + '</td>' +
-        //                             '<td style="text-align:center;">' + value.num_plan +
-        //                             '</td>' +
-        //                             '<td>' + value.cod_orden_trabajo + '</td>' +
-        //                             '</tr>';
-        //                     });
-
-        //                     body += '</tbody>' +
-        //                         '</table>' +
-        //                         '</div>';
-
-        //                     $('#intervencion-content').html(body);
-
-        //                     $("#tbl-det-equipo").DataTable({
-        //                         responsive: true,
-        //                         filter: false,
-        //                         lengthChange: true,
-        //                         ordering: false,
-        //                         orderMulti: false,
-        //                         paging: true,
-        //                         info: true,
-        //                         language: {
-        //                             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-        //                         }
-        //                     });
-
-
-        //                 }
-        //             });
-
-        //         }
-        //     });
-
-        // }
+        }
 
         //No se encontraron registros
         // function getEmptyContent(mensaje = "No se encontraron registros") {

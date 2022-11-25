@@ -26,6 +26,10 @@ body{
     border-color: #f06292;
 }
 
+.centrado {
+    text-align: center;
+}
+
 .navbar-custom{background:#c7c4c4 !important;}
 body[data-layout=horizontal] .navbar-custom .topnav-menu .nav-link{color:#FFF !important;}
 .left-side-menu{background:#2f5597 !important;}
