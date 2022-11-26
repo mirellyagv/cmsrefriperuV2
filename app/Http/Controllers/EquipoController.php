@@ -139,7 +139,7 @@ class EquipoController extends Controller{
           ]);
         }
 
-        $result = $this->dataTableResult($total,$filtrados,$data);
+        //$result = $this->dataTableResult($total,$filtrados,$data);
 
         return $data;
 
@@ -149,6 +149,7 @@ class EquipoController extends Controller{
       $sede      = $request->sede;
       $ubicacion = $request->ubicacion;
       $ubicacion2= $request->ubicacion2;
+      $ubicacion3 = $request->ubicacio3;
       $ubicacion3 = $request->ubicacio3;
       $codcli  = Session()->get('cod_cli');
       // $numserie  = $request->numserie;
@@ -175,7 +176,7 @@ class EquipoController extends Controller{
               //             where mtoma_ubicacion.num_linea = '6' 
 						  // and mtoma_ubicacion.cod_cliente = 'CLI0000364' 
 						  // and mtoma_ubicacion.cod_ubicacion_sup = '00000073'
-      $equipos = DB::select('SET NOCOUNT ON; EXEC usp_Consultar_ListarEquipos ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',[21,'','','','','','','','','','','',$codcli,$sede,'','','']);
+      $equipos = DB::select('SET NOCOUNT ON; EXEC usp_web_Listado_x_Ubicaciones ?,?,?,?,?',[1,$codcli,$sede,'','']);
 
       $total    = sizeof($equipos);
 
@@ -230,35 +231,47 @@ class EquipoController extends Controller{
           $model = '';
         }
         $ubicacion = $item->Nivel2.'//'.$item->Nivel1.'//'.$item->Nivel0;
-
+        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i>';
+        
         array_push($data, [
           "code"        => $item->cod_equipo,
           "nombre"      => AppHelper::clientFormat($item->dsc_equipo),
-          "idtipo"      => $item->cod_tipo_equipo,
+          // "idtipo"      => $item->cod_tipo_equipo,
           "nomtipo"     => $item->dsc_tipo_equipo,
           "nomsubtipo"  => $item->dsc_subtipo_equipo,
           "marca"       => $item->dsc_marca,
           "modelo"      => $model,
-          "numserie"    => $item->num_serie,
-          "numparte"    => $item->num_parte,
+          // "numserie"    => $item->num_serie,
+          // "numparte"    => $item->num_parte,
           "sede"        => $item->dsc_sede,
-          "ubicacion"   => $ubicacion
+          "ubicacion"   => $ubicacion,
+          "nivel0"      => $item->Nivel0,
+          "nivel1"      => $item->Nivel1,
+          "nivel2"      => $item->Nivel2,
+          "nivel3"      => $item->Nivel3,
+          "nivel4"      => $item->Nivel4,
+          "nivel5"      => $item->Nivel5,
+          "nivel6"      => $item->Nivel6,
+          "nivel7"      => $item->Nivel7,
+          "nivel8"      => $item->Nivel8,
+          "nivel9"      => $item->Nivel9,
+          "numpedido"   => $ver
         ]);
       }
 
-      $result = $this->dataTableResult($total,$filtrados,$data);
+      //$result = $this->dataTableResult($total,$filtrados,$data);
 
-      return $result;
+      return $data;
 
   }
 
     public function getDetalleEquipo(Request $request){
         $codCliente = $request->session()->get('cod_cli');
-          $listaSede  = DB::table('vtade_cliente_direccion as direccion')
-                         ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
-                         ->where('direccion.cod_cliente', '=', $codCliente)
-                         ->orderBy('direccion.dsc_nombre_direccion')
-                         ->get();
+        $listaSede  = DB::table('vtade_cliente_direccion as direccion')
+                        ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
+                        ->where('direccion.cod_cliente', '=', $codCliente)
+                        ->orderBy('direccion.dsc_nombre_direccion')
+                        ->get();
         // $marcas  = DB::table('feima_marca_articulo as marca')
         //            ->select('marca.cod_marca', 'marca.dsc_marca','marca.flg_activo')
         //            ->get();

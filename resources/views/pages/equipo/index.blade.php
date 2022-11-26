@@ -88,17 +88,6 @@
                 </div>
 
             </div> --}}
-            <style >
-                table.dateTable thead {
-                    background-color: rgb(74, 190, 123);
-                    color:azure;
-                }
-
-                .page-item.ative .page-link {
-                    background-color: rgb(74, 190, 123);
-                    color:azure !important;
-                }
-            </style>
 
             <div class="row fondocabecera">
                 <div class="col-12">

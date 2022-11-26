@@ -8,13 +8,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        {{-- <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Adminox</a></li>
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
-                            </ol>
-                        </div> --}}
                         <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS</h4>
                         <div class="col-md-2">
                             <h5 class="headerh">&nbsp;</h5>
@@ -25,14 +18,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="row">
-                <div class="col-12">
-                    <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="far fa-caret-square-down vermas" option="0"></i> Filtros</h4>
-                    </div>    
-                </div>    
-            </div> --}}
 
             <div class="row" style="padding-bottom:15px;">
                 <div class="col-md-3">
@@ -46,27 +31,27 @@
                 </div>
                 <div class="col-md-3">
                     <h5 class="headerh">Nivel 1</h5>
-                    <select class="form-control" id="ubicacion" name="ubicacion">
+                    <select class="form-control" id="nivel1" name="nivel1">
                         <option value="0">Todos</option>
                     </select>
                 </div>
-                <div class="col-md-3" id="divUbicacion2" style="display: none">
+                <div class="col-md-3" id="divNivel2" style="display: none">
                     <h5 class="headerh">Nivel 2</h5>
-                    <select class="form-control" id="ubicacion2" name="ubicacion2">
+                    <select class="form-control" id="nivel2" name="nivel2">
                         <option value="0">Todos</option>
                     </select>
                 </div>
-                <div class="col-md-3" id="divUbicacion3" style="display: none">
+                <div class="col-md-3" id="divNivel3" style="display: none">
                     <h5 class="headerh">Nivel 3</h5>
-                    <select class="form-control" id="ubicacion3" name="ubicacion3">
+                    <select class="form-control" id="nivel3" name="nivel3">
                         <option value="0">Todos</option>
                     </select>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3" id="divUbicacion4" style="display: none">
+                <div class="col-md-3" id="divNivel4" style="display: none">
                     <h5 class="headerh">Nivel 4</h5>
-                    <select class="form-control" id="ubicacion4" name="ubicacion4">
+                    <select class="form-control" id="nivel4" name="nivel4">
                         <option value="0">Todos</option>
                     </select>
                 </div>    
@@ -80,6 +65,43 @@
                 </div>
                 <div class="col-12">
                     <div id="equipo-content"></div>
+                </div>
+                <div class="table-responsive-md">
+                    <table id="datatablePrueba" class="table  table-bordered">
+                        <thead class="headtable">
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Sede</th>
+                                <th scope="col">Ubicación</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Sub-tipo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        {{-- <tbody>
+                            <tr class="">                           
+                                <td scope="row">R1C1</td>
+                                <td>R1C2</td>
+                                <td>R1C3</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                            </tr>
+                            <tr class="">
+                                <td scope="row">Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                            </tr>
+                        </tbody> --}}
+                    </table>
                 </div>
             </div> <!-- end row -->
 
@@ -187,36 +209,25 @@
     // }
 
     $(document).ready(function(){
-        //Combitos
-        $('#sede').select2();
-        $('#ubicacion').select2(); 
-        $('#ubicacion2').select2();
-        $('#ubicacion3').select2();
-        //Se hace el slider filter.
-        // $('.vermas').on('click',function(){
-        //     var opt = $(this).attr('option');
-        //     //
-        //     if(opt=='0'){
-        //         $(this).removeClass("fa-caret-square-down");
-        //         $(this).addClass("fa-caret-square-up");
-        //         //
-        //         $('.cntfiltro').fadeIn("slow");
-        //         $('.cntfiltro').css('display','inline-block');
-
-        //         $(this).attr('option','1');   
-        //     }else{
-        //         $(this).removeClass("fa-caret-square-up");
-        //         $(this).addClass("fa-caret-square-down");
-        //         //
-        //         $('.cntfiltro').fadeOut("slow");
-        //         $('.cntfiltro').css('display','none');
-        //         $(this).attr('option','0');
-        //     }
+        
+        //inicializacion dataTabla....
+        // $('#sede').on('change',()=>{
             
         // });
+        
+
+        //Combitos
+        $('#sede').select2();
+        $('#nivel1').select2(); 
+        $('#nivel2').select2();
+        $('#nivel3').select2();
 
         $("#sede").change(function (){
-            //Aqui se llama a la ubicacion
+            //Aqui se valida si existe la dTable para reinicializarse...
+            if ($.fn.dataTable.isDataTable('#datatablePrueba')) {
+                $('#datatablePrueba').DataTable().clear();
+                $('#datatablePrueba').DataTable().destroy();        
+            }
             var linea = $(this).val();
             var codCliente = "{{$codCliente}}";
             $.ajax({
@@ -230,24 +241,118 @@
                     'numLinea' : linea
                 },
                 success:function(data){
-                    //console.log('aqui', data);
-                    $('#ubicacion').html(data);
+                    // $('#datatablePrueba').DataTable({
+                    //     destroy : true
+                    // });
+                    // if (tabla1!=1) {
+                    //     tabla1.destroy();
+                    // }
+                    localStorage.setItem('aa', "{{url('equipo/listar2?sede=')}}"+linea)
+                    // var aa = "{{url('equipo/listar2?sede=')}}"+linea;
+                    tabla1 = $('#datatablePrueba').DataTable({
+                        language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
+                        },
+                        dom: 'BPftrip',
+                        buttons: [
+                                {
+                                    extend: "excel",                    // Extend the excel button
+                                    text: 'Excel',
+                                    className: 'btn btn-success',
+                                    excelStyles: {                      // Add an excelStyles definition
+                                        cells: "2",                     // to row 2
+                                        style: {                        // The style block
+                                            font: {                     // Style the font
+                                                name: "Arial",          // Font name
+                                                size: "14",             // Font size
+                                                color: "FFFFFF",        // Font Color
+                                                b: false,               // Remove bolding from header row
+                                            },
+                                            fill: {                     // Style the cell fill (background)
+                                                pattern: {              // Type of fill (pattern or gradient)
+                                                    color: "457B9D",    // Fill color
+                                                }
+                                            }
+                                        }
+                                    },
+                                },
+                            ],
+                        
+                        searchPanes: {
+                            initCollapsed: true,
+                            i18n: {
+                            title: {
+                                    _: 'Filtros Seleccionados - %d',
+                                    0: 'Sin filtros Activos',
+                                    1: 'Un filtro Activo'
+                                }   
+                            }
+                        },
+                        processing: true,
+                        // serverSide: true,
+                        ajax: {
+                            url: localStorage.getItem('aa'),
+                            dataSrc: '',
+                        },
+                        columns: [
+                            {
+                                data : 'code'
+                            },
+                            {
+                                data : 'sede'
+                            },
+                            {
+                                data : 'ubicacion'
+                            },
+                            {
+                                data : 'nombre'
+                            },
+                            {
+                                data : 'nomtipo'
+                            },
+                            {
+                                data : 'nomsubtipo'
+                            },
+                            {
+                                data : 'marca'
+                            },
+                            {
+                                data : 'modelo'
+                            },
+                            {
+                                data : 'numpedido',
+                                class: 'centrado'
+                            }
+                        ],
+                        rowReorder: true,
+                        select:true,
+                        responsive: true,
+                        filter: true,
+                        lengthChange: true,
+                        ordering: false,
+                        orderMulti: false,
+                        paging : true,
+                        info: true,
+                        // rowReorder: true
+                    });
+                    $('#nivel1').html(data);
                     //$('#ubicacion').trigger('change');   
                 }
             });
             //Se llama al equipo content
             
             $("#equipo-content").html("");
-            loadPageData();
+            // loadPageData();
         });
 
         ///// aqui deberia ser cuando ubicacion cambia
-        //$("#ubicacion").change(function (){
-            $("#ubicacion").change(function (){
+        $("#nivel1").change(function (){
+            
+            console.log('AQUIII', localStorage.getItem('aa'));
             //Aqui se llama a la ubicacion2
             var linea = $('#sede').val();
             var codCliente = "{{$codCliente}}";
-            var lineaSup = $('#ubicacion').val();
+            var lineaSup = $('#nivel1').val();
             //console.log('lineaEnSelect', lineaSup);
             $.ajax({
                 url : "{{ url('equipo/ubicaciones2')}}",
@@ -259,8 +364,8 @@
                 },
                 success:function(data){ 
                     console.log('numLinea',linea, 'lineaSuperior' , lineaSup);   
-                    document.getElementById("divUbicacion2").style.display = "block";               
-                    $('#ubicacion2').html(data);
+                    document.getElementById("divNivel2").style.display = "block";               
+                    $('#nivel2').html(data);
                     //$('#ubicacion2').trigger('change'); 
                     
                     //console.log('lineaSuperior', data);  
@@ -269,16 +374,15 @@
             });
             //Se llama al equipo content
             $("#equipo-content").html("");
-            loadPageData();
-            });
-        //});
+            // loadPageData();
+        });
         
         /////fin cambio de ubicacion..
-        $("#ubicacion2").change(function (){
+        $("#nivel2").change(function (){
             //Aqui se llama a la ubicacion2
             var linea = $('#sede').val();
             var codCliente = "{{$codCliente}}";
-            var lineaSup = (!$('#ubicacion2').val().split('+')[1])? $('ubicacion2').val() : $('#ubicacion2').val().split('+')[0];
+            var lineaSup = (!$('#nivel2').val().split('+')[1])? $('#nivel2').val() : $('#nivel2').val().split('+')[0];
             //console.log('lineaEnSelect', lineaSup);
             $.ajax({
                 url : "{{ url('equipo/ubicaciones3')}}",
@@ -290,15 +394,15 @@
                 },
                 success:function(data){ 
                     //console.log('numLinea',linea, 'lineaSuperior' , lineaSup);   
-                    document.getElementById("divUbicacion3").style.display = "block";               
-                    $('#ubicacion3').html(data);
+                    document.getElementById("divNivel3").style.display = "block";               
+                    $('#nivel3').html(data);
                     //console.log('lineaSuperior', data);  
                 }
                 
             });
             //Se llama al equipo content
             $("#equipo-content").html("");
-            loadPageData();
+            // loadPageData();
             });
 
 
@@ -307,127 +411,123 @@
         //     $("#equipo-content").html("");
         //     loadPageData();    
         // });
-        $("#ubicacion2").change(function(){
-            $("#equipo-content").html("");
-            loadPageData();    
-        });
      
         $(".btn-clear").click(function(){
             window.location = "{{ url('equipo/detalle') }}";
         });
 
-        loadPageData();
+        // loadPageData();
 
     });
 
     //Se inicia con la funcion onload
-    function loadPageData(){
-        var lineaSup = $('#ubicacion').val().split('+')[1];
-        var linea = $('#ubicacion').val().split('+')[0];
-        $.ajax({
-            type: 'GET',
-            url: "{{url('equipo/listar2')}}",
-            data: {
-                'sede'     : $("#sede").val(),
-                'ubicacion'  : linea,
-                'ubicacion2'  : lineaSup
-            },
-            beforeSend: function () {
-                $("#equipo-body").LoadingOverlay("show");
-            },
-            complete: function () {
-                $("#equipo-body").LoadingOverlay("hide");
-            },
-            success:function(result){
-                var data = result;
-                //console.log('catidad de filas',data.items.length, 'codigo de sede', sede.value, 'ubicacion', ubicacion.value, 'ubicacion2', ubicacion2.value);
-                if(data.items.length > 0 && sede.value!=0 ){
-                    $("#equipo-content").html(getEquipoTable(data.items));
+    // function loadPageData(){
+    //     var lineaSup = $('#ubicacion').val().split('+')[1];
+    //     var linea = $('#ubicacion').val().split('+')[0];
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{url('equipo/listar2')}}",
+    //         data: {
+    //             'sede'     : $("#sede").val(),
+    //             'ubicacion'  : linea,
+    //             'ubicacion2'  : lineaSup
+    //         },
+    //         beforeSend: function () {
+    //             $("#equipo-body").LoadingOverlay("show");
+    //         },
+    //         complete: function () {
+    //             $("#equipo-body").LoadingOverlay("hide");
+    //         },
+    //         success:function(result){
+    //             var data = result;
+    //             //console.log('catidad de filas',data.items.length, 'codigo de sede', sede.value, 'ubicacion', ubicacion.value, 'ubicacion2', ubicacion2.value);
+    //             if(data.items.length > 0 && sede.value!=0 ){
+    //                 $("#equipo-content").html(getEquipoTable(data.items));
 
-                    $("#tbl-equipo").DataTable({
-                        responsive: true,
-                        filter: false,
-                        lengthChange: true,
-                        ordering: false,
-                        orderMulti: false,
-                        paging : true,
-                        info: true,
-                        language:{
-                          "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                        }
-                    });
-                }else{
-                    $("#equipo-content").html(getEmptyContent());
-                }
-            }
-        });    
-    }
+    //                 $("#tbl-equipo").DataTable({
+    //                     responsive: true,
+    //                     filter: false,
+    //                     lengthChange: true,
+    //                     ordering: false,
+    //                     orderMulti: false,
+    //                     paging : true,
+    //                     info: true,
+    //                     language:{
+    //                       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    //                     }
+    //                 });
+    //             }else{
+    //                 $("#equipo-content").html(getEmptyContent());
+    //             }
+    //         }
+    //     });    
+    // }
 
-    function getEquipoTable(items){
+    // function getEquipoTable(items){
 
-        var j=1;
-        var body  = '<div class="card-box table-responsive">';
+    //     var j=1;
+    //     var body  = '<div class="card-box table-responsive">';
 
-        body += '<div class="row">' +
-                '<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>' +
-                '</div>';
+    //     body += '<div class="row">' +
+    //             '<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>' +
+    //             '</div>';
             
-        body += '<table id="tbl-equipo" class="table table-bordered dt-responsive" style="font-size:16px; border-collapse:collapse; border-spacing:0; width:100%;">' +
-                    '<thead>' +
-                    '<tr class="headtable">' +
-                    '<th>N°</th>' + 
-                    '<th>Código</th>' +
-                    '<th>Sede</th>' + 
-                    '<th>Ubicación</th>' + 
-                    '<th>Nombre</th>' + 
-                    '<th>Tipo</th>' +
-                    '<th>Sub-tipo</th>' +
-                    '<th>Marca</th>' +
-                    '<th>Modelo</th>' +
-                    '<th>Opciones</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody>';
+    //     body += '<table id="tbl-equipo" class="table table-bordered dt-responsive" style="font-size:16px; border-collapse:collapse; border-spacing:0; width:100%;">' +
+    //                 '<thead>' +
+    //                 '<tr class="headtable">' +
+    //                 '<th>N°</th>' + 
+    //                 '<th>Código</th>' +
+    //                 '<th>Sede</th>' + 
+    //                 '<th>Ubicación</th>' + 
+    //                 '<th>Nombre</th>' + 
+    //                 '<th>Tipo</th>' +
+    //                 '<th>Sub-tipo</th>' +
+    //                 '<th>Marca</th>' +
+    //                 '<th>Modelo</th>' +
+    //                 '<th>Opciones</th>' +
+    //                 '</tr>' +
+    //                 '</thead>' +
+    //                 '<tbody>';
 
-        $.each(items, function (index, value){
+    //     $.each(items, function (index, value){
 
-        body += '<tr>' + 
-                    '<td>' + j + '</td>' +
-                    '<td>' + value.code + '</td>' +
-                    '<td>' + value.sede + '</td>' +
-                    '<td>' + value.ubicacion + '</td>' +
-                    '<td>' + value.nombre + '</td>' +
-                    '<td>' + value.nomtipo + '</td>' +
-                    '<td>' + value.nomsubtipo + '</td>' +
-                    '<td>' + value.marca + '</td>' +
-                    '<td>' + value.modelo + '</td>' +
-                    '<td style="text-align:center;">' +
-                    '<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle(' + "'" + value.code + "'" + ')" >' +
-                    '<i class="dripicons-preview"></i>' +
-                    '</a>' +
-                    '</td>' +
-                    '</tr>';
+    //     body += '<tr>' + 
+    //                 '<td>' + j + '</td>' +
+    //                 '<td>' + value.code + '</td>' +
+    //                 '<td>' + value.sede + '</td>' +
+    //                 '<td>' + value.ubicacion + '</td>' +
+    //                 '<td>' + value.nombre + '</td>' +
+    //                 '<td>' + value.nomtipo + '</td>' +
+    //                 '<td>' + value.nomsubtipo + '</td>' +
+    //                 '<td>' + value.marca + '</td>' +
+    //                 '<td>' + value.modelo + '</td>' +
+    //                 '<td style="text-align:center;">' +
+    //                 '<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle(' + "'" + value.code + "'" + ')" >' +
+    //                 '<i class="dripicons-preview"></i>' +
+    //                 '</a>' +
+    //                 '</td>' +
+    //                 '</tr>';
 
-        j++;
+    //     j++;
 
-        });
+    //     });
 
-        body += '</tbody>' +
-                '</table>' +
-                '</div>';        
+    //     body += '</tbody>' +
+    //             '</table>' +
+    //             '</div>';        
 
-        return body;
+    //     return body;
 
-    }
+    // }
 
     //No se encontraron registros
-    function getEmptyContent(mensaje = "No se encontraron registros"){
-    return "<div class=\"row\" style=\"padding-top: 10px;\">" +
-           "<div class=\"col-12\">" +
-           "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
-           "</div>" +
-           "</div>";
-    }
+    // function getEmptyContent(mensaje = "No se encontraron registros"){
+    // return "<div class=\"row\" style=\"padding-top: 10px;\">" +
+    //        "<div class=\"col-12\">" +
+    //        "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
+    //        "</div>" +
+    //        "</div>";
+    // }
 
     function verdetalle(codigo){
         $('#modalDetalleEquipo').modal('show');
@@ -534,18 +634,18 @@
                         
                         $('#intervencion-content').html(body);
 
-                        $("#tbl-det-equipo").DataTable({
-                            responsive: true,
-                            filter: false,
-                            lengthChange: true,
-                            ordering: false,
-                            orderMulti: false,
-                            paging : true,
-                            info: true,
-                            language:{
-                                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                            }
-                        });
+                        // $("#tbl-det-equipo").DataTable({
+                        //     responsive: true,
+                        //     filter: false,
+                        //     lengthChange: true,
+                        //     ordering: false,
+                        //     orderMulti: false,
+                        //     paging : true,
+                        //     info: true,
+                        //     language:{
+                        //         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                        //     }
+                        // });
         
                         
                     }
@@ -557,15 +657,15 @@
     }
 
     //Funcion para exportar a Excel
-    function exportar(){
+    // function exportar(){
 
-        var query = {
-            'tipo'     : $("#sede").val(),
-            'subtipo'  : $("#ubicacion").val()
-        }
+    //     var query = {
+    //         'tipo'     : $("#sede").val(),
+    //         'subtipo'  : $("#ubicacion").val()
+    //     }
 
-        window.location = "{{ url('equipo/exportar') }}?" + $.param(query);
-    }
+    //     window.location = "{{ url('equipo/exportar') }}?" + $.param(query);
+    // }
 
     
 </script>

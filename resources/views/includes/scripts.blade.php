@@ -15,11 +15,11 @@
 <script src="{{ asset('assets/libs/datatables/responsive.bootstrap4.min.js') }}" type="text/javascript"></script> --}}
 
 <!-- Buttons examples -->
-<script src="cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap.min.js" crossorigin="anonymous"></script>
-<script src="cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap5.min.js" crossorigin="anonymous"></script>
-<script src="cdn.datatables.net/buttons/2.3.2/js/buttons.dataTables.min.js" crossorigin="anonymous"></script>
-<script src="cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js" crossorigin="anonymous"></script>
-<script src="cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap5.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>
 
 {{-- <script src="{{ asset('assets/libs/datatables/dataTables.buttons.min.js') }}" type="text/javascript"></script> --}}
 
