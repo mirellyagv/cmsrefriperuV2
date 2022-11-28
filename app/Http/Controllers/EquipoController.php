@@ -244,7 +244,7 @@ class EquipoController extends Controller{
           // "numserie"    => $item->num_serie,
           // "numparte"    => $item->num_parte,
           "sede"        => $item->dsc_sede,
-          "ubicacion"   => $ubicacion,
+          //"ubicacion"   => $ubicacion,
           "nivel0"      => $item->Nivel0,
           "nivel1"      => $item->Nivel1,
           "nivel2"      => $item->Nivel2,
@@ -269,6 +269,7 @@ class EquipoController extends Controller{
         $codCliente = $request->session()->get('cod_cli');
         $listaSede  = DB::table('vtade_cliente_direccion as direccion')
                         ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
+                        ->where('direccion.flg_plan_activo','=','SI')
                         ->where('direccion.cod_cliente', '=', $codCliente)
                         ->orderBy('direccion.dsc_nombre_direccion')
                         ->get();
@@ -364,8 +365,8 @@ class EquipoController extends Controller{
 
             $direccion= DB::table('vtade_cliente_direccion as direccion')
                     ->select('direccion.dsc_nombre_direccion','direccion.num_linea')
-                    ->where('direccion.cod_cliente','=',$cod_cliente)
                     ->where('direccion.flg_plan_activo','=','SI')
+                    ->where('direccion.cod_cliente','=',$cod_cliente)
                     ->get();
   
             $html = '<option value="0">[Todos]</option>';

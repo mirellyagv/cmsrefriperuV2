@@ -9,12 +9,12 @@
                 <div class="col-12">
                     <div class="page-title-box">
                         <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS</h4>
-                        <div class="col-md-2">
+                        {{-- <div class="col-md-2">
                             <h5 class="headerh">&nbsp;</h5>
                             <button class="btnlimpiar btn-clear">
                                 <i class="fe-rotate-cw"></i>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -29,9 +29,9 @@
                         @endforeach  
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="display: none">
                     <h5 class="headerh">Nivel 1</h5>
-                    <select class="form-control" id="nivel1" name="nivel1">
+                    <select class="form-control" id="nivel1" name="nivel1" >
                         <option value="0">Todos</option>
                     </select>
                 </div>
@@ -72,7 +72,9 @@
                             <tr>
                                 <th scope="col">Código</th>
                                 <th scope="col">Sede</th>
-                                <th scope="col">Ubicación</th>
+                                <th scope="col">Nivel 1</th>
+                                <th scope="col">Nivel 2</th>
+                                <th scope="col">Nivel 3</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Sub-tipo</th>
@@ -115,9 +117,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalDetalleEquipoLabel"></h5><h5 class="modal-title" id="EstadoDetalleEquipo"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                        </button>
+                        </button> --}}
                     </div>
                     <div class="modal-body">
                         <ul class="nav nav-tabs">
@@ -247,6 +249,7 @@
                     // if (tabla1!=1) {
                     //     tabla1.destroy();
                     // }
+                    console.log(data);
                     localStorage.setItem('aa', "{{url('equipo/listar2?sede=')}}"+linea)
                     // var aa = "{{url('equipo/listar2?sede=')}}"+linea;
                     tabla1 = $('#datatablePrueba').DataTable({
@@ -280,6 +283,8 @@
                         
                         searchPanes: {
                             initCollapsed: true,
+                            // viewTotal: true,
+                            columns: [1,2,3,4],
                             i18n: {
                             title: {
                                     _: 'Filtros Seleccionados - %d',
@@ -288,6 +293,25 @@
                                 }   
                             }
                         },
+                        //{
+                        // searchPanes: {
+                        //     options: [
+                        //         {
+                        //             label: 'Nivel 1',
+                        //             value: function(rowData, rowIdx) {
+                        //                 return rowData[3] !== 'Edinburgh';
+                        //             }
+                        //         },
+                        //         {
+                        //             label: 'Not London',
+                        //             value: function(rowData, rowIdx) {
+                        //                 return rowData[3] !== 'London';
+                        //             }
+                        //         }
+                        //     ],
+                        //     combiner: 'and'
+                        // },
+                        //targets: [2]
                         processing: true,
                         // serverSide: true,
                         ajax: {
@@ -302,7 +326,13 @@
                                 data : 'sede'
                             },
                             {
-                                data : 'ubicacion'
+                                data : 'nivel0'
+                            },
+                            {
+                                data : 'nivel1'
+                            },
+                            {
+                                data : 'nivel2'
                             },
                             {
                                 data : 'nombre'
@@ -348,7 +378,7 @@
         ///// aqui deberia ser cuando ubicacion cambia
         $("#nivel1").change(function (){
             
-            console.log('AQUIII', localStorage.getItem('aa'));
+            //console.log('AQUIII', localStorage.getItem('aa'));
             //Aqui se llama a la ubicacion2
             var linea = $('#sede').val();
             var codCliente = "{{$codCliente}}";
@@ -363,7 +393,7 @@
                     'lineaSuperior' : lineaSup
                 },
                 success:function(data){ 
-                    console.log('numLinea',linea, 'lineaSuperior' , lineaSup);   
+                    //console.log('numLinea',linea, 'lineaSuperior' , lineaSup);   
                     document.getElementById("divNivel2").style.display = "block";               
                     $('#nivel2').html(data);
                     //$('#ubicacion2').trigger('change'); 
@@ -579,9 +609,9 @@
                         //console.log(data);
                         var body  = '<div class="card-box table-responsive">';
                         // body += '<div class="row">'+'<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>'+'</div>';
-                        body += '<div class="row">'+'<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido &nbsp; <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>';
 
                         body += '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; font-size:16px">' +
+                            '<div class="row">'+'<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido &nbsp; <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
                                     '<thead>' +
                                         '<tr class="headtable"  style="text-align:center;">' +
                                             '<th style="width:5%;">Ejec</th>' + 
@@ -612,13 +642,17 @@
                                 case 'SIN ORDEN DE TRABAJO': 
                                     colorEdo = '#A9A9A9';
                                     break;
+                                default:
+                                    colorEdo = '#FFF';
+                                    break;
                             }
 
                             fchProg = new Date(value.fch_programacion).toLocaleDateString();
                             fchEjec = new Date(value.fch_ejecucion).toLocaleDateString();
 
                             body += '<tr>' + 
-                                        '<td><ion-icon size="large" style="color:' + colorEdo + '" name="ellipse"></ion-icon></td>' +
+                                    '<td><ion-icon size="large" style="color:' + colorEdo +
+                                    '" name="ellipse"></ion-icon><span style="display: none">'+value.dsc_estado+'</span></td>' +
                                         '<td>' + fchProg + '</td>' +
                                         '<td>' + fchEjec + '</td>' +
                                         '<td>' + value.dsc_tipo_plan + '</td>' +
@@ -634,18 +668,43 @@
                         
                         $('#intervencion-content').html(body);
 
-                        // $("#tbl-det-equipo").DataTable({
-                        //     responsive: true,
-                        //     filter: false,
-                        //     lengthChange: true,
-                        //     ordering: false,
-                        //     orderMulti: false,
-                        //     paging : true,
-                        //     info: true,
-                        //     language:{
-                        //         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                        //     }
-                        // });
+                        $("#tbl-det-equipo").DataTable({
+                                responsive: true,
+                                filter: false,
+                                lengthChange: true,
+                                ordering: true,
+                                orderMulti: false,
+                                paging: true,
+                                info: true,
+                                dom: 'Bftrip',
+                                language: {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                },
+                                buttons: [
+                                    {
+                                        extend: "excel",                    // Extend the excel button
+                                        text: 'Excel',
+                                        title: codigo+' Reporte Incidencias', //Nombre de archivo de descarga
+                                        className: 'btn btn-success',
+                                        excelStyles: {                      // Add an excelStyles definition
+                                            cells: "2",                     // to row 2
+                                            style: {                        // The style block
+                                                font: {                     // Style the font
+                                                    name: "Arial",          // Font name
+                                                    size: "14",             // Font size
+                                                    color: "FFFFFF",        // Font Color
+                                                    b: false,               // Remove bolding from header row
+                                                },
+                                                fill: {                     // Style the cell fill (background)
+                                                    pattern: {              // Type of fill (pattern or gradient)
+                                                        color: "457B9D",    // Fill color
+                                                    }
+                                                }
+                                            }
+                                        },
+                                    },
+                                ]
+                            });
         
                         
                     }
