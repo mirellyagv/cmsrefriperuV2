@@ -90,13 +90,13 @@ Route::group(['middleware' => 'autenticado'], function (){
   Route::group(['middleware' => 'role:Cliente'], function (){       //['middleware' => 'Rol']
     
     Route::prefix('cliente')->group(function (){
-    Route::get('perfil','ClienteController@getClientePerfil')->name('home');
-    Route::get('contactos','ClienteController@getContactoCliente');
-    Route::get('centro_responsabilidad','ClienteController@getCentroResponsabilidadCliente');
-    Route::get('direccion','ClienteController@getDireccionCliente');
+      Route::get('perfil','ClienteController@getClientePerfil')->name('home');
+      Route::get('contactos','ClienteController@getContactoCliente');
+      Route::get('centro_responsabilidad','ClienteController@getCentroResponsabilidadCliente');
+      Route::get('direccion','ClienteController@getDireccionCliente');
 
-    Route::get('direccion_contacto','ClienteController@getDireccionContactoCliente');
-    Route::get('ubicacion','ClienteController@getUbicacionCliente');
+      Route::get('direccion_contacto','ClienteController@getDireccionContactoCliente');
+      Route::get('ubicacion','ClienteController@getUbicacionCliente');
 
     });
 
