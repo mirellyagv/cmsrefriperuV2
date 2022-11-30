@@ -249,7 +249,7 @@
                     // if (tabla1!=1) {
                     //     tabla1.destroy();
                     // }
-                    console.log(data);
+                    //console.log(data);
                     localStorage.setItem('aa', "{{url('equipo/listar2?sede=')}}"+linea)
                     // var aa = "{{url('equipo/listar2?sede=')}}"+linea;
                     tabla1 = $('#datatablePrueba').DataTable({
@@ -281,18 +281,22 @@
                                 },
                             ],
                         
-                        searchPanes: {
-                            initCollapsed: true,
-                            // viewTotal: true,
-                            columns: [1,2,3,4],
-                            i18n: {
-                            title: {
-                                    _: 'Filtros Seleccionados - %d',
-                                    0: 'Sin filtros Activos',
-                                    1: 'Un filtro Activo'
-                                }   
-                            }
-                        },
+                            searchPanes: {
+                                initCollapsed: true,
+                                i18n: {
+                                    //mensaje cuando no hay datos.. 
+                                    emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
+                                    loadMessage: 'Cargando las opciones de filtros...',
+                                    collapseMessage: 'Ocultar Todos',
+                                    showMessage: 'Mostrar Todos',
+                                    clearMessage: 'Limpiar Filtros',
+                                title: {
+                                        _: 'Filtros Seleccionados - %d',
+                                        0: 'Sin filtros Activos',
+                                        1: 'Un filtro Activo'
+                                    }   
+                                }
+                            },
                         //{
                         // searchPanes: {
                         //     options: [
@@ -442,9 +446,9 @@
         //     loadPageData();    
         // });
      
-        $(".btn-clear").click(function(){
-            window.location = "{{ url('equipo/detalle') }}";
-        });
+        // $(".btn-clear").click(function(){
+        //     window.location = "{{ url('equipo/detalle') }}";
+        // });
 
         // loadPageData();
 
@@ -649,6 +653,7 @@
 
                             fchProg = new Date(value.fch_programacion).toLocaleDateString();
                             fchEjec = new Date(value.fch_ejecucion).toLocaleDateString();
+                            //console.log('fechas', value.fch_ejecucion, ' ', fchEjec);
 
                             body += '<tr>' + 
                                     '<td><ion-icon size="large" style="color:' + colorEdo +

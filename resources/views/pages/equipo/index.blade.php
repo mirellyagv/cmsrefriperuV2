@@ -283,6 +283,12 @@
                 searchPanes: {
                     initCollapsed: true,
                     i18n: {
+                        //mensaje cuando no hay datos.. 
+                        emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
+                        loadMessage: 'Cargando las opciones de filtros...',
+                        collapseMessage: 'Ocultar Todos',
+                        showMessage: 'Mostrar Todos',
+                        clearMessage: 'Limpiar Filtros',
                     title: {
                             _: 'Filtros Seleccionados - %d',
                             0: 'Sin filtros Activos',
@@ -332,171 +338,171 @@
                 // rowReorder: true
             });
             //Combitos
-            $('#tipo').select2();
+            // $('#tipo').select2();
 
-            $('#sub-tipo').select2();
+            // $('#sub-tipo').select2();
 
-            $('#marca').select2();
+            // $('#marca').select2();
 
-            $('#modelo').select2();
+            // $('#modelo').select2();
 
             //Se hace el slider.
-            $('.vermas').on('click', function() {
-                var opt = $(this).attr('option');
-                //
-                if (opt == '0') {
-                    $(this).removeClass("fa-caret-square-down");
-                    $(this).addClass("fa-caret-square-up");
-                    //
-                    $('.cntfiltro').fadeIn("slow");
-                    $('.cntfiltro').css('display', 'inline-block');
+            // $('.vermas').on('click', function() {
+            //     var opt = $(this).attr('option');
+            //     //
+            //     if (opt == '0') {
+            //         $(this).removeClass("fa-caret-square-down");
+            //         $(this).addClass("fa-caret-square-up");
+            //         //
+            //         $('.cntfiltro').fadeIn("slow");
+            //         $('.cntfiltro').css('display', 'inline-block');
 
-                    $(this).attr('option', '1');
-                } else {
-                    $(this).removeClass("fa-caret-square-up");
-                    $(this).addClass("fa-caret-square-down");
-                    //
-                    $('.cntfiltro').fadeOut("slow");
-                    $('.cntfiltro').css('display', 'none');
-                    $(this).attr('option', '0');
-                }
+            //         $(this).attr('option', '1');
+            //     } else {
+            //         $(this).removeClass("fa-caret-square-up");
+            //         $(this).addClass("fa-caret-square-down");
+            //         //
+            //         $('.cntfiltro').fadeOut("slow");
+            //         $('.cntfiltro').css('display', 'none');
+            //         $(this).attr('option', '0');
+            //     }
 
-            });
-
-
-            $("#tipo").change(function() {
-                //Aqui se llama al subtipo
-                var idtipo = $(this).val();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ url('tipoequipo/buscarsubtipo') }}",
-                    type: "post",
-                    data: "code=" + idtipo,
-                    cache: false,
-                    processData: false,
-                    success: function(data) {
-                        $('#sub-tipo').html(data);
-                        $('#sub-tipo').trigger('change');
-                    }
-                });
-                //Se llama al equipo content
-                $("#equipo-content").html("");
-                loadPageData();
-            });
-
-            $("#sub-tipo").change(function() {
-                $("#equipo-content").html("");
-                loadPageData();
-            });
-
-            $("#marca").change(function() {
-                $("#equipo-content").html("");
-                loadPageData();
-            });
-
-            $("#modelo").change(function() {
-                $("#equipo-content").html("");
-                loadPageData();
-            });
-
-            $("#numserie").keypress(function(e) { //text-filter
-                var key = e.which;
-                var filtro = $(this).val();
-                var len = filtro.length;
-                if (key === 13) {
-                    if (len > 2) {
-                        $("#equipo-content").html("");
-                        loadPageData();
-                    } else {
-                        Swal.fire(
-                            'Aviso',
-                            'Debe ingresar mínimo 3 caracteres',
-                            'warning'
-                        );
-                        return false;
-                    }
-
-                }
-                return true;
-            });
-
-            $("#nomequipo").keypress(function(e) { //text-code
-                var tecla = e.which;
-                var code = $(this).val();
-                var long = code.length;
-                if (tecla === 13) {
-                    if (long > 2) {
-                        $("#equipo-content").html("");
-                        loadPageData();
-                    } else {
-                        Swal.fire(
-                            'Aviso',
-                            'Debe ingresar mínimo 3 caracteres',
-                            'warning'
-                        );
-                        return false;
-                    }
-                }
-                return true;
-            });
+            // });
 
 
-            $(".btn-clear").click(function() {
-                window.location = "{{ url('equipo') }}";
-            });
+            // $("#tipo").change(function() {
+            //     //Aqui se llama al subtipo
+            //     var idtipo = $(this).val();
+            //     $.ajax({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         url: "{{ url('tipoequipo/buscarsubtipo') }}",
+            //         type: "post",
+            //         data: "code=" + idtipo,
+            //         cache: false,
+            //         processData: false,
+            //         success: function(data) {
+            //             $('#sub-tipo').html(data);
+            //             $('#sub-tipo').trigger('change');
+            //         }
+            //     });
+            //     //Se llama al equipo content
+            //     $("#equipo-content").html("");
+            //     loadPageData();
+            // });
 
-            loadPageData();
+            // $("#sub-tipo").change(function() {
+            //     $("#equipo-content").html("");
+            //     loadPageData();
+            // });
+
+            // $("#marca").change(function() {
+            //     $("#equipo-content").html("");
+            //     loadPageData();
+            // });
+
+            // $("#modelo").change(function() {
+            //     $("#equipo-content").html("");
+            //     loadPageData();
+            // });
+
+            // $("#numserie").keypress(function(e) { //text-filter
+            //     var key = e.which;
+            //     var filtro = $(this).val();
+            //     var len = filtro.length;
+            //     if (key === 13) {
+            //         if (len > 2) {
+            //             $("#equipo-content").html("");
+            //             loadPageData();
+            //         } else {
+            //             Swal.fire(
+            //                 'Aviso',
+            //                 'Debe ingresar mínimo 3 caracteres',
+            //                 'warning'
+            //             );
+            //             return false;
+            //         }
+
+            //     }
+            //     return true;
+            // });
+
+            // $("#nomequipo").keypress(function(e) { //text-code
+            //     var tecla = e.which;
+            //     var code = $(this).val();
+            //     var long = code.length;
+            //     if (tecla === 13) {
+            //         if (long > 2) {
+            //             $("#equipo-content").html("");
+            //             loadPageData();
+            //         } else {
+            //             Swal.fire(
+            //                 'Aviso',
+            //                 'Debe ingresar mínimo 3 caracteres',
+            //                 'warning'
+            //             );
+            //             return false;
+            //         }
+            //     }
+            //     return true;
+            // });
+
+
+            // $(".btn-clear").click(function() {
+            //     window.location = "{{ url('equipo') }}";
+            // });
+
+            // loadPageData();
 
         });
 
         //Se inicia con la funcion onload
-        function loadPageData() {
-            // $.ajax({
-            //     type: 'GET',
-            //     url: "{{ url('equipo/listar') }}",
-            //     data: {
-            //         'numserie' : $("#numserie").val(),
-            //         'tipo'     : $("#tipo").val(),
-            //         'subtipo'  : $("#sub-tipo").val(),
-            //         'nomequipo': $("#nomequipo").val(),
-            //         'codmarca' : $("#marca").val(),
-            //         'codmodel' : $("#modelo").val()
-            //     },
-            //     beforeSend: function () {
-            //         $("#equipo-body").LoadingOverlay("show");
-            //     },
-            //     complete: function () {
-            //         $("#equipo-body").LoadingOverlay("hide");
-            //     },
-            //     success:function(result){
-            //         var data = result;
-            //        // console.log(data.items.length);
-            //         if(data.items.length > 0){
-            //             $("#equipo-content").html(getEquipoTable(data.items));
+        // function loadPageData() {
+        //     // $.ajax({
+        //     //     type: 'GET',
+        //     //     url: "{{ url('equipo/listar') }}",
+        //     //     data: {
+        //     //         'numserie' : $("#numserie").val(),
+        //     //         'tipo'     : $("#tipo").val(),
+        //     //         'subtipo'  : $("#sub-tipo").val(),
+        //     //         'nomequipo': $("#nomequipo").val(),
+        //     //         'codmarca' : $("#marca").val(),
+        //     //         'codmodel' : $("#modelo").val()
+        //     //     },
+        //     //     beforeSend: function () {
+        //     //         $("#equipo-body").LoadingOverlay("show");
+        //     //     },
+        //     //     complete: function () {
+        //     //         $("#equipo-body").LoadingOverlay("hide");
+        //     //     },
+        //     //     success:function(result){
+        //     //         var data = result;
+        //     //        // console.log(data.items.length);
+        //     //         if(data.items.length > 0){
+        //     //             $("#equipo-content").html(getEquipoTable(data.items));
 
-            //             // $("#tbl-equipo").DataTable({
-            //             //     rowReorder: true,
-            //             //     select:true,
-            //             //     responsive: true,
-            //             //     filter: false,
-            //             //     lengthChange: true,
-            //             //     ordering: false,
-            //             //     orderMulti: false,
-            //             //     paging : true,
-            //             //     info: true,
-            //             //     language:{
-            //             //       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-            //             //     },
-            //             // });
-            //         }else{
-            //             $("#equipo-content").html(getEmptyContent());
-            //         }
-            //     }
-            // });                                 
+        //     //             // $("#tbl-equipo").DataTable({
+        //     //             //     rowReorder: true,
+        //     //             //     select:true,
+        //     //             //     responsive: true,
+        //     //             //     filter: false,
+        //     //             //     lengthChange: true,
+        //     //             //     ordering: false,
+        //     //             //     orderMulti: false,
+        //     //             //     paging : true,
+        //     //             //     info: true,
+        //     //             //     language:{
+        //     //             //       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        //     //             //     },
+        //     //             // });
+        //     //         }else{
+        //     //             $("#equipo-content").html(getEmptyContent());
+        //     //         }
+        //     //     }
+        //     // });                                 
 
-        }
+        // }
 
         // function getEquipoTable(items){
 
@@ -640,11 +646,11 @@
                                         colorEdo = '#FFF';
                                         break;
                                 }
-
                                 fchProg = new Date(value.fch_programacion)
                                     .toLocaleDateString();
                                 fchEjec = new Date(value.fch_ejecucion)
                                 .toLocaleDateString();
+                                //console.log('fecha de ejecucion', value.fch_ejecucion, 'fch de ejecucion formateada', fchEjec)
 
                                 body += '<tr>' +
                                     '<td><ion-icon size="large" style="color:' + colorEdo +
