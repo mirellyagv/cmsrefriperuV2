@@ -84,7 +84,7 @@
                 </div>    
             </div>
 
-            <div class="row" id="cntotros">
+            {{-- <div class="row" id="cntotros">
                 <div class="col-12">
                     <div class="card-box">
                         <h4 class="header-title headertitle">Detalle Cliente Dirección</h4>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
                
         </div> <!-- end container-fluid -->
 
@@ -148,7 +148,7 @@
             },
             success:function(result){
                 var data = result;
-                //console.log(data.items.length);
+                // console.log('flag',data.items.length);
                 if(data.items.length > 0){
                     $("#contactos-content").html(getContactosTable(data.items));
 
@@ -615,11 +615,11 @@
 
     //No se encontraron registros
     function getEmptyContent(mensaje = "No se encontraron registros"){
-    return "<div class=\"row\" style=\"padding-top: 10px;\">" +
-           "<div class=\"col-12\">" +
-           "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
-           "</div>" +
-           "</div>";
+        return "<div class=\"row\" style=\"padding-top: 10px;\">" +
+            "<div class=\"col-12\">" +
+            "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
+            "</div>" +
+            "</div>";
     }
 
 </script>

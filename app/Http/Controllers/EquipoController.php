@@ -296,16 +296,16 @@ class EquipoController extends Controller{
 
         $cod_equipo = $request->cod_equipo;
 
-       $equipo= DB::table('gsema_equipo as equipo')
-                    ->select('equipo.dsc_equipo','equipo.cod_inventario','equipo.num_serie','marca.dsc_marca','modelo.dsc_modelo','tipo.dsc_tipo_equipo','subtipo.dsc_subtipo_equipo','estado.dsc_estado','ubicacion.dsc_ubicacion','equipo.cod_modelo','equipo.cod_activo')
-                    ->join('feima_marca_articulo as marca','equipo.cod_marca', '=','marca.cod_marca')
-                    ->join('gsema_modelo_equipo as modelo','equipo.cod_modelo', '=','modelo.cod_modelo')
-                    ->join('gsema_tipo_equipo as tipo','equipo.cod_tipo_equipo', '=','tipo.cod_tipo_equipo')
-                    ->join('gsema_subtipo_equipo as subtipo','equipo.cod_subtipo_equipo', '=','subtipo.cod_subtipo_equipo')
-                    ->join('gsema_estado_equipo as estado','equipo.cod_estado', '=','estado.cod_estado')
-                    ->join('mtoma_ubicacion as ubicacion','equipo.cod_ubicacion','=','ubicacion.cod_ubicacion')
-                    ->where('equipo.cod_equipo','=',$cod_equipo)
-                    ->get();
+      //  $equipo= DB::table('gsema_equipo as equipo')
+      //               ->select('equipo.dsc_equipo','equipo.cod_inventario','equipo.num_serie','marca.dsc_marca','modelo.dsc_modelo','tipo.dsc_tipo_equipo','subtipo.dsc_subtipo_equipo','estado.dsc_estado','ubicacion.dsc_ubicacion','equipo.cod_modelo','equipo.cod_activo')
+      //               ->join('feima_marca_articulo as marca','equipo.cod_marca', '=','marca.cod_marca')
+      //               ->join('gsema_modelo_equipo as modelo','equipo.cod_modelo', '=','modelo.cod_modelo')
+      //               ->join('gsema_tipo_equipo as tipo','equipo.cod_tipo_equipo', '=','tipo.cod_tipo_equipo')
+      //               ->join('gsema_subtipo_equipo as subtipo','equipo.cod_subtipo_equipo', '=','subtipo.cod_subtipo_equipo')
+      //               ->join('gsema_estado_equipo as estado','equipo.cod_estado', '=','estado.cod_estado')
+      //               ->join('mtoma_ubicacion as ubicacion','equipo.cod_ubicacion','=','ubicacion.cod_ubicacion')
+      //               ->where('equipo.cod_equipo','=',$cod_equipo)
+      //               ->get();
 
                     $fila = DB::select('SET NOCOUNT ON; EXEC usp_Consultar_ListarEquipos ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',[22,'','','','','','','',$cod_equipo,'','','','','','','','']);
 

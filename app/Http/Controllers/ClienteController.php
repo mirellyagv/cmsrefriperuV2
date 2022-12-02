@@ -130,6 +130,7 @@ class ClienteController extends Controller
                                    'vtama_departamento.dsc_departamento as departamento','vtama_provincia.dsc_provincia as provincia',
                                    'vtama_distrito.dsc_distrito as distrito','clidir.cod_tipo_direccion','clidir.dsc_telefono_1')
                           ->where('clidir.cod_cliente', '=', $idcli )
+                          ->where('clidir.flg_plan_activo', 'like', '%SI%')
                           ->orderBy('clidir.dsc_direccion')
                           ->get();
 
