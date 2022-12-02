@@ -52,11 +52,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="fecha-reporte">Fecha reporte (*)</label>
+                                <label for="fecha-reporte">Fecha reporte</label>
                                 <input type="date" class="form-control bordecaja" name="fecha_reporte" id="fecha_reporte" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="lstcliente">Cliente (*)</label>
+                                <label for="lstcliente">Cliente</label>
                                 <select class="form-control bordecaja" id="lstcliente" name="lstcliente" disabled>
                                     <option value="0">[seleccione cliente]</option>
                                     @foreach($clientes as $cli)
@@ -74,7 +74,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lstcontacto">Contacto (*)</label>
+                                <label for="lstcontacto">Contacto</label>
                                 <select class="form-control bordecaja" id="lstcontacto" name="lstcontacto" disabled>
                                     <option value="0">[seleccione contacto]</option>
                                 </select>
@@ -123,7 +123,7 @@
                                 </select>
                             </div> 
                             <div class="form-group">
-                                <label for="lstestado">Estado (*)</label>
+                                <label for="lstestado">Estado</label>
                                 <select class="form-control bordecaja" id="lstestado" name="lstestado" disabled>
                                     <option value="0">[seleccione estado]</option>
                                     @foreach($estado as $state)
@@ -136,7 +136,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lstcanal">Canal reporte (*)</label>
+                                <label for="lstcanal">Canal reporte</label>
                                 <select class="form-control bordecaja" id="lstcanal" name="lstcanal" disabled>
                                     <option value="0">[seleccione canal]</option>
                                     @foreach($canales as $canal)
