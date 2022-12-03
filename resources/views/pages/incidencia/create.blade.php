@@ -96,9 +96,10 @@
                         <div class="card-box">
                             <div class="form-group">
                                 <label for="lstequipo">Equipo</label>
-                                <select class="form-control bordecaja" id="lstequipo" name="lstequipo">
-                                    <option value="0">[seleccione equipo]</option>
-                                </select>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Equipo Seleccionado" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                    <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-warning"></i></button>
+                                </div>
                             </div>
                             <!--<h4 class="header-title mb-4">Otros datos</h4>-->
                             {{-- <div class="form-group">
@@ -172,6 +173,9 @@
 
 @push('scripts')
 <script type="text/javascript">
+    document.getElementById('buscaEquipo').addEventListener('click',()=>{
+        window.location = "{{ url('equipo') }}"
+    });
 
     //Se ingresa la fecha actual - Fecha reporte
     var date  = new Date();

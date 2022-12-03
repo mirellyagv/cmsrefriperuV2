@@ -122,7 +122,8 @@ class EquipoController extends Controller{
             $model = '';
           }
 
-          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i>';
+          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>&nbsp;
+                <a class="urlicon" title="Reportar incidencia" href="javascript:void(0)" onclick="datosEquipo()"><i class="dripicons-warning"></i></a>';
 
           array_push($data, [
             "code"        => $item->cod_equipo,

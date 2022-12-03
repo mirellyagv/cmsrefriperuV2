@@ -43,7 +43,7 @@ Route::group(['middleware' => 'autenticado'], function (){
   });
 
   Route::prefix('equipo')->group(function (){
-    Route::get('/','EquipoController@getIndexEquipo');
+    Route::get('/','EquipoController@getIndexEquipo')->name('equipo');
     Route::get('listar','EquipoController@getListadoEquipo');
     Route::get('listar2{sede?}{ubicacion?}','EquipoController@getListadoEquipo2');
     Route::get('exportar', 'EquipoController@getExportarEquipo');
@@ -60,7 +60,7 @@ Route::group(['middleware' => 'autenticado'], function (){
 	Route::prefix('incidencia')->group(function (){
 	  Route::get('/', 'IncidenciaController@getIndexIncidencia');
     Route::get('listar','IncidenciaController@getListadoIncidencia');
-	  Route::get('crear', 'IncidenciaController@getCrearIncidencia');
+	  Route::get('crear{datosEquipo?}', 'IncidenciaController@getCrearIncidencia');
     Route::post('crear','IncidenciaController@postCrearIncidencia')->name('incidencia.registro');
     Route::get('editar/{id}','IncidenciaController@getEditarIncidencia');
     Route::post('editar', 'IncidenciaController@postEditarIncidencia')->name('incidencia.editar');

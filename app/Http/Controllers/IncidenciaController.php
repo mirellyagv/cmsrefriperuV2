@@ -557,31 +557,31 @@ class IncidenciaController extends Controller{
       
     }
 
-    public function getExportarIncidencia(Request $request){
-      try{
+    // public function getExportarIncidencia(Request $request){
+    //   try{
 
-        $fecha_act = Carbon::now('America/Lima'); 
-        $anio      = $fecha_act->year;
-        $mes       = $fecha_act->format('m');
-        $dia       = $fecha_act->format('d');
-        $fecha     = $dia.'-'.$mes.'-'.$anio;
-        $name      = 'ReporteIncidencia';
-        $reporte   = $name.'_'.$fecha.'.xlsx';
+    //     $fecha_act = Carbon::now('America/Lima'); 
+    //     $anio      = $fecha_act->year;
+    //     $mes       = $fecha_act->format('m');
+    //     $dia       = $fecha_act->format('d');
+    //     $fecha     = $dia.'-'.$mes.'-'.$anio;
+    //     $name      = 'ReporteIncidencia';
+    //     $reporte   = $name.'_'.$fecha.'.xlsx';
 
-        $idstate   = $request->idstate;
-        $search    = $request->search;
-        $fdesde    = $request->fdesde;
-        $fhasta    = $request->fhasta;
-        $codresp   = $request->codresp;
-        $codeinc   = $request->codincd;
+    //     $idstate   = $request->idstate;
+    //     $search    = $request->search;
+    //     $fdesde    = $request->fdesde;
+    //     $fhasta    = $request->fhasta;
+    //     $codresp   = $request->codresp;
+    //     $codeinc   = $request->codincd;
 
-      return Excel::download(new IncidenciaExport($idstate,$search,$fdesde,$fhasta,$codresp,$codeinc), $reporte);
+    //   return Excel::download(new IncidenciaExport($idstate,$search,$fdesde,$fhasta,$codresp,$codeinc), $reporte);
 
-      }catch(\Exception $e){
-        DB::rollback();
-        return $this->redirectToHome(); 
-      }
-    }
+    //   }catch(\Exception $e){
+    //     DB::rollback();
+    //     return $this->redirectToHome(); 
+    //   }
+    // }
 
 }
 

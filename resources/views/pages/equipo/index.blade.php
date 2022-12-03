@@ -168,6 +168,7 @@
                         </li>
 
                     </ul>
+                    <a name="" id="" class="btn btn-warning" href="{{url('incidencia/crear?codigo=0003344')}}" role="button">Reportar incidencia</a>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="detalleEquipo">
                             <div id="detalleEquipo-content">
@@ -251,7 +252,7 @@
         }
 
         $(document).ready(function() {
-            $('#datatablePrueba').DataTable({
+           tabla =  $('#datatablePrueba').DataTable({
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
@@ -454,7 +455,15 @@
             // });
 
             // loadPageData();
-
+            function datosEquipo() {
+                $('#datatablePrueba tbody').on('click', 'tr', function () {
+                    var data = tabla.row(this).data();
+                    //console.log(data);
+                    window.location = "{{ url('home') }}";
+                    alert( data['code']+"-"+data['nombre'] );
+                });
+            }
+                    
         });
 
         //Se inicia con la funcion onload
@@ -741,5 +750,6 @@
 
         //     window.location = "{{ url('equipo/exportar') }}?" + $.param(query);
         // }
+
     </script>
 @endpush
