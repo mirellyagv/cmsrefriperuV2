@@ -168,7 +168,7 @@
                         </li>
 
                     </ul>
-                    <a name="" id="" class="btn btn-warning" href="{{url('incidencia/crear?codigo=0003344')}}" role="button">Reportar incidencia</a>
+                    <a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="detalleEquipo">
                             <div id="detalleEquipo-content">
@@ -455,14 +455,12 @@
             // });
 
             // loadPageData();
-            function datosEquipo() {
-                $('#datatablePrueba tbody').on('click', 'tr', function () {
-                    var data = tabla.row(this).data();
-                    //console.log(data);
-                    window.location = "{{ url('home') }}";
-                    alert( data['code']+"-"+data['nombre'] );
-                });
-            }
+            // $('#datatablePrueba tbody').on('click', 'tr', function () {
+            //         var data = tabla.row(this).data();
+            //         //console.log(data);
+            //         //window.location = "{{ url('home') }}";
+            //         alert( data['code']+"-"+data['nombre'] );
+            // });
                     
         });
 
@@ -725,6 +723,18 @@
                 }
             });
 
+        };
+
+        
+        function datosEquipo(codigo,dscEquipo) {
+            console.log(codigo,dscEquipo);
+            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}`;
+            window.location= `{{url('incidencia/crear?${cadena}')}}`;
+        }
+        function datosEquipo1(dscEquipo) {
+            console.log(dscEquipo);
+            let cadena = `dscEquipo=${dscEquipo}`;
+            window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
 
         //No se encontraron registros
