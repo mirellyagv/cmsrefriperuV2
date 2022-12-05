@@ -37,6 +37,20 @@
                         <div class="card-box">
                             <!--<h4 class="header-title mb-4">Datos generales</h4>-->
                             <div class="form-group">
+                                <label for="lstequipo">Equipo</label>
+                                <div class="input-group mb-3">
+                                    @php
+                                        if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
+                                            $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
+                                        }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
+                                            $alpha = $_GET['dscEquipo'];
+                                        }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
+                                    @endphp
+                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                    <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="lsttipo">Tipo (*) </label>
                                 <select class="form-control bordecaja" id="lsttipo" name="lsttipo">
                                     <option value="0">[seleccione tipo]</option>
@@ -73,12 +87,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="lstcontacto">Contacto</label>
-                                <select class="form-control bordecaja" id="lstcontacto" name="lstcontacto" disabled>
-                                    <option value="0">[seleccione contacto]</option>
-                                </select>
-                            </div>
+                            
                             {{-- <div class="form-group">
                                 <label for="lstresponsable">Responsable</label>
                                 <select class="form-control bordecaja" id="lstresponsable" name="lstresponsable">
@@ -95,18 +104,10 @@
                     <div class="col-md-6">
                         <div class="card-box">
                             <div class="form-group">
-                                <label for="lstequipo">Equipo</label>
-                                <div class="input-group mb-3">
-                                    @php
-                                        if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
-                                            $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
-                                        }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
-                                            $alpha = $_GET['dscEquipo'];
-                                        }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
-                                    @endphp
-                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                    <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button>
-                                </div>
+                                <label for="lstcontacto">Contacto</label>
+                                <select class="form-control bordecaja" id="lstcontacto" name="lstcontacto" disabled>
+                                    <option value="0">[seleccione contacto]</option>
+                                </select>
                             </div>
                             <!--<h4 class="header-title mb-4">Otros datos</h4>-->
                             {{-- <div class="form-group">

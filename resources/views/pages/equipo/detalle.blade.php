@@ -134,9 +134,9 @@
                                     <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
                                     <span class="d-none d-sm-block">Intervencion</span>
                                 </a>
-                            </li>
-                                        
+                            </li>                  
                         </ul>
+                        <div><a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a></div>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="detalleEquipo">
                                 <div id="detalleEquipo-content">
@@ -283,6 +283,7 @@
                         
                             searchPanes: {
                                 initCollapsed: true,
+                                columns: [1,2,3,4],
                                 i18n: {
                                     //mensaje cuando no hay datos.. 
                                     emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
@@ -718,6 +719,17 @@
             }
         });
         
+    }
+
+    function datosEquipo(codigo,dscEquipo) {
+            console.log(codigo,dscEquipo);
+            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}`;
+            window.location= `{{url('incidencia/crear?${cadena}')}}`;
+        }
+    function datosEquipo1(dscEquipo) {
+        console.log(dscEquipo);
+        let cadena = `dscEquipo=${dscEquipo}`;
+        window.location= `{{url('incidencia/crear?${cadena}')}}`;
     }
 
     //Funcion para exportar a Excel

@@ -153,7 +153,7 @@
                     </button> --}}
                 </div>
                 <div class="modal-body">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs nav-justified">
                         <li class="nav-item">
                             <a href="#detalleEquipo" data-toggle="tab" aria-expanded="false" class="nav-link active">
                                 <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
@@ -166,9 +166,10 @@
                                 <span class="d-none d-sm-block">Intervencion</span>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a>
+                        </li>
                     </ul>
-                    <a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="detalleEquipo">
                             <div id="detalleEquipo-content">
