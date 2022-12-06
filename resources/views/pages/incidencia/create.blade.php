@@ -15,7 +15,7 @@
                                 <li class="breadcrumb-item active">Dashboard 1</li>
                             </ol>
                         </div> --}}
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE INCIDENTES</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> CREAR INCIDENCIA</h4>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="fe-file-plus"></i> Nuevo incidente</h4>
+                        <h4 class="header-title headertitle"><i class="fe-file-plus"></i> Registro de incidente</h4>
                     </div>    
                 </div>    
             </div>     
@@ -37,39 +37,6 @@
                     <div class="col-md-6">
                         <div class="card-box">
                             <!--<h4 class="header-title mb-4">Datos generales</h4>-->
-                            <div class="form-group">
-                                <label for="lstequipo">Equipo</label>
-                                <div class="input-group mb-3">
-                                    @php
-                                        if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
-                                            $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
-                                        }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
-                                            $alpha = $_GET['dscEquipo'];
-                                        }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
-                                    @endphp
-                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" disabled>
-                                    {{-- <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button> --}}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lsttipo">Tipo (*) </label>
-                                <select class="form-control bordecaja" id="lsttipo" name="lsttipo" required>
-                                    <option value="0">[seleccione tipo]</option>
-                                    @foreach($tipos as $tipo)
-                                    <option value="{{$tipo->cod_tipoincidente}}">{{$tipo->dsc_tipoincidente}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstsubtipo">Subtipo (*)</label>
-                                <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo" required>
-                                    <option value="0">[seleccione sub-tipo]</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="fecha-reporte">Fecha reporte</label>
-                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" disabled>
-                            </div>
                             <div class="form-group">
                                 <label for="lstcliente">Cliente</label>
                                 <select class="form-control bordecaja" id="lstcliente" name="lstcliente" disabled>
@@ -88,7 +55,40 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+                            <div class="form-group">
+                                <label for="lstequipo">Equipo</label>
+                                <div class="input-group mb-3">
+                                    @php
+                                        if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
+                                            $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
+                                        }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
+                                            $alpha = $_GET['dscEquipo'];
+                                        }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
+                                    @endphp
+                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" disabled>
+                                    {{-- <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button> --}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lstcontacto">Responsable</label>
+                                <input type="text"
+                                    class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="" disabled>                                    
+                            </div>
+                            <div class="form-group">
+                                <label for="lsttipo">Tipo de incidente(*) </label>
+                                <select class="form-control bordecaja" id="lsttipo" name="lsttipo" required>
+                                    <option value="0">[seleccione tipo]</option>
+                                    @foreach($tipos as $tipo)
+                                    <option value="{{$tipo->cod_tipoincidente}}">{{$tipo->dsc_tipoincidente}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lstsubtipo">Subtipo  de incidente(*)</label>
+                                <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo" required>
+                                    <option value="0">[seleccione sub-tipo]</option>
+                                </select>
+                            </div>               
                             {{-- <div class="form-group">
                                 <label for="lstresponsable">Responsable</label>
                                 <select class="form-control bordecaja" id="lstresponsable" name="lstresponsable">
@@ -105,9 +105,8 @@
                     <div class="col-md-6">
                         <div class="card-box">
                             <div class="form-group">
-                                <label for="lstcontacto">Contacto</label>
-                                <input type="text"
-                                    class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="" disabled>                                    
+                                <label for="fecha-reporte">Fecha reporte</label>
+                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" disabled>
                             </div>
                             <!--<h4 class="header-title mb-4">Otros datos</h4>-->
                             {{-- <div class="form-group">
