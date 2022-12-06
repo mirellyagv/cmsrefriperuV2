@@ -8,13 +8,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <div class="page-title-right">
+                        {{-- <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Adminox</a></li>
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Dashboard 1</li>
                             </ol>
-                        </div>
+                        </div> --}}
                         <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE INCIDENTES</h4>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                                             $alpha = $_GET['dscEquipo'];
                                         }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
                                     @endphp
-                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                    <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button>
+                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" disabled>
+                                    {{-- <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button> --}}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="fecha-reporte">Fecha reporte</label>
-                                <input type="date" class="form-control bordecaja" name="fecha_reporte" id="fecha_reporte" disabled>
+                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="lstcliente">Cliente</label>
@@ -181,21 +181,21 @@
 
 @push('scripts')
 <script type="text/javascript">
-    document.getElementById('buscaEquipo').addEventListener('click',()=>{
-        window.location = "{{ url('equipo') }}"
-    });
+    // document.getElementById('buscaEquipo').addEventListener('click',()=>{
+    //     window.location = "{{ url('equipo') }}"
+    // });
 
     //Se ingresa la fecha actual - Fecha reporte
-    var date  = new Date();
-    var day   = date.getDate();
-    var month = date.getMonth() + 1;
-    var year  = date.getFullYear();
+    // var date  = new Date();
+    // var day   = date.getDate();
+    // var month = date.getMonth() + 1;
+    // var year  = date.getFullYear();
 
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
+    // if (month < 10) month = "0" + month;
+    // if (day < 10) day = "0" + day;
 
-    var today = year + "-" + month + "-" + day;
-    document.getElementById('fecha_reporte').value = today;
+    // var today = year + "-" + month + "-" + day;
+    document.getElementById('fecha_reporte').value = new Date().toLocaleString('en-US');
 
     //-------------------------------------
     $(document).ready(function(){
