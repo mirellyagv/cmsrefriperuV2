@@ -51,7 +51,7 @@
 <script src="{{asset('assets/js/pages/dashboard.init.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/js/app.min.js') }}" type="text/javascript"></script>
-<script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.js"></script>
 
 @include('sweetalert::alert')
 

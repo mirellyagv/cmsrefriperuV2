@@ -79,6 +79,7 @@ Route::group(['middleware' => 'autenticado'], function (){
   });
 
   Route::prefix('clientedireccion')->group(function (){
+    Route::get('responsable{sede?}','ClienteDireccionController@responsableContacto');
     Route::post('numlinea','ClienteDireccionController@postBuscarNumLinea');
   });
 

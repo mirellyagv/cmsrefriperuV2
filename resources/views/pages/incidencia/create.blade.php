@@ -105,9 +105,8 @@
                         <div class="card-box">
                             <div class="form-group">
                                 <label for="lstcontacto">Contacto</label>
-                                <select class="form-control bordecaja" id="lstcontacto" name="lstcontacto" disabled>
-                                    <option value="0">[seleccione contacto]</option>
-                                </select>
+                                <input type="text"
+                                    class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="" disabled>                                    
                             </div>
                             <!--<h4 class="header-title mb-4">Otros datos</h4>-->
                             {{-- <div class="form-group">
@@ -208,7 +207,7 @@
 
         $("#lstlinea").select2();
 
-        $("#lstcontacto").select2();
+        //$("#lstcontacto").select2();
 
         $("#lstprioridad").select2();
 
@@ -263,22 +262,20 @@
         });
 
         //Busqueda de contacto por cliente
-        $('#lstcliente').change(function(){
-          var codcli = $(this).val();
+        $('#lstlinea').change(function(){
+            
+          var sede = $(this).val();
           //alert('---' + idcli + '----');
           $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:"{{ url('clientedireccioncontacto/contacto')}}",
-            type:'post',
-            data:'codcli='+ codcli,
-            cache: false,
-            processData: false,
-            success:function(data){
-              $('#lstcontacto').html(data);
-              $('#lstcontacto').trigger('change');
-                    
+            type:'GET',
+            url:"{{ url('clientedireccion/responsable')}}",            
+            data:{
+                    'sede': sede
+                },
+            success:function(data){ 
+                data.forEach(element => {
+                    document.getElementById('lstcontacto').value = `${element.dsc_nombres} ${element.dsc_apellido_paterno} ${element.dsc_apellido_materno}`;
+                });      
             }
           });
         });
