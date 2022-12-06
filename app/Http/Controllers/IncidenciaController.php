@@ -255,7 +255,7 @@ class IncidenciaController extends Controller{
             "fch_registro" => Carbon::now('America/Lima'), 
             "cod_usuarioregistro" => $coduser,
             "cod_origenregistro" =>  $codorigenreg,
-            "cod_trabajador" => $codresp,
+            "cod_responsable" => $codresp,
           ]);
 
           DB::commit();

@@ -29,6 +29,7 @@
             </div>     
             
             {{ Form::open(['route' => 'incidencia.registro','id' => 'form-validation']) }}
+            @method('POST')
             {{ csrf_field() }}
 
             <div class="row contenedorinputs">
@@ -52,7 +53,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="lsttipo">Tipo (*) </label>
-                                <select class="form-control bordecaja" id="lsttipo" name="lsttipo">
+                                <select class="form-control bordecaja" id="lsttipo" name="lsttipo" required>
                                     <option value="0">[seleccione tipo]</option>
                                     @foreach($tipos as $tipo)
                                     <option value="{{$tipo->cod_tipoincidente}}">{{$tipo->dsc_tipoincidente}}</option>
@@ -61,7 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="lstsubtipo">Subtipo (*)</label>
-                                <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo">
+                                <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo" required>
                                     <option value="0">[seleccione sub-tipo]</option>
                                 </select>
                             </div>
@@ -115,7 +116,7 @@
                             </div> --}}
                             <div class="form-group" style="padding-bottom:0.5rem;">
                                 <label for="lstarea">Detalle</label>
-                                <textarea name="descripcion" id="descripcion" rows="4" cols="50" class="form-control bordecaja"></textarea>
+                                <textarea name="descripcion" id="descripcion" rows="4" cols="50" class="form-control bordecaja">{{old('descripcion')}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="lstprioridad">Prioridad (*)</label>

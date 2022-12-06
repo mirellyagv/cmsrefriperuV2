@@ -28,6 +28,6 @@ class Incidencia extends Model
         'fch_registro',
         'cod_usuarioregistro',
         'cod_origenregistro',
-        'cod_trabajador'
+        'cod_responsable'
     ];
 }
