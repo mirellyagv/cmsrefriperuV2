@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="far fa-caret-square-down vermas" option="0"></i> Filtros</h4>
+                        <h4 class="header-title headertitle"><i class="far fa-caret-square-down vermas" option="1"></i> Filtros</h4>
                     </div>    
                 </div>    
             </div>
@@ -288,22 +288,40 @@
 
                     $("#tbl-incidente").DataTable({
                         responsive: true,
-                        filter: false,
-                        lengthChange: true,
-                        ordering: false,
-                        orderMulti: false,
-                        paging : true,
-                        info: true,
-                        language:{
-                          "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                        }
-                        /*dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                extend: 'excel',
-                                title: 'Reporte de incidencias'
-                            }
-                        ]*/
+                                filter: false,
+                                lengthChange: true,
+                                ordering: false,
+                                orderMulti: false,
+                                paging: true,
+                                info: true,
+                                dom: 'Bftrip',
+                                language: {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                },
+                                buttons: [
+                                    {
+                                        extend: "excel",                    // Extend the excel button
+                                        text: 'Excel',
+                                        title: 'Reporte Incidencias', //Nombre de archivo de descarga
+                                        className: 'btn btn-success',
+                                        excelStyles: {                      // Add an excelStyles definition
+                                            cells: "2",                     // to row 2
+                                            style: {                        // The style block
+                                                font: {                     // Style the font
+                                                    name: "Arial",          // Font name
+                                                    size: "14",             // Font size
+                                                    color: "FFFFFF",        // Font Color
+                                                    b: false,               // Remove bolding from header row
+                                                },
+                                                fill: {                     // Style the cell fill (background)
+                                                    pattern: {              // Type of fill (pattern or gradient)
+                                                        color: "457B9D",    // Fill color
+                                                    }
+                                                }
+                                            }
+                                        },
+                                    },
+                                ]
                     });
                 }else{
                     $("#incidente-content").html(getEmptyContent());
@@ -315,12 +333,8 @@
     function getIncidenciaTable(items){
 
         var j=1;
-        var fondo,ruta;
+        var colorEdo;
         var body  = '<div class="card-box table-responsive">';
-
-        body += '<div class="row">' +
-                '<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>' +
-                '</div>';
             
         body += '<table id="tbl-incidente" class="table table-bordered  dt-responsive nowrap" style="border-collapse:collapse; border-spacing: 0; width: 100%;">' +
                     '<thead>' +
@@ -341,20 +355,15 @@
         $.each(items, function (index, value){
 
         if(value.codestado=='001'){
-            fondo = '#f96a74';
-            ruta  = '{{ asset("assets/images/icons/sema-rojo.png") }}';
+            colorEdo = '#FF4601';
         }else if(value.codestado=='002'){
-            fondo = '#ffa91c';
-            ruta  = '{{ asset("assets/images/icons/sema-amarillo.png") }}';
+            colorEdo = '#FFD603';
         }else if(value.codestado=='003'){
-            fondo = '#32c861';
-            ruta  = '{{ asset("assets/images/icons/sema-verde.png") }}';
+            colorEdo = '#2D8B57';
         }else if(value.codestado=='004'){
-            fondo = '#8c9396';
-            ruta  = '{{ asset("assets/images/icons/sema-plomo.png") }}';
+            colorEdo = '#A9A9A9';
         }else{
-            fondo = '#000000';
-            ruta  = '{{ asset("assets/images/icons/sema-otro.png") }}';  
+            colorEdo = '#FFF'; 
         }
 
         body += '<tr>' + 
@@ -365,7 +374,7 @@
                     '<td>' + value.fech_reporte + '</td>' +
                     '<td>' + value.nomcliente + '</td>' +
                     '<td>' + value.prioridad + '</td>' +
-                    '<td><img src="' + ruta + '" alt="lang-image" title="' + value.estado + '" width="40"></td>' +
+                    '<td><ion-icon size="large" style="color:' + colorEdo + '" name="ellipse"></ion-icon><span style="display: none">'+value.estado+'</span></td>' +
                     '<td style="text-align:center;">' +
                     '<a class="urlicon" title="Editar" href="javascript::void(0)" onclick="editar(' + "'" + value.code + "'" + ')" >' +
                     '<i class="fas fa-edit"></i>' +
