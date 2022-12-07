@@ -39,7 +39,7 @@
                 </div>    
             </div>
             
-            <form action="{{route('incidencia.registro')}}" method="post">
+            <form action="{{route('incidencia.registro')}}" method="post" id="form-validation">
                 {{-- @method('POST')
                 @csrf --}}
                 {{method_field('POST')}}
@@ -149,7 +149,7 @@
                     </div>
                     <div class="col-12 contenedorbuttons">
                         <div class="lineabajo">
-                        <button type="submit" class="btn btn-primario"><i class="fas fa-plus"></i> Guardar</button>
+                        <button type="button" id="btn-submit" class="btn btn-primario"><i class="fas fa-plus"></i> Guardar</button>
                         &nbsp;
                         <button type="button" class="btn btn-cancelar" id="btn-cancelar"><i class="fas fa-reply"></i> Cancelar</button>
                         </div>
@@ -416,59 +416,59 @@
           });
         });
 
-        // $("#form-validation").validate();
+        $("#form-validation").validate();
 
-        // $('#btn-submit').on('click',function(e){
-        //     //se valida los campos obligatorios
-        //     var $i=0;
-        //     if($('#lsttipo').val()=='0'){
-        //         $i=1;
-        //     }
-        //     if($('#lstsubtipo').val()=='0'){
-        //         $i=1;
-        //     }
-        //     if($('#fecha_reporte').val()==''){
-        //         $i=1;
-        //     }
-        //     if($('#lstcliente').val()=='0'){
-        //         $i=1;
-        //     }
-        //     if($('#lstlinea').val()=='0'){
-        //         $i=1;
-        //     }
-        //     // if($('#lstcontacto').val()=='0'){
-        //     //     $i=1;
-        //     // }
-        //     if($('#lstprioridad').val()=='0'){
-        //         $i=1;
-        //     }
-        //     if($('#titulo').val()==''){
-        //         $i=1;
-        //     }
-        //     if($('#lstestado').val()=='0'){
-        //         $i=1;
-        //     }
-        //     if($('#lstcanal').val()=='0'){
-        //         $i=1;
-        //     }
-        //     //
-        //     if($i!=1){
-        //         if($("#form-validation").valid()){
-        //             // $("#form-validation").submit();
-        //             $("#btn-submit").attr("disabled", true);
-        //             //$("#clientes-body").LoadingOverlay("show");
-        //         }
-        //     }else{
-        //         Swal.fire(
-        //         'Aviso',
-        //         'Debe ingresar los campos obligatorios',
-        //         'warning'
-        //         );
+        $('#btn-submit').on('click',function(e){
+            //se valida los campos obligatorios
+            var $i=0;
+            if($('#lsttipo').val()=='0'){
+                $i=1;
+            }
+            if($('#lstsubtipo').val()=='0'){
+                $i=1;
+            }
+            if($('#fecha_reporte').val()==''){
+                $i=1;
+            }
+            if($('#lstcliente').val()=='0'){
+                $i=1;
+            }
+            if($('#lstlinea').val()=='0'){
+                $i=1;
+            }
+            // if($('#lstcontacto').val()=='0'){
+            //     $i=1;
+            // }
+            if($('#lstprioridad').val()=='0'){
+                $i=1;
+            }
+            if($('#titulo').val()==''){
+                $i=1;
+            }
+            if($('#lstestado').val()=='0'){
+                $i=1;
+            }
+            if($('#lstcanal').val()=='0'){
+                $i=1;
+            }
+            //
+            if($i!=1){
+                if($("#form-validation").valid()){
+                    $("#form-validation").submit();
+                    $("#btn-submit").attr("disabled", true);
+                    //$("#clientes-body").LoadingOverlay("show");
+                }
+            }else{
+                Swal.fire(
+                'Aviso',
+                'Debe ingresar los campos obligatorios',
+                'warning'
+                );
 
-        //         return false;
-        //     }
+                return false;
+            }
 
-        // });
+        });
 
         //boton cancelar
         $("#btn-cancelar").on('click',function(){
