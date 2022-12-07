@@ -6,6 +6,7 @@
         $alpha = $_GET['dscEquipo'];
     }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
     $codEquipoAux = $_GET['codEquipo'];
+    use Carbon\Carbon;
 @endphp
 
 @extends('layouts.refriPeruLayout')
