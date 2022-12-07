@@ -209,7 +209,7 @@ class IncidenciaController extends Controller{
 
     public function postCrearIncidencia(Request $request){
       try{
-          DB::beginTransaction();
+          //DB::beginTransaction();
           //dd($request);
           //die();
           if($request->descripcion!=null){
@@ -224,11 +224,11 @@ class IncidenciaController extends Controller{
             $codequipo = '';
           }
 
-          if($request->lstresponsable!='0'){
-            $codresp = $request->lstresponsable;
-          }else{
-            $codresp = '';
-          }
+          // if($request->lstresponsable!='0'){
+          //   $codresp = $request->lstresponsable;
+          // }else{
+          //   $codresp = '';
+          // }
 
           //sacamos el ultimo codigo de registro:
           $codeincidencia = IncidenciaHelper::UltimoRegistro();
@@ -238,33 +238,35 @@ class IncidenciaController extends Controller{
 
           $codorigenreg   = 'WEB';
 
-          Incidencia::create([
-            "cod_incidente" => $codeincidencia,
-            "cod_tipoincidente" => $request->lsttipo,
-            "cod_subtipoincidente" => $request->lstsubtipo,
-            "fch_reporte" => $request->fecha_reporte,
-            "cod_cliente" => $request->lstcliente,
-            "num_linea" => $request->lstlinea,
-            "cod_contacto" => $request->lstcontacto,
-            "cod_prioridad" => $request->lstprioridad,
-            "dsc_incidente" => $request->titulo,
-            "dsc_detalleincidente" => $detalle,
-            "cod_equipo" => $codequipo,
-            "cod_estadoincidente" => $request->lstestado,
-            "cod_canalreporte" => $request->lstcanal,
-            "fch_registro" => Carbon::now('America/Lima'), 
-            "cod_usuarioregistro" => $coduser,
-            "cod_origenregistro" =>  $codorigenreg,
-            "cod_responsable" => $codresp,
-          ]);
+          DB::select('SET NOCOUNT ON; EXEC usp_Insertar_Incidente ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',[1,$codeincidencia,$request->lsttipo,$request->lstsubtipo,$request->fecha_reporte,$request->lstcliente,$request->lstlinea,'',$request->lstprioridad,'',$detalle,$codequipo,$request->lstestado,$request->lstcanal,$coduser,$codorigenreg,$request->lstcontacto]);
+          // Incidencia::create([
+          //   "cod_incidente" => $codeincidencia,
+          //   "cod_tipoincidente" => $request->lsttipo,
+          //   "cod_subtipoincidente" => $request->lstsubtipo,
+          //   "fch_reporte" => $request->fecha_reporte,
+          //   "cod_cliente" => $request->lstcliente,
+          //   "num_linea" => $request->lstlinea,
+          //   "cod_contacto" => '',  // se comento codigoresponsable pero se decidio usar responsable en vez de contacto..
+          //   "cod_prioridad" => $request->lstprioridad,
+          //   "dsc_incidente" => "",           //$request->titulo,   ///fue comentado del formulario...
+          //   "dsc_detalleincidente" => $detalle,
+          //   "cod_equipo" => $codequipo,
+          //   "cod_estadoincidente" => $request->lstestado,
+          //   "cod_canalreporte" => $request->lstcanal,
+          //   "fch_registro" => Carbon::now('America/Lima'), 
+          //   "cod_usuarioregistro" => $coduser,
+          //   "cod_origenregistro" =>  $codorigenreg,
+          //   "cod_responsable" => $request->lstcontacto,
+          // ]);
 
-          DB::commit();
+          //DB::commit();
           $this->successAlert('Se creó correctamente', 'Incidente creado');
           return redirect('incidencia');
 
         }catch(\Exception $e){
-          DB::rollback();
-          return $this->redirectToHome(); 
+          print_r($e);
+          // DB::rollback();
+          // return $this->redirectToHome(); 
         }
     }
 

@@ -27,151 +27,153 @@
                     </div>    
                 </div>    
             </div>     
-            
-            {{ Form::open(['route' => 'incidencia.registro','id' => 'form-validation']) }}
-            @method('POST')
-            {{ csrf_field() }}
+            <form method="post" id="form-validation" action="{{route('incidencia.registro')}}">
+                {{-- {{ Form::open(['route' => 'incidencia.registro','id' => 'form-validation']) }} --}}
+                @method('POST')
+                @csrf
+                {{-- {{ csrf_field() }} --}}
 
-            <div class="row contenedorinputs">
-                
-                    <div class="col-md-6">
-                        <div class="card-box">
-                            <!--<h4 class="header-title mb-4">Datos generales</h4>-->
-                            <div class="form-group">
-                                <label for="lstcliente">Cliente</label>
-                                <select class="form-control bordecaja" id="lstcliente" name="lstcliente" disabled>
-                                    <option value="0">[seleccione cliente]</option>
-                                    @foreach($clientes as $cli)
-                                        <option value="{{$cli->cod_cliente}}" selected>{{$cli->dsc_cliente}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstlinea">Sede (*)</label>
-                                <select class="form-control bordecaja" id="lstlinea" name="lstlinea">
-                                    <option value="0">[seleccione linea]</option>
-                                    @foreach($listaSede as $sede)
-                                        <option value="{{$sede->num_linea}}">{{$sede->dsc_nombre_direccion}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstequipo">Equipo</label>
-                                <div class="input-group mb-3">
-                                    @php
-                                        if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
-                                            $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
-                                        }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
-                                            $alpha = $_GET['dscEquipo'];
-                                        }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
-                                    @endphp
-                                    <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" disabled>
-                                    {{-- <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button> --}}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstcontacto">Responsable</label>
-                                <input type="text"
-                                    class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="" disabled>                                    
-                            </div>
-                            <div class="form-group">
-                                <label for="lsttipo">Tipo de incidente(*) </label>
-                                <select class="form-control bordecaja" id="lsttipo" name="lsttipo" required>
-                                    <option value="0">[seleccione tipo]</option>
-                                    @foreach($tipos as $tipo)
-                                    <option value="{{$tipo->cod_tipoincidente}}">{{$tipo->dsc_tipoincidente}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstsubtipo">Subtipo  de incidente(*)</label>
-                                <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo" required>
-                                    <option value="0">[seleccione sub-tipo]</option>
-                                </select>
-                            </div>               
-                            {{-- <div class="form-group">
-                                <label for="lstresponsable">Responsable</label>
-                                <select class="form-control bordecaja" id="lstresponsable" name="lstresponsable">
-                                    <option value="0">[seleccione responsable]</option>
-                                    @foreach($respons as $respble)
-                    <option value="{{$respble->cod_trabajador}}">{{ $respble->dsc_nombres.','.$respble->dsc_apellido_paterno.' '.$respble->dsc_apellido_materno }}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
-                                
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="card-box">
-                            <div class="form-group">
-                                <label for="fecha-reporte">Fecha reporte</label>
-                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" disabled>
-                            </div>
-                            <!--<h4 class="header-title mb-4">Otros datos</h4>-->
-                            {{-- <div class="form-group">
-                                <label for="titulo">Título (*)</label>
-                                <input type="text" class="form-control bordecaja" name="titulo" id="titulo" placeholder="titulo">
-                            </div> --}}
-                            <div class="form-group" style="padding-bottom:0.5rem;">
-                                <label for="lstarea">Detalle</label>
-                                <textarea name="descripcion" id="descripcion" rows="4" cols="50" class="form-control bordecaja">{{old('descripcion')}}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstprioridad">Prioridad (*)</label>
-                                <select class="form-control bordecaja" id="lstprioridad" name="lstprioridad">
-                                    <option value="0">[seleccione prioridad]</option>
-                                    @foreach($prioridad as $prio)
-                                    @if($prio->cod_prioridad=='003')
-                                    <option value="{{$prio->cod_prioridad}}" selected>{{$prio->dsc_prioridad}}</option>
-                                    @else
-                                    <option value="{{$prio->cod_prioridad}}">{{$prio->dsc_prioridad}}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div> 
-                            <div class="form-group">
-                                <label for="lstestado">Estado</label>
-                                <select class="form-control bordecaja" id="lstestado" name="lstestado" disabled>
-                                    <option value="0">[seleccione estado]</option>
-                                    @foreach($estado as $state)
-                                        @if($state->cod_estadoincidente=='001')
-                                            <option value="{{$state->cod_estadoincidente}}" selected>{{$state->dsc_estadoincidente}}</option>
-                                        @else
-                                            <option value="{{$state->cod_estadoincidente}}">{{$state->dsc_estadoincidente}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lstcanal">Canal reporte</label>
-                                <select class="form-control bordecaja" id="lstcanal" name="lstcanal" disabled>
-                                    <option value="0">[seleccione canal]</option>
-                                    @foreach($canales as $canal)
-                                        @if($canal->cod_canalreporte=='004')
-                                            <option value="{{$canal->cod_canalreporte}}" selected>{{$canal->dsc_canalreporte}}</option>
-                                        @else
-                                            <option value="{{$canal->cod_canalreporte}}">{{$canal->dsc_canalreporte}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>          
-                    </div>
-                    <div class="col-12">
-                        <label class="campooblig">(*) Campos obligatorios</label>    
-                    </div>
-                    <div class="col-12 contenedorbuttons">
-                        <div class="lineabajo">
-                        <button type="button" id="btn-submit" class="btn btn-primario"><i class="fas fa-plus"></i> Guardar</button>
-                        &nbsp;
-                        <button type="button" class="btn btn-cancelar" id="btn-cancelar"><i class="fas fa-reply"></i> Cancelar</button>
-                        </div>
-                    </div>
+                <div class="row contenedorinputs">
                     
-            </div> <!-- end row -->
+                        <div class="col-md-6">
+                            <div class="card-box">
+                                <!--<h4 class="header-title mb-4">Datos generales</h4>-->
+                                <div class="form-group">
+                                    <label for="lstcliente">Cliente</label>
+                                    <select class="form-control bordecaja" id="lstcliente" name="lstcliente" disabled>
+                                        <option value="0">[seleccione cliente]</option>
+                                        @foreach($clientes as $cli)
+                                            <option value="{{$cli->cod_cliente}}" selected>{{$cli->dsc_cliente}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstlinea">Sede (*)</label>
+                                    <select class="form-control bordecaja" id="lstlinea" name="lstlinea">
+                                        <option value="0">[seleccione linea]</option>
+                                        @foreach($listaSede as $sede)
+                                            <option value="{{$sede->num_linea}}">{{$sede->dsc_nombre_direccion}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstequipo">Equipo</label>
+                                    <div class="input-group mb-3">
+                                        @php
+                                            if ((!isset($_GET['codEquipo'])) && (!isset($_GET['dscEquipo']))) {
+                                                $alpha = 'Debe Seleccionar un Equipo para que proceda la incidencia';
+                                            }else if( !isset($_GET['codEquipo']) && (isset($_GET['dscEquipo']))) {
+                                                $alpha = $_GET['dscEquipo'];
+                                            }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
+                                        @endphp
+                                        <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" disabled>
+                                        <input type="hidden" name="lstequipo" value="{{$_GET['codEquipo']}}">
+                                        {{-- <button class="btn btn-outline-secondary" type="button" id="buscaEquipo">Buscar <i class="dripicons-search"></i></button> --}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstcontacto">Responsable</label>
+                                    <input type="text"
+                                        class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="" disabled>                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="lsttipo">Tipo de incidente(*) </label>
+                                    <select class="form-control bordecaja" id="lsttipo" name="lsttipo" required>
+                                        <option value="0">[seleccione tipo]</option>
+                                        @foreach($tipos as $tipo)
+                                        <option value="{{$tipo->cod_tipoincidente}}">{{$tipo->dsc_tipoincidente}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstsubtipo">Subtipo  de incidente(*)</label>
+                                    <select class="form-control bordecaja" id="lstsubtipo" name="lstsubtipo" required>
+                                        <option value="0">[seleccione sub-tipo]</option>
+                                    </select>
+                                </div>               
+                                {{-- <div class="form-group">
+                                    <label for="lstresponsable">Responsable</label>
+                                    <select class="form-control bordecaja" id="lstresponsable" name="lstresponsable">
+                                        <option value="0">[seleccione responsable]</option>
+                                        @foreach($respons as $respble)
+                        <option value="{{$respble->cod_trabajador}}">{{ $respble->dsc_nombres.','.$respble->dsc_apellido_paterno.' '.$respble->dsc_apellido_materno }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+                                    
+                            </div>
+                        </div>
 
-            {!! Form::close() !!}
+                        <div class="col-md-6">
+                            <div class="card-box">
+                                <div class="form-group">
+                                    <label for="fecha_reporte">Fecha reporte</label>
+                                    <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" disabled>
+                                </div>
+                                <!--<h4 class="header-title mb-4">Otros datos</h4>-->
+                                {{-- <div class="form-group">
+                                    <label for="titulo">Título (*)</label>
+                                    <input type="text" class="form-control bordecaja" name="titulo" id="titulo" placeholder="titulo">
+                                </div> --}}
+                                <div class="form-group" style="padding-bottom:0.5rem;">
+                                    <label for="lstarea">Detalle</label>
+                                    <textarea name="descripcion" id="descripcion" rows="4" cols="50" class="form-control bordecaja">{{old('descripcion')}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstprioridad">Prioridad (*)</label>
+                                    <select class="form-control bordecaja" id="lstprioridad" name="lstprioridad">
+                                        <option value="0">[seleccione prioridad]</option>
+                                        @foreach($prioridad as $prio)
+                                        @if($prio->cod_prioridad=='003')
+                                        <option value="{{$prio->cod_prioridad}}" selected>{{$prio->dsc_prioridad}}</option>
+                                        @else
+                                        <option value="{{$prio->cod_prioridad}}">{{$prio->dsc_prioridad}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div> 
+                                <div class="form-group">
+                                    <label for="lstestado">Estado</label>
+                                    <select class="form-control bordecaja" id="lstestado" name="lstestado" disabled>
+                                        <option value="0">[seleccione estado]</option>
+                                        @foreach($estado as $state)
+                                            @if($state->cod_estadoincidente=='001')
+                                                <option value="{{$state->cod_estadoincidente}}" selected>{{$state->dsc_estadoincidente}}</option>
+                                            @else
+                                                <option value="{{$state->cod_estadoincidente}}">{{$state->dsc_estadoincidente}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lstcanal">Canal reporte</label>
+                                    <select class="form-control bordecaja" id="lstcanal" name="lstcanal" disabled>
+                                        <option value="0">[seleccione canal]</option>
+                                        @foreach($canales as $canal)
+                                            @if($canal->cod_canalreporte=='004')
+                                                <option value="{{$canal->cod_canalreporte}}" selected>{{$canal->dsc_canalreporte}}</option>
+                                            @else
+                                                <option value="{{$canal->cod_canalreporte}}">{{$canal->dsc_canalreporte}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>          
+                        </div>
+                        <div class="col-12">
+                            <label class="campooblig">(*) Campos obligatorios</label>    
+                        </div>
+                        <div class="col-12 contenedorbuttons">
+                            <div class="lineabajo">
+                            <button type="button" id="btn-submit" class="btn btn-primario"><i class="fas fa-plus"></i> Guardar</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-cancelar" id="btn-cancelar"><i class="fas fa-reply"></i> Cancelar</button>
+                            </div>
+                        </div>
+                        
+                </div> <!-- end row -->
+            </form>
+            {{-- {!! Form::close() !!} --}}
 
         </div> <!-- end container-fluid -->
 
