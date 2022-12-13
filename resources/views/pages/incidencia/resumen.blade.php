@@ -279,7 +279,7 @@ function loadingdhashboardone(titulin,anio,arreglo){
     { 
         title: {
             text: titulin, 
-            subtext: 'Año: ' + anio,
+            subtext: 'Mes: Diciembre' ,
             left: 'center'
         },
         tooltip: {
