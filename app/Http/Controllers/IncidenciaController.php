@@ -17,6 +17,10 @@ use App\Models\EstadoIncidente;
 use App\Models\CanalReporte;
 use App\Models\Responsable;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -247,7 +251,7 @@ class IncidenciaController extends Controller{
             "cod_incidente" => $codeincidencia,
             "cod_tipoincidente" => $request->lsttipo,
             "cod_subtipoincidente" => $request->lstsubtipo,
-            "fch_reporte" => Carbon::now('America/Lima')->format('Y-m-d H:i:s'), //$request->fecha_reporte,
+            "fch_reporte" => getdate(),//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), //$request->fecha_reporte,
             "cod_cliente" => $request->lstcliente,
             "num_linea" => $request->lstlinea,
             "cod_contacto" => '1',  // Falta definir de donde viene este item..
@@ -257,7 +261,7 @@ class IncidenciaController extends Controller{
             "cod_equipo" => $codequipo,
             "cod_estadoincidente" => $request->lstestado,
             "cod_canalreporte" => $request->lstcanal,
-            "fch_registro" => Carbon::now('America/Lima')->format('Y-m-d H:i:s'), 
+            "fch_registro" => getdate(),//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), 
             "cod_usuarioregistro" => $coduser, 
             "cod_origenregistro" =>  $codorigenreg,
             "cod_responsable" => $request->lstcontacto,
@@ -272,6 +276,41 @@ class IncidenciaController extends Controller{
           // DB::rollback();
           // return $this->redirectToHome(); 
         }
+
+
+        $mail = new PHPMailer(true);
+          try {
+              //Server settings
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
+              $mail->isSMTP();                                            //Send using SMTP
+              $mail->Host       = "smtp.office365.com";                    //Set the SMTP server to send through
+              $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+              $mail->Username   = "mgonzalez@kunaq.com.pe";                     //SMTP username
+              $mail->Password   = "@@Mdr64F2111";                               //SMTP password
+              $mail->SMTPSecure = "tls";                                  //Enable implicit TLS encryption
+              $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+              //Recipients
+              $mail->setFrom("Sistema web de gestion Incidencias");
+              $mail->addAddress("mirellyagv@gmail.com");                         //Add a recipient
+              //Attachments   
+              // las siguientes 2 lineas son imprescindibles si envias varios correos a la vez, por ejemplo dentro de un bucle while, así garantizas que solo se envíe este fichero al recipiente de correo destinatario
+              //$mail->ClearAllRecipients();
+              //$mail->ClearAttachments();
+              //Content
+              $mail->isHTML(true);                                  //Set email format to HTML
+              $mail->CharSet = 'UTF-8';
+              $mail->Subject = "(NO RESPONDER) codigo incidente: ".$codeincidencia." / Prioridad : ".$request->lstprioridad;
+              $mail->Body    = "Estimado su cliente: ".$request->lstcliente." ha regisatrado una incidencia el ".getdate()." a tra vez del sistema web de gestion de incidencias. <br><br>Este mensaje generado por el sistema web de gestion de incidencias, por favor no responder.";
+              $mail->send();
+              //borro el fichero real
+              //unlink($nombre_archivo); el siguiente correo lo limpia
+              //echo 'Message has been sent';
+              $flg_estado_sac="ENV";
+              $fch_envio_sac = date("Y-m-d H:i:s");
+          } catch (Exception $e) {
+              $flg_estado_sac="RECH";
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          }
     }
 
     public function getEditarIncidencia(Request $request){
