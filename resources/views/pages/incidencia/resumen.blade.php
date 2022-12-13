@@ -124,10 +124,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row" style="margin:1em 0;padding-left:5px;">
-                        <div class="col-md-3 clasegrafico">Filtro por año:</div>
+                        <div class="col-md-3 clasegrafico">Filtro por mes:</div>
                         <div class="col-md-6">
                             <select class="form-control" id="lstfiltrouno" name="lstfiltrouno">
-                                <option value="0">[seleccione año]</option>
+                                <option value="0">Diciembre</option>
                                 @for($i = 2019; $i <= 2030; $i++)
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor    
@@ -143,7 +143,7 @@
                         <div class="col-md-3 clasegrafico">Filtro por año:</div>
                         <div class="col-md-6">
                             <select class="form-control" id="lstfiltrodos" name="lstfiltrodos">
-                                <option value="0">[seleccione año]</option>
+                                <option value="0">2022</option>
                                 @for($j = 2019; $j <= 2030; $j++)
                                     <option value="{{ $j }}">{{ $j }}</option>
                                 @endfor    
