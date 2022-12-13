@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE INCIDENTES</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> LISTADO DE INCIDENTES</h4>
                     </div>
                 </div>
             </div>
@@ -23,11 +23,6 @@
             </div>
 
             <div class="row fondocabecera">
-                <div class="col-12">
-                    <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="fe-copy"></i> Listado de incidentes</h4>
-                    </div>
-                </div>
                 <div class="table-responsive-md">
                     <table id="datatablePrueba" class="table  table-bordered">
                         <thead class="headtable">
@@ -149,6 +144,14 @@
                     {
                         data : 'numpedido',
                         class: 'centrado'
+                    }
+                ],
+                columnDefs: [
+                    {
+                        searchPanes: {
+                            show: true
+                        },
+                        targets: [0, 2, 3, 4, 5]
                     }
                 ],
                 rowReorder: true,
