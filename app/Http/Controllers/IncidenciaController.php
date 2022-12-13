@@ -285,8 +285,8 @@ class IncidenciaController extends Controller{
               $mail->isSMTP();                                            //Send using SMTP
               $mail->Host       = "smtp.office365.com";                    //Set the SMTP server to send through
               $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-              $mail->Username   = "mgonzalez@kunaq.com.pe";                     //SMTP username
-              $mail->Password   = "@@Mdr64F2111";                               //SMTP password
+              $mail->Username   = "mgonzalez@kunaq.com.pe";               //SMTP username
+              $mail->Password   = "@@Mdr64F2111";                         //SMTP password
               $mail->SMTPSecure = "tls";                                  //Enable implicit TLS encryption
               $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
               //Recipients
@@ -305,10 +305,7 @@ class IncidenciaController extends Controller{
               //borro el fichero real
               //unlink($nombre_archivo); el siguiente correo lo limpia
               //echo 'Message has been sent';
-              $flg_estado_sac="ENV";
-              $fch_envio_sac = date("Y-m-d H:i:s");
           } catch (Exception $e) {
-              $flg_estado_sac="RECH";
             // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
           }
     }
