@@ -16,6 +16,7 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.0",
         "nesbot/carbon": "^2.64",
+        "phpmailer/phpmailer": "^6.7",
         "psr/simple-cache": "^3.0",
         "realrashid/sweet-alert": "^5.1"
     },
