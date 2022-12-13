@@ -24,6 +24,18 @@
 
             <div class="row fondocabecera">
                 <div class="table-responsive-md">
+                    <table border="0" cellspacing="5" cellpadding="5">
+                        <tbody>
+                            <tr>
+                                <td>Minimum date:</td>
+                                <td><input type="text" id="min" name="min"></td>
+                            </tr>
+                            <tr>
+                                <td>Maximum date:</td>
+                                <td><input type="text" id="max" name="max"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <table id="datatablePrueba" class="table  table-bordered">
                         <thead class="headtable">
                             <tr>
@@ -52,6 +64,26 @@
             var key = window.Event ? e.which : e.keyCode
             return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
         }
+            
+        var minDate, maxDate;
+
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date( data[2] );
+        
+                if (
+                    ( min === null && max === null ) ||
+                    ( min === null && date <= max ) ||
+                    ( min <= date   && max === null ) ||
+                    ( min <= date   && date <= max )
+                ) {
+                    return true;
+                }
+                return false;
+            }
+        );
 
         //Definimos la fechas para la busqueda:
         // var dia = "01";
@@ -70,8 +102,15 @@
         // document.getElementById('fecha_hasta').value = fhoy;
 
         $(document).ready(function() {
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'DD MMM YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'DD MMM YYYY'
+            });
 
-            tabla =  $('#datatablePrueba').DataTable({
+            var tabla =  $('#datatablePrueba').DataTable({
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
@@ -165,7 +204,15 @@
                 info: true,
                 // rowReorder: true
             });
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                tabla.draw();
+            });
+
         });
+
+        
 
         //No se encontraron registros
         function getEmptyContent(mensaje = "No se encontraron registros") {
