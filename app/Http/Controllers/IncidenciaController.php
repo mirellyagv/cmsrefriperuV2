@@ -77,12 +77,12 @@ class IncidenciaController extends Controller{
     public function getListadoIncidencia(Request $request){
       try{
         
-        $idstate = $request->idstate;
-        $search  = $request->search;
-        $fdesde  = $request->fdesde;
-        $fhasta  = $request->fhasta;
-        $codresp = $request->codresp;
-        $codeinc = $request->codincd;
+        // $idstate = $request->idstate;
+        // $search  = $request->search;
+        // $fdesde  = $request->fdesde;
+        // $fhasta  = $request->fhasta;
+        // $codresp = $request->codresp;
+        // $codeinc = $request->codincd;
 
         //Se define la session del usuario
         $role    = Session()->get('rol');
@@ -112,8 +112,8 @@ class IncidenciaController extends Controller{
         if (!empty($search))
           $incidencias = $incidencias->where('vtama_cliente.dsc_razon_social', 'like', '%' . $search . '%');
 
-        if (!empty($fdesde) && !empty($fhasta))
-          $incidencias = $incidencias->whereBetween('incidente.fch_reporte', array($fdesde, $fhasta));
+        // if (!empty($fdesde) && !empty($fhasta))
+          //$incidencias = $incidencias->whereBetween('incidente.fch_reporte', array($fdesde, $fhasta));
 
         //Hacemos la validacion aqui:
         if($role == config('constants.roles_name.cliente')){
@@ -128,7 +128,11 @@ class IncidenciaController extends Controller{
                 ->get();
 
         $data = [];
+
         foreach ($incidencias as $item){
+          
+        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_incidente."'".')" ><i class="dripicons-preview"></i></a>&nbsp;';
+
           array_push($data, [
             "code"           => $item->cod_incidente,
             "tipo_incidente" => $item->dsc_tipoincidente,
@@ -138,13 +142,14 @@ class IncidenciaController extends Controller{
             "prioridad"      => $item->dsc_prioridad,
             "codestado"      => $item->cod_estadoincidente,
             "estado"         => $item->dsc_estadoincidente,
-            "fech_reg"       => $item->fch_registro
+            "fech_reg"       => $item->fch_registro,
+            "numpedido"   => $ver
           ]);
         }
 
-        $result = $this->dataTableResult($total,$filtrados,$data);
+        // $result = $this->dataTableResult($total,$filtrados,$data);
 
-        return $result;
+        return $data;
 
       }catch(\Exception $e){
         return $this->emptyCustomDataTable();
