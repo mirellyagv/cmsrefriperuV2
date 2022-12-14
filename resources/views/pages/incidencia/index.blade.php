@@ -64,7 +64,10 @@
             var key = window.Event ? e.which : e.keyCode
             return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
         }
-            
+        // setLocale('es-mx');
+        // moment.locale('fr');
+        // moment().format('LLLL');
+
         var minDate, maxDate;
 
         $.fn.dataTable.ext.search.push(
@@ -190,7 +193,8 @@
                         searchPanes: {
                             show: true
                         },
-                        targets: [0, 2, 3, 4, 5]
+                        targets: [0, 2, 3, 4, 5],
+                        render: DataTable.render.datetime('D/MM/YYYY','es-mx'),
                     }
                 ],
                 rowReorder: true,
