@@ -28,7 +28,7 @@ class DateHelper
         $mes     = substr($fecha,5,2);
         $dia     = substr($fecha,8,2);
                                 //
-        $fechafin = $dia.'-'.$mes.'-'.$anio;
+        $fechafin = $dia.'/'.$mes.'/'.$anio;
 
         return $fechafin;
     }
