@@ -141,7 +141,7 @@ class IncidenciaController extends Controller{
             "code"           => $item->cod_incidente,
             "tipo_incidente" => $item->dsc_tipoincidente,
             "tit_incidente"  => $item->dsc_incidente,
-            "fech_reporte"   => $item->fch_reporte,
+            "fech_reporte"   => $item->fch_reporte,// date('d/m/Y', strtotime($item->fch_reporte)),
             "nomcliente"     => AppHelper::clientFormat($item->dsc_razon_social),
             "prioridad"      => $item->dsc_prioridad,
             "codestado"      => $item->cod_estadoincidente,

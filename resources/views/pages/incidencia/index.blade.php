@@ -88,6 +88,30 @@
             }
         );
 
+        minDate = new DateTime(document.getElementById('min'),{
+            locale: 'es-mx',
+            format: 'DD/MM/YYYY',
+            i18n:{
+                clear: 'Limpiar',
+                previous: 'Anterior',
+                next: 'Proximo',
+                months: [
+                    'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+                }
+
+        });
+        maxDate = new DateTime(document.getElementById('max'),{
+            locale: 'es-mx',
+            format: 'DD/MM/YYYY',
+            i18n:{
+                clear: 'Limpiar',
+                previous: 'Anterior',
+                next: 'Proximo',
+                months: [
+                    'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+                }
+        });
+
         //Definimos la fechas para la busqueda:
         // var dia = "01";
         // var date = new Date(); //Se define la fecha actual
@@ -106,13 +130,13 @@
 
         $(document).ready(function() {
             // Create date inputs
-            minDate = new DateTime($('#min'), {
-                format: 'DD MMM YYYY'
-            });
-            maxDate = new DateTime($('#max'), {
-                format: 'DD MMM YYYY'
-            });
-
+            // minDate = new DateTime($('#min'), {
+            //     format: 'DD MMM YYYY'
+            // });
+            // maxDate = new DateTime($('#max'), {
+            //     format: 'DD MMM YYYY'
+            // });            
+            
             var tabla =  $('#datatablePrueba').DataTable({
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
@@ -172,7 +196,7 @@
                         data : 'tipo_incidente'
                     },
                     {
-                        data : 'fech_reporte'
+                        data : 'fech_reporte',
                     },
                     {
                         data : 'nomcliente'
@@ -193,8 +217,8 @@
                         searchPanes: {
                             show: true
                         },
-                        targets: [0, 2, 3, 4, 5],
-                        render: DataTable.render.datetime('D/MM/YYYY','es-mx'),
+                        targets: [0, 3, 4, 5],
+                        //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
                     }
                 ],
                 rowReorder: true,
@@ -214,9 +238,8 @@
                 tabla.draw();
             });
 
-        });
-
-        
+        });    
+        // $.fn.dataTable.ext.errMode = 'throw';    
 
         //No se encontraron registros
         function getEmptyContent(mensaje = "No se encontraron registros") {
