@@ -15,27 +15,23 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card-box">
-                        <button type="button" id="btn-agregar" class="btn btn-primario"><i class="fas fa-plus"></i>
-                            Agregar</button>
+                    <div style="float: right">
+                        <a name="" id="" class="btn btn-primario" href="{{url('equipo')}}" role="button"><i class="fas fa-plus"></i>Agregar</a>
                     </div>
                 </div>
             </div>
 
             <div class="row fondocabecera">
+                <div class="col-md-3 offset-md-2">
+                    <label for="min">Fecha inicio:</label>
+                    <input type="text" id="min" name="min">
+                </div>
+                <div class="col-md-3">
+                    <label for="max">Fecha fin:</label>
+                    <input type="text" id="max" name="max">
+                </div>
                 <div class="table-responsive-md">
-                    <table border="0" cellspacing="5" cellpadding="5">
-                        <tbody>
-                            <tr>
-                                <td>Fecha inicio:</td>
-                                <td><input type="text" id="min" name="min"></td>
-                            </tr>
-                            <tr>
-                                <td>Fecha fin:</td>
-                                <td><input type="text" id="max" name="max"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                   
                     <table id="datatablePrueba" class="table  table-bordered">
                         <thead class="headtable">
                             <tr>
@@ -217,7 +213,7 @@
                         searchPanes: {
                             show: true
                         },
-                        targets: [0, 3, 4, 5],
+                        targets: [0,3,4,5],
                         //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
                     }
                 ],

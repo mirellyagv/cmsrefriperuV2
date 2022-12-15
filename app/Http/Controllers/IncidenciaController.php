@@ -232,7 +232,7 @@ class IncidenciaController extends Controller{
           }else{
             $codequipo = '';
           }
-          $fecha = getdate();
+          $fecha = Carbon::now('America/Lima');
           $cliente = $request->lstcliente;
 
           // if($request->lstresponsable!='0'){
@@ -279,7 +279,7 @@ class IncidenciaController extends Controller{
               $mail->Host       = 'smtp.office365.com';                    //Set the SMTP server to send through
               $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
               $mail->Username   = 'facturacion@escueladerefrigeracion.edu.pe';                  //SMTP username
-              $mail->Password   = 'Fux10100';                         //SMTP password
+              $mail->Password   = '';                         //SMTP password
               $mail->SMTPSecure = 'tls';                                  //Enable implicit TLS encryption
               $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
               //Recipients
@@ -293,8 +293,8 @@ class IncidenciaController extends Controller{
               $mail->isHTML(true);                                  //Set email format to HTML
               $mail->CharSet = 'UTF-8';
               $mail->Subject = "(NO RESPONDER) codigo incidente: ".$codeincidencia." / Prioridad : ".$request->lstprioridad;
-              $mail->Body    = "Estimado, su cliente: ".$cliente." ha regisatrado una incidencia el ".$fecha." a traves del sistema web de gestion de incidencias. <br><br>Este mensaje generado por el sistema web de gestion de incidencias, por favor no responder.";
-              $mail->send();
+              $mail->Body    = "Estimado, su cliente: ".$cliente." ha regisatrado una incidencia el  a traves del sistema web de gestion de incidencias. <br><br>Este mensaje generado por el sistema web de gestion de incidencias, por favor no responder.";
+              //$mail->send();
           } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
           }

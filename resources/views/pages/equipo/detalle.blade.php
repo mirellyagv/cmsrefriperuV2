@@ -122,7 +122,7 @@
                         </button> --}}
                     </div>
                     <div class="modal-body">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs nav-justified">
                             <li class="nav-item">
                                 <a href="#detalleEquipo" data-toggle="tab" aria-expanded="false" class="nav-link active">
                                     <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
@@ -134,9 +134,11 @@
                                     <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
                                     <span class="d-none d-sm-block">Intervencion</span>
                                 </a>
+                            </li>
+                            <li class="nav-item">
+                                <a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a>
                             </li>                  
                         </ul>
-                        <div><a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a></div>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="detalleEquipo">
                                 <div id="detalleEquipo-content">
@@ -584,7 +586,7 @@
                 var data = result;
                 //console.log(data);
                 cod_modelo = data[0]['cod_modelo'];
-                $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
+                $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo'] + data[0]['dsc_sede']);
                 $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
                 $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
                 $('#subtipoEquipo').val(data[0]['dsc_subtipo_equipo']);
@@ -595,6 +597,7 @@
                 $('#numSerieEquipo').val(data[0]['num_serie']);
                 $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
                 $('#sedeEquipo').val(data[0]['dsc_sede']);
+                $('#codSedeEquipo').val(data[0]['cod_sede']);
 
                 $.ajax({
                     type: 'GET',
@@ -721,14 +724,15 @@
         
     }
 
-    function datosEquipo(codigo,dscEquipo) {
+    function datosEquipo(codigo,dscEquipo,codSede) {
             console.log(codigo,dscEquipo);
-            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}`;
+            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}&codSede=${codSede}`;
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
     function datosEquipo1(dscEquipo) {
         console.log(dscEquipo);
-        let cadena = `dscEquipo=${dscEquipo}`;
+        codSede = $("#codSede").val();
+        let cadena = `dscEquipo=${dscEquipo}&codSede=${codSede}`;
         window.location= `{{url('incidencia/crear?${cadena}')}}`;
     }
 

@@ -6,6 +6,7 @@
         $alpha = $_GET['dscEquipo'];
     }else{ $alpha = $_GET['codEquipo']."-".$_GET['dscEquipo']; }
     $codEquipoAux = $_GET['codEquipo'];
+    $codSede = $_GET['codSede'];
     use Carbon\Carbon;
 @endphp
 
@@ -63,7 +64,11 @@
                                 <select class="form-control" id="lstlinea" name="lstlinea">
                                     <option value="0">[seleccione linea]</option>
                                     @foreach($listaSede as $sede)
-                                        <option value="{{$sede->num_linea}}">{{$sede->dsc_nombre_direccion}}</option>
+                                        @if($sede->num_linea==$codSede)
+                                            <option value="{{$sede->num_linea}}" selected>{{$sede->dsc_nombre_direccion}}</option>
+                                        @else
+                                            <option value="{{$sede->num_linea}}">{{$sede->dsc_nombre_direccion}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -131,7 +136,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="lstcanal">Canal reporte</label>
-                                <select class="form-control" id="lstcanal" name="lstcanal">
+                                <select class="form-control" id="lstcanal" name="lstcanal" readonly>
                                     <option value="0">[seleccione canal]</option>
                                     @foreach($canales as $canal)
                                         @if($canal->cod_canalreporte=='004')
@@ -332,7 +337,7 @@
 
     //-------------------------------------
     $(document).ready(function(){
-        
+       
         document.getElementById('fecha_reporte').value = new Date().toLocaleString();
         //Hacemos uso del select2
         $("#lsttipo").select2();//
@@ -342,6 +347,7 @@
         $("#lstcliente").select2();//
 
         $("#lstlinea").select2();//
+        $("#lstlinea").trigger('change');
 
         //$("#lstcontacto").select2();
 

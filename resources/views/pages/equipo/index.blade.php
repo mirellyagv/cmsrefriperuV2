@@ -219,6 +219,8 @@
                                         <label class="mb-1 mt-3 text-muted">Sede</label>
                                         <input type="text" name="sedeEquipo" id="sedeEquipo" class="form-control"
                                             value="" disabled>
+                                        <input type="hidden" name="codEquipo" id="codEquipo" class="form-control"
+                                            value="">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -596,6 +598,7 @@
                     $('#numSerieEquipo').val(data[0]['num_serie']);
                     $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
                     $('#sedeEquipo').val(data[0]['dsc_sede']);
+                    $('#codSedeEquipo').val(data[0]['cod_sede']);
 
                     $.ajax({
                         type: 'GET',
@@ -727,14 +730,15 @@
         };
 
         
-        function datosEquipo(codigo,dscEquipo) {
+        function datosEquipo(codigo,dscEquipo,codSede) {
             console.log(codigo,dscEquipo);
-            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}`;
+            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}&codSede=${codSede}`;
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
         function datosEquipo1(dscEquipo) {
             console.log(dscEquipo);
-            let cadena = `dscEquipo=${dscEquipo}`;
+            codSede = $("#codSede").val();
+            let cadena = `dscEquipo=${dscEquipo}&codSede=${codSede}`;
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
 
