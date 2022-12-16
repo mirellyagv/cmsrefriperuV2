@@ -135,7 +135,7 @@ class IncidenciaController extends Controller{
 
         foreach ($incidencias as $item){
           
-        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_incidente."'".')" ><i class="dripicons-preview"></i></a>&nbsp;';
+        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verDetalleIncidencia('."'".$item->cod_incidente."'".')" ><i class="dripicons-preview"></i></a>';
 
           array_push($data, [
             "code"           => $item->cod_incidente,
@@ -279,7 +279,7 @@ class IncidenciaController extends Controller{
               $mail->Host       = 'smtp.office365.com';                    //Set the SMTP server to send through
               $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
               $mail->Username   = 'facturacion@escueladerefrigeracion.edu.pe';                  //SMTP username
-              $mail->Password   = '';                         //SMTP password
+              $mail->Password   = 'Fux10100';                         //SMTP password
               $mail->SMTPSecure = 'tls';                                  //Enable implicit TLS encryption
               $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
               //Recipients
@@ -593,6 +593,28 @@ class IncidenciaController extends Controller{
 
       }catch(\Exception $e){
         return $this->errorResponse();    
+      }
+      
+    }
+
+    public function getDetalleIncidencia(Request $request){
+      try{
+        $codIncidente = $request->cod_incidente;
+        //return $codIncidente;
+        $result = DB::table('mtoca_incidente as incidente')
+                ->join('mtoma_tipoincidente as tipo','incidente.cod_tipoincidente', '=', 'tipo.cod_tipoincidente')
+                ->join('mtoma_subtipoincidente as subtipo','incidente.cod_subtipoincidente', '=', 'subtipo.cod_subtipoincidente')
+                ->join('mtoma_prioridadincidente as prioridad','incidente.cod_prioridad', '=', 'prioridad.cod_prioridad')
+                ->join('mtoma_estado_incidente as estado','incidente.cod_estadoincidente', '=', 'estado.cod_estadoincidente')
+                ->join('gsema_equipo as equipo','incidente.cod_equipo', '=', 'equipo.cod_equipo')
+                ->select('equipo.dsc_equipo','prioridad.dsc_prioridad','tipo.dsc_tipoincidente','subtipo.dsc_subtipoincidente','incidente.dsc_detalleincidente','incidente.fch_reporte','incidente.cod_responsable','estado.dsc_estadoincidente')
+                ->where('incidente.cod_incidente', '=',$codIncidente)
+                ->get();
+
+        return $result;
+
+      }catch(\Exception $e){
+        return $this->errorResponse($e);    
       }
       
     }

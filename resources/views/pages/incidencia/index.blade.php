@@ -36,9 +36,9 @@
                         <thead class="headtable">
                             <tr>
                                 <th scope="col">Codigo</th>
-                                <th scope="col">Tipo</th>
                                 <th scope="col">Fecha de reporte</th>
                                 <th scope="col">Responsable</th>
+                                <th scope="col">Tipo</th>
                                 <th scope="col">Prioridad</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Opciones</th>
@@ -51,6 +51,52 @@
         </div> <!-- end container-fluid -->
 
     </div> <!-- end content -->
+
+    {{-- ---------------------Modal detalle Incidencia------------------------------- --}}
+    <div class="modal fade" id="modalDetalleIncidencia" tabindex="-1" role="dialog" aria-labelledby="modalDetalleIncidenciaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetalleIncidenciaLabel"></h5><h5 class="modal-title" id="EstadoDetalleIncidencia"></h5>
+                    <h5 class="modal-title" id="EstadoDetalleIncidencia"></h5>
+                </div>
+                <div class="modal-body">
+                    <div id="detalleIncidencia-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="mb-1 mt-3 text-muted">Equipo</label>
+                                <input type="text" name="equipoIncidencia" id="equipoIncidencia" class="form-control" value="" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mb-1 mt-3 text-muted">Subtipo</label>
+                                <input type="text" name="subtipoIncidencia" id="subtipoIncidencia" class="form-control" value="" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mb-1 mt-3 text-muted">Tipo</label>
+                                <input type="text" name="tipoIncidencia" id="tipoIncidencia" class="form-control" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="mb-1 mt-3 text-muted">Detalle</label>
+                                <textarea name="detalleIncidencia" id="detalleIncidencia" rows="4" class="form-control" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mb-1 mt-3 text-muted">Fecha de Culminación</label>
+                                <input type="text" name="fchCulminacionIncidencia" id="fchCulminacionIncidencia" class="form-control" value="" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mb-1 mt-3 text-muted">Responsable</label>
+                                <input type="text" name="responsableIncidencia" id="responsableIncidencia" class="form-control" value="" disabled>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -68,9 +114,10 @@
 
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
+                //console.log('data',data);
                 var min = minDate.val();
                 var max = maxDate.val();
-                var date = new Date( data[2] );
+                var date = new Date( data[1] );
         
                 if (
                     ( min === null && max === null ) ||
@@ -189,13 +236,13 @@
                         data : 'code'
                     },
                     {
-                        data : 'tipo_incidente'
-                    },
-                    {
                         data : 'fech_reporte',
                     },
                     {
                         data : 'nomcliente'
+                    },
+                    {
+                        data : 'tipo_incidente'
                     },
                     {
                         data : 'prioridad'
@@ -213,11 +260,11 @@
                         searchPanes: {
                             show: true
                         },
-                        targets: [0,3,4,5],
+                        targets: [0,2,4,5]
                         //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
                     }
                 ],
-                rowReorder: true,
+                rowReorder: false,
                 select:true,
                 responsive: true,
                 filter: true,
@@ -236,6 +283,30 @@
 
         });    
         // $.fn.dataTable.ext.errMode = 'throw';    
+
+        function verDetalleIncidencia(codigo){
+        $('#modalDetalleIncidencia').modal('show');
+        $.ajax({
+            type: 'GET',
+            url: "{{url('incidencia/detalleIncidencia')}}",
+            data: {
+                'cod_incidente' : codigo,
+            },
+            success:function(result){
+                var data = result;
+                $('#modalDetalleIncidenciaLabel').html(`PRIORIDAD - ${data[0]['dsc_prioridad']}`);
+                $('#EstadoDetalleIncidencia').html(`ESTADO - ${data[0]['dsc_estadoincidente']}`);
+                $('#equipoIncidencia').val(data[0]['dsc_equipo']);
+                $('#subtipoIncidencia').val(data[0]['dsc_subtipoincidente']);
+                $('#tipoIncidencia').val(data[0]['dsc_tipoincidente']);
+                $('#detalleIncidencia').val(data[0]['dsc_detalleincidente']);
+                $('#fchCulminacionIncidencia').val(data[0]['fch_reporte']);
+                $('#responsableIncidencia').val(data[0]['cod_responsable']);
+               
+            }
+        });
+        
+    }
 
         //No se encontraron registros
         function getEmptyContent(mensaje = "No se encontraron registros") {

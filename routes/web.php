@@ -67,6 +67,7 @@ Route::group(['middleware' => 'autenticado'], function (){
     Route::get('eliminar', 'IncidenciaController@eliminarIncidente');
     Route::get('resumen', 'IncidenciaController@resumenIncidente');
     Route::get('exportar', 'IncidenciaController@getExportarIncidencia');
+    Route::get('detalleIncidencia{cod_incidente?}', 'IncidenciaController@getDetalleIncidencia');
 
     //Graficos estadisticos
     Route::get('reporte/estados', 'IncidenciaController@getestadoIncidenciaAnio');

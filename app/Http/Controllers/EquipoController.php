@@ -121,6 +121,7 @@ class EquipoController extends Controller{
           }else{
             $model = '';
           }
+
           //error falta definir dsc_sede...
           $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>';
 
