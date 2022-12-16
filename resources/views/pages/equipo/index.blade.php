@@ -729,16 +729,17 @@
 
         };
 
-        
+
         function datosEquipo(codigo,dscEquipo,codSede) {
             console.log(codigo,dscEquipo);
             let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}&codSede=${codSede}`;
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
-        function datosEquipo1(dscEquipo) {
+        function datosEquipo1(sede,dscEquipo) {
             console.log(dscEquipo);
             codSede = $("#codSede").val();
             let cadena = `dscEquipo=${dscEquipo}&codSede=${codSede}`;
+
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
 
