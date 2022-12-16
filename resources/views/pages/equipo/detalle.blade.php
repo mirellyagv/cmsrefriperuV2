@@ -361,7 +361,7 @@
                                 class: 'centrado'
                             }
                         ],
-                        rowReorder: true,
+                        rowReorder: false,
                         select:true,
                         responsive: true,
                         filter: true,
@@ -586,6 +586,9 @@
                 var data = result;
                 //console.log(data);
                 cod_modelo = data[0]['cod_modelo'];
+                dscEquipo = data[0]['dsc_equipo'];
+                codEquipo = data[0]['cod_equipo'];
+                codSede = data[0]['cod_sede'];
                 $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo'] + data[0]['dsc_sede']);
                 $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
                 $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
@@ -724,15 +727,16 @@
         
     }
 
+    
     function datosEquipo(codigo,dscEquipo,codSede) {
-            console.log(codigo,dscEquipo);
-            let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}&codSede=${codSede}`;
-            window.location= `{{url('incidencia/crear?${cadena}')}}`;
-        }
-    function datosEquipo1(dscEquipo) {
-        console.log(dscEquipo);
-        codSede = $("#codSede").val();
-        let cadena = `dscEquipo=${dscEquipo}&codSede=${codSede}`;
+        //console.log(codigo,dscEquipo);
+        let cadena = `codEquipo=${codigo}&codSede=${codSede}&dscEquipo=${dscEquipo}`;
+        window.location= `{{url('incidencia/crear?${cadena}')}}`;
+    }
+    function datosEquipo1() {
+        
+        let cadena = `codEquipo=${codEquipo}&codSede=${codSede}&dscEquipo=${dscEquipo}`;
+        //console.log(cadena);
         window.location= `{{url('incidencia/crear?${cadena}')}}`;
     }
 
