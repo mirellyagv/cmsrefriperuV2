@@ -271,35 +271,35 @@ class IncidenciaController extends Controller{
           // DB::commit();
           $this->successAlert('Se creó correctamente', 'Incidente n° '.$codeincidencia.' creado');
           
-          $mail = new PHPMailer(true);
-          try {
-              //Server settings
-              //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
-              $mail->isSMTP();                                            //Send using SMTP
-              $mail->Host       = 'smtp.office365.com';                    //Set the SMTP server to send through
-              $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-              $mail->Username   = 'facturacion@escueladerefrigeracion.edu.pe';                  //SMTP username
-              $mail->Password   = 'Fux10100';                         //SMTP password
-              $mail->SMTPSecure = 'tls';                                  //Enable implicit TLS encryption
-              $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-              //Recipients
-              $mail->setFrom('facturacion@escueladerefrigeracion.edu.pe','Sistema web de gestion Incidencias');
-              $mail->addAddress("mgonzalez@kunaq.pe");                         //Add a recipient
-              //Attachments   
-              // las siguientes 2 lineas son imprescindibles si envias varios correos a la vez, por ejemplo dentro de un bucle while, así garantizas que solo se envíe este fichero al recipiente de correo destinatario
-              //$mail->ClearAllRecipients();
-              //$mail->ClearAttachments();
-              //Content
-              $mail->isHTML(true);                                  //Set email format to HTML
-              $mail->CharSet = 'UTF-8';
-              $mail->Subject = "(NO RESPONDER) codigo incidente: ".$codeincidencia." / Prioridad : ".$request->lstprioridad;
-              $mail->Body    = "Estimado, su cliente: ".$cliente." ha regisatrado una incidencia el  a traves del sistema web de gestion de incidencias. <br><br>Este mensaje generado por el sistema web de gestion de incidencias, por favor no responder.";
-              //$mail->send();
-          } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-          }
+          // $mail = new PHPMailer(true);
+          // try {
+          //     //Server settings
+          //     //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
+          //     $mail->isSMTP();                                            //Send using SMTP
+          //     $mail->Host       = 'smtp.office365.com';                    //Set the SMTP server to send through
+          //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+          //     $mail->Username   = 'facturacion@escueladerefrigeracion.edu.pe';                  //SMTP username
+          //     $mail->Password   = 'Fux10100';                         //SMTP password
+          //     $mail->SMTPSecure = 'tls';                                  //Enable implicit TLS encryption
+          //     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+          //     //Recipients
+          //     $mail->setFrom('facturacion@escueladerefrigeracion.edu.pe','Sistema web de gestion Incidencias');
+          //     $mail->addAddress("mgonzalez@kunaq.pe");                         //Add a recipient
+          //     //Attachments   
+          //     // las siguientes 2 lineas son imprescindibles si envias varios correos a la vez, por ejemplo dentro de un bucle while, así garantizas que solo se envíe este fichero al recipiente de correo destinatario
+          //     //$mail->ClearAllRecipients();
+          //     //$mail->ClearAttachments();
+          //     //Content
+          //     $mail->isHTML(true);                                  //Set email format to HTML
+          //     $mail->CharSet = 'UTF-8';
+          //     $mail->Subject = "(NO RESPONDER) codigo incidente: ".$codeincidencia." / Prioridad : ".$request->lstprioridad;
+          //     $mail->Body    = "Estimado, su cliente: ".$cliente." ha regisatrado una incidencia el  a traves del sistema web de gestion de incidencias. <br><br>Este mensaje generado por el sistema web de gestion de incidencias, por favor no responder.";
+          //     //$mail->send();
+          // } catch (Exception $e) {
+          //   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          // }
           
-          //return redirect('incidencia');
+          return redirect('incidencia');
 
         }catch(\Exception $e){
           print_r($e);
