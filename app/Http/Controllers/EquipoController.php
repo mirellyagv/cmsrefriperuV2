@@ -121,9 +121,8 @@ class EquipoController extends Controller{
           }else{
             $model = '';
           }
-          
-          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>&nbsp;
-                <a class="urlicon" title="Reportar incidencia" href="javascript:void(0)" style="font-size:20px; color:#ffa91c" onclick="datosEquipo('."'".$item->cod_equipo."','".$item->dsc_equipo."','".$item->dsc_sede."'".')"><i class="dripicons-warning"></i></a>';
+          //error falta definir dsc_sede...
+          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>';
 
           array_push($data, [
             "code"        => $item->cod_equipo,

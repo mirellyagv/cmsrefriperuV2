@@ -112,26 +112,6 @@
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
-                            <tr class="">                           
-                                <td scope="row">R1C1</td>
-                                <td>R1C2</td>
-                                <td>R1C3</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                            </tr>
-                            <tr class="">
-                                <td scope="row">Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                                <td>Item</td>
-                            </tr>
-                        </tbody> --}}
                     </table>
                 </div>
             </div> <!-- end row -->
@@ -167,7 +147,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a name="" id="" class="btn btn-warning" href="#" onclick="datosEquipo1($('#modalDetalleEquipoLabel').text())" role="button">Reportar incidencia</a>
+                            <a name="" id="repIncidencias" class="btn btn-warning" href="#" onclick="datosEquipo1()" role="button">Reportar incidencia</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -219,7 +199,7 @@
                                         <label class="mb-1 mt-3 text-muted">Sede</label>
                                         <input type="text" name="sedeEquipo" id="sedeEquipo" class="form-control"
                                             value="" disabled>
-                                        <input type="hidden" name="codEquipo" id="codEquipo" class="form-control"
+                                        <input type="hidden" name="codSede" id="codSede" class="form-control"
                                             value="">
                                     </div>
                                 </div>
@@ -249,12 +229,13 @@
 @push('scripts')
     <script type="text/javascript">
         //solo numeros
-        function soloNumeros(e) {
-            var key = window.Event ? e.which : e.keyCode
-            return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
-        }
+        // function soloNumeros(e) {
+        //     var key = window.Event ? e.which : e.keyCode
+        //     return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
+        // }
 
         $(document).ready(function() {
+
            tabla =  $('#datatablePrueba').DataTable({
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
@@ -330,7 +311,7 @@
                         class: 'centrado'
                     }
                 ],
-                rowReorder: true,
+                rowReorder: false,
                 select:true,
                 responsive: true,
                 filter: true,
@@ -340,232 +321,8 @@
                 paging : true,
                 info: true,
                 // rowReorder: true
-            });
-            //Combitos
-            // $('#tipo').select2();
-
-            // $('#sub-tipo').select2();
-
-            // $('#marca').select2();
-
-            // $('#modelo').select2();
-
-            //Se hace el slider.
-            // $('.vermas').on('click', function() {
-            //     var opt = $(this).attr('option');
-            //     //
-            //     if (opt == '0') {
-            //         $(this).removeClass("fa-caret-square-down");
-            //         $(this).addClass("fa-caret-square-up");
-            //         //
-            //         $('.cntfiltro').fadeIn("slow");
-            //         $('.cntfiltro').css('display', 'inline-block');
-
-            //         $(this).attr('option', '1');
-            //     } else {
-            //         $(this).removeClass("fa-caret-square-up");
-            //         $(this).addClass("fa-caret-square-down");
-            //         //
-            //         $('.cntfiltro').fadeOut("slow");
-            //         $('.cntfiltro').css('display', 'none');
-            //         $(this).attr('option', '0');
-            //     }
-
-            // });
-
-
-            // $("#tipo").change(function() {
-            //     //Aqui se llama al subtipo
-            //     var idtipo = $(this).val();
-            //     $.ajax({
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         },
-            //         url: "{{ url('tipoequipo/buscarsubtipo') }}",
-            //         type: "post",
-            //         data: "code=" + idtipo,
-            //         cache: false,
-            //         processData: false,
-            //         success: function(data) {
-            //             $('#sub-tipo').html(data);
-            //             $('#sub-tipo').trigger('change');
-            //         }
-            //     });
-            //     //Se llama al equipo content
-            //     $("#equipo-content").html("");
-            //     loadPageData();
-            // });
-
-            // $("#sub-tipo").change(function() {
-            //     $("#equipo-content").html("");
-            //     loadPageData();
-            // });
-
-            // $("#marca").change(function() {
-            //     $("#equipo-content").html("");
-            //     loadPageData();
-            // });
-
-            // $("#modelo").change(function() {
-            //     $("#equipo-content").html("");
-            //     loadPageData();
-            // });
-
-            // $("#numserie").keypress(function(e) { //text-filter
-            //     var key = e.which;
-            //     var filtro = $(this).val();
-            //     var len = filtro.length;
-            //     if (key === 13) {
-            //         if (len > 2) {
-            //             $("#equipo-content").html("");
-            //             loadPageData();
-            //         } else {
-            //             Swal.fire(
-            //                 'Aviso',
-            //                 'Debe ingresar mínimo 3 caracteres',
-            //                 'warning'
-            //             );
-            //             return false;
-            //         }
-
-            //     }
-            //     return true;
-            // });
-
-            // $("#nomequipo").keypress(function(e) { //text-code
-            //     var tecla = e.which;
-            //     var code = $(this).val();
-            //     var long = code.length;
-            //     if (tecla === 13) {
-            //         if (long > 2) {
-            //             $("#equipo-content").html("");
-            //             loadPageData();
-            //         } else {
-            //             Swal.fire(
-            //                 'Aviso',
-            //                 'Debe ingresar mínimo 3 caracteres',
-            //                 'warning'
-            //             );
-            //             return false;
-            //         }
-            //     }
-            //     return true;
-            // });
-
-
-            // $(".btn-clear").click(function() {
-            //     window.location = "{{ url('equipo') }}";
-            // });
-
-            // loadPageData();
-            // $('#datatablePrueba tbody').on('click', 'tr', function () {
-            //         var data = tabla.row(this).data();
-            //         //console.log(data);
-            //         //window.location = "{{ url('home') }}";
-            //         alert( data['code']+"-"+data['nombre'] );
-            // });
-                    
+            });                    
         });
-
-        //Se inicia con la funcion onload
-        // function loadPageData() {
-        //     // $.ajax({
-        //     //     type: 'GET',
-        //     //     url: "{{ url('equipo/listar') }}",
-        //     //     data: {
-        //     //         'numserie' : $("#numserie").val(),
-        //     //         'tipo'     : $("#tipo").val(),
-        //     //         'subtipo'  : $("#sub-tipo").val(),
-        //     //         'nomequipo': $("#nomequipo").val(),
-        //     //         'codmarca' : $("#marca").val(),
-        //     //         'codmodel' : $("#modelo").val()
-        //     //     },
-        //     //     beforeSend: function () {
-        //     //         $("#equipo-body").LoadingOverlay("show");
-        //     //     },
-        //     //     complete: function () {
-        //     //         $("#equipo-body").LoadingOverlay("hide");
-        //     //     },
-        //     //     success:function(result){
-        //     //         var data = result;
-        //     //        // console.log(data.items.length);
-        //     //         if(data.items.length > 0){
-        //     //             $("#equipo-content").html(getEquipoTable(data.items));
-
-        //     //             // $("#tbl-equipo").DataTable({
-        //     //             //     rowReorder: true,
-        //     //             //     select:true,
-        //     //             //     responsive: true,
-        //     //             //     filter: false,
-        //     //             //     lengthChange: true,
-        //     //             //     ordering: false,
-        //     //             //     orderMulti: false,
-        //     //             //     paging : true,
-        //     //             //     info: true,
-        //     //             //     language:{
-        //     //             //       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-        //     //             //     },
-        //     //             // });
-        //     //         }else{
-        //     //             $("#equipo-content").html(getEmptyContent());
-        //     //         }
-        //     //     }
-        //     // });                                 
-
-        // }
-
-        // function getEquipoTable(items){
-
-        //     var j=1;
-        //     var body  = '<div class="card-box table-responsive">';
-
-        //     body += '<div class="row">' +
-        //             '<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset('assets/images/icons/icon_excel.png') }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>' +
-        //             '</div>';
-
-        //     body += '<table id="tbl-equipo" class="table table-bordered dt-responsive nowrap" style="border-collapse:collapse; border-spacing:0; width:100%;">' +
-        //             '<thead>' +
-        //             '<tr class="headtable">' +
-        //             '<th>N°</th>' + 
-        //             '<th>Codigo</th>' +
-        //             '<th>Nombre</th>' + 
-        //             '<th>Tipo</th>' +
-        //             '<th>Sub-tipo</th>' +
-        //             '<th>Marca</th>' +
-        //             '<th>Modelo</th>' +
-        //             '<th>Opciones</th>' +
-        //             '</tr>' +
-        //             '</thead>' +
-        //             '<tbody>';
-
-        //     $.each(items, function (index, value){
-
-        //         body += '<tr>' + 
-        //                     '<td>' + j + '</td>' +
-        //                     '<td>' + value.code + '</td>' +
-        //                     '<td>' + value.nombre + '</td>' +
-        //                     '<td>' + value.nomtipo + '</td>' +
-        //                     '<td>' + value.nomsubtipo + '</td>' +
-        //                     '<td>' + value.marca + '</td>' +
-        //                     '<td>' + value.modelo + '</td>' +
-        //                     '<td style="text-align:center;">' +
-        //                     '<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle(' + "'" + value.code + "'" + ')" >' +
-        //                     '<i class="dripicons-preview"></i>' +
-        //                     '</a>' +
-        //                     '</td>' +
-        //                     '</tr>';
-
-        //         j++;
-
-        //     });
-
-        //     body += '</tbody>' +
-        //             '</table>' +
-        //             '</div>';        
-
-        //     return body;
-
-        // }
 
         function verdetalle(codigo) {
             $('#modalDetalleEquipo').modal('show');
@@ -587,6 +344,7 @@
                     var data = result;
                     //console.log(data);
                     cod_modelo = data[0]['cod_modelo'];
+                    dscEquipo = data[0]['dsc_equipo'];
                     $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
                     $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
                     $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
@@ -598,7 +356,7 @@
                     $('#numSerieEquipo').val(data[0]['num_serie']);
                     $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
                     $('#sedeEquipo').val(data[0]['dsc_sede']);
-                    $('#codSedeEquipo').val(data[0]['cod_sede']);
+                    $('#codSede').val(data[0]['cod_sede']);
 
                     $.ajax({
                         type: 'GET',
@@ -720,7 +478,6 @@
                                 ]
                             });
 
-
                         }
                     });
 
@@ -735,37 +492,14 @@
             let cadena = `codEquipo=${codigo}&dscEquipo=${dscEquipo}&codSede=${codSede}`;
             window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
-        function datosEquipo1(sede,dscEquipo) {
-            console.log(dscEquipo);
+        function datosEquipo1() {
+            
             codSede = $("#codSede").val();
-            let cadena = `dscEquipo=${dscEquipo}&codSede=${codSede}`;
-
-            window.location= `{{url('incidencia/crear?${cadena}')}}`;
+            
+            let cadena = `codSede=${codSede}&dscEquipo=${dscEquipo}`;
+            console.log(cadena);
+            // window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
-
-        //No se encontraron registros
-        // function getEmptyContent(mensaje = "No se encontraron registros") {
-        //     return "<div class=\"row\" style=\"padding-top: 10px;\">" +
-        //         "<div class=\"col-12\">" +
-        //         "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
-        //         "</div>" +
-        //         "</div>";
-        // }
-
-        //Funcion para exportar a Excel
-        // function exportar() {
-
-        //     var query = {
-        //         'numserie': $("#numserie").val(),
-        //         'tipo': $("#tipo").val(),
-        //         'subtipo': $("#sub-tipo").val(),
-        //         'nomequipo': $("#nomequipo").val(),
-        //         'codmarca': $("#marca").val(),
-        //         'codmodel': $("#modelo").val(),
-        //     }
-
-        //     window.location = "{{ url('equipo/exportar') }}?" + $.param(query);
-        // }
 
     </script>
 @endpush
