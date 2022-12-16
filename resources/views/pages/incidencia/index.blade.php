@@ -22,11 +22,11 @@
             </div>
 
             <div class="row fondocabecera">
-                <div class="col-md-3 offset-md-2">
+                <div class="col-md-5 offset-md-2">
                     <label for="min">Fecha inicio:</label>
                     <input type="text" id="min" name="min">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <label for="max">Fecha fin:</label>
                     <input type="text" id="max" name="max">
                 </div>
@@ -296,7 +296,7 @@
                 var data = result;
                 $('#modalDetalleIncidenciaLabel').html(`PRIORIDAD - ${data[0]['dsc_prioridad']}`);
                 $('#EstadoDetalleIncidencia').html(`ESTADO - ${data[0]['dsc_estadoincidente']}`);
-                $('#equipoIncidencia').val(data[0]['dsc_equipo']);
+                $('#equipoIncidencia').val(data[0]['cod_equipo']+' - '+data[0]['dsc_equipo']);
                 $('#subtipoIncidencia').val(data[0]['dsc_subtipoincidente']);
                 $('#tipoIncidencia').val(data[0]['dsc_tipoincidente']);
                 $('#detalleIncidencia').val(data[0]['dsc_detalleincidente']);
