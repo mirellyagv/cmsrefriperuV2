@@ -342,9 +342,10 @@
                 },
                 success: function(result) {
                     var data = result;
-                    //console.log(data);
+                    //console.log('datadelmodal',data);
                     cod_modelo = data[0]['cod_modelo'];
                     dscEquipo = data[0]['dsc_equipo'];
+                    codEquipo = data[0]['cod_equipo'];
                     $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
                     $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
                     $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
@@ -495,10 +496,10 @@
         function datosEquipo1() {
             
             codSede = $("#codSede").val();
-            
-            let cadena = `codSede=${codSede}&dscEquipo=${dscEquipo}`;
+
+            let cadena = `codEquipo=${codEquipo}&codSede=${codSede}&dscEquipo=${dscEquipo}`;
             console.log(cadena);
-            // window.location= `{{url('incidencia/crear?${cadena}')}}`;
+            window.location= `{{url('incidencia/crear?${cadena}')}}`;
         }
 
     </script>

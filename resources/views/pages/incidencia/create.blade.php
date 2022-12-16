@@ -337,7 +337,7 @@
 
     //-------------------------------------
     $(document).ready(function(){
-       
+
         document.getElementById('fecha_reporte').value = new Date().toLocaleString();
         //Hacemos uso del select2
         $("#lsttipo").select2();//
@@ -347,8 +347,7 @@
         $("#lstcliente").select2();//
 
         $("#lstlinea").select2();//
-        $("#lstlinea").trigger('change');
-
+        
         //$("#lstcontacto").select2();
 
         $("#lstprioridad").select2();//
@@ -482,6 +481,7 @@
         });
 
         
+        $("#lstlinea").trigger('change');
 
     });
 
