@@ -219,7 +219,7 @@
                                         <label class="mb-1 mt-3 text-muted">Sede</label>
                                         <input type="text" name="sedeEquipo" id="sedeEquipo" class="form-control"
                                             value="" disabled>
-                                        <input type="hidden" name="codEquipo" id="codEquipo" class="form-control"
+                                        <input type="hidden" name="codSede" id="codSede" class="form-control"
                                             value="">
                                     </div>
                                 </div>
