@@ -439,133 +439,10 @@
             });
             //Se llama al equipo content
             $("#equipo-content").html("");
-            // loadPageData();
             });
 
-
-        //here start the triggers for the filters..
-        // $("#ubicacion").change(function(){
-        //     $("#equipo-content").html("");
-        //     loadPageData();    
-        // });
-     
-        // $(".btn-clear").click(function(){
-        //     window.location = "{{ url('equipo/detalle') }}";
-        // });
-
-        // loadPageData();
-
     });
-
-    //Se inicia con la funcion onload
-    // function loadPageData(){
-    //     var lineaSup = $('#ubicacion').val().split('+')[1];
-    //     var linea = $('#ubicacion').val().split('+')[0];
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{url('equipo/listar2')}}",
-    //         data: {
-    //             'sede'     : $("#sede").val(),
-    //             'ubicacion'  : linea,
-    //             'ubicacion2'  : lineaSup
-    //         },
-    //         beforeSend: function () {
-    //             $("#equipo-body").LoadingOverlay("show");
-    //         },
-    //         complete: function () {
-    //             $("#equipo-body").LoadingOverlay("hide");
-    //         },
-    //         success:function(result){
-    //             var data = result;
-    //             //console.log('catidad de filas',data.items.length, 'codigo de sede', sede.value, 'ubicacion', ubicacion.value, 'ubicacion2', ubicacion2.value);
-    //             if(data.items.length > 0 && sede.value!=0 ){
-    //                 $("#equipo-content").html(getEquipoTable(data.items));
-
-    //                 $("#tbl-equipo").DataTable({
-    //                     responsive: true,
-    //                     filter: false,
-    //                     lengthChange: true,
-    //                     ordering: false,
-    //                     orderMulti: false,
-    //                     paging : true,
-    //                     info: true,
-    //                     language:{
-    //                       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    //                     }
-    //                 });
-    //             }else{
-    //                 $("#equipo-content").html(getEmptyContent());
-    //             }
-    //         }
-    //     });    
-    // }
-
-    // function getEquipoTable(items){
-
-    //     var j=1;
-    //     var body  = '<div class="card-box table-responsive">';
-
-    //     body += '<div class="row">' +
-    //             '<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>' +
-    //             '</div>';
-            
-    //     body += '<table id="tbl-equipo" class="table table-bordered dt-responsive" style="font-size:16px; border-collapse:collapse; border-spacing:0; width:100%;">' +
-    //                 '<thead>' +
-    //                 '<tr class="headtable">' +
-    //                 '<th>N°</th>' + 
-    //                 '<th>Código</th>' +
-    //                 '<th>Sede</th>' + 
-    //                 '<th>Ubicación</th>' + 
-    //                 '<th>Nombre</th>' + 
-    //                 '<th>Tipo</th>' +
-    //                 '<th>Sub-tipo</th>' +
-    //                 '<th>Marca</th>' +
-    //                 '<th>Modelo</th>' +
-    //                 '<th>Opciones</th>' +
-    //                 '</tr>' +
-    //                 '</thead>' +
-    //                 '<tbody>';
-
-    //     $.each(items, function (index, value){
-
-    //     body += '<tr>' + 
-    //                 '<td>' + j + '</td>' +
-    //                 '<td>' + value.code + '</td>' +
-    //                 '<td>' + value.sede + '</td>' +
-    //                 '<td>' + value.ubicacion + '</td>' +
-    //                 '<td>' + value.nombre + '</td>' +
-    //                 '<td>' + value.nomtipo + '</td>' +
-    //                 '<td>' + value.nomsubtipo + '</td>' +
-    //                 '<td>' + value.marca + '</td>' +
-    //                 '<td>' + value.modelo + '</td>' +
-    //                 '<td style="text-align:center;">' +
-    //                 '<a class="urlicon" title="Ver detalle" href="javascript:void(0)" onclick="verdetalle(' + "'" + value.code + "'" + ')" >' +
-    //                 '<i class="dripicons-preview"></i>' +
-    //                 '</a>' +
-    //                 '</td>' +
-    //                 '</tr>';
-
-    //     j++;
-
-    //     });
-
-    //     body += '</tbody>' +
-    //             '</table>' +
-    //             '</div>';        
-
-    //     return body;
-
-    // }
-
-    //No se encontraron registros
-    // function getEmptyContent(mensaje = "No se encontraron registros"){
-    // return "<div class=\"row\" style=\"padding-top: 10px;\">" +
-    //        "<div class=\"col-12\">" +
-    //        "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
-    //        "</div>" +
-    //        "</div>";
-    // }
-
+    
     function verdetalle(codigo){
         $('#modalDetalleEquipo').modal('show');
         var cod_modelo = '';
@@ -622,7 +499,7 @@
                         // body += '<div class="row">'+'<div class="col-md-2" style="margin-bottom:0.5em;">Exportar: <img src="{{ asset("assets/images/icons/icon_excel.png") }}" title="Click para exportar" onclick="exportar()" style="height:30px;cursor:pointer;"></div>'+'</div>';
 
                         body += '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; font-size:16px">' +
-                            '<div class="row">'+'<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido &nbsp; <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
+                            '<div class="row">'+'<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="small" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido &nbsp; <ion-icon size="small" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="small" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="small" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
                                     '<thead>' +
                                         '<tr class="headtable"  style="text-align:center;">' +
                                             '<th style="width:5%;">Ejec</th>' + 

@@ -456,37 +456,42 @@ class IncidenciaController extends Controller{
 
     public function resumenIncidente(){
       try{
-        //Sacamos el total de incidedentes
+        //Sacamos el total de incidedentes por mes en curso...
         $total    = DB::table('mtoca_incidente')
                   ->select(DB::raw('count(cod_incidente) as total_incidentes'))
+                  ->where(DB::raw('MONTH(fch_registro)'), '=', DB::raw('MONTH(getdate())'))
                   ->get();
         $ctotal   = $total[0]->total_incidentes;
 
-        //Sacamos la cantidad de incidentes pendientes
+        //Sacamos la cantidad de incidentes pendientes en curso...
         $totalp   = DB::table('mtoca_incidente')
                   ->select(DB::raw('count(cod_incidente) as cant_incidentes_pend'))
                   ->where('cod_estadoincidente', '=', '001')
+                  ->where(DB::raw('MONTH(fch_registro)'), '=', DB::raw('MONTH(getdate())'))
                   ->get();
         $ctotalp  = $totalp[0]->cant_incidentes_pend;
 
-        //Sacamos la cantidad de incidentes en proceso
+        //Sacamos la cantidad de incidentes en proceso en curso...
         $totproc  = DB::table('mtoca_incidente')
                   ->select(DB::raw('count(cod_incidente) as cant_incidentes_proc'))
                   ->where('cod_estadoincidente', '=', '002')
+                  ->where(DB::raw('MONTH(fch_registro)'), '=', DB::raw('MONTH(getdate())'))
                   ->get();
         $ctotproc = $totproc[0]->cant_incidentes_proc;
 
-        //Sacamos la cantidad de incidentes atendidos
+        //Sacamos la cantidad de incidentes atendidos en curso...
         $totatend = DB::table('mtoca_incidente')
                   ->select(DB::raw('count(cod_incidente) as cant_incidentes_cerr'))
                   ->where('cod_estadoincidente', '=', '003')
+                  ->where(DB::raw('MONTH(fch_registro)'), '=', DB::raw('MONTH(getdate())'))
                   ->get();
         $ctotatend= $totatend[0]->cant_incidentes_cerr;
 
-        //Sacamos la cantidad de incidentes cancelados
+        //Sacamos la cantidad de incidentes cancelados en curso...
         $totcanc  = DB::table('mtoca_incidente')
                   ->select(DB::raw('count(cod_incidente) as cant_incidentes_cancel'))
                   ->where('cod_estadoincidente', '=', '004')
+                  ->where(DB::raw('MONTH(fch_registro)'), '=', DB::raw('MONTH(getdate())'))
                   ->get();
         $ctotcanc = $totcanc[0]->cant_incidentes_cancel;
 
