@@ -23,7 +23,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="fe-clipboard"></i> Resumen de Gestión Mensual</h4>
+                        <h4 class="header-title headertitle"><i class="fe-clipboard"></i> Resumen de Gestión Mensual 
+                            {{Carbon\Carbon::now()->locale('es_ES')->isoFormat('MMMM Y')}}
+                        </h4>
                     </div>
                 </div>
             </div>
