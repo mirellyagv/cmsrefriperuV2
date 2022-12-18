@@ -52,17 +52,17 @@
                         <div class="card-box">
                             <div class="form-group">
                                 <label for="lstcliente">Cliente</label>
-                                <select class="form-control" id="lstcliente" name="lstcliente">
-                                    <option value="0">[seleccione cliente]</option>
+                                <select class="form-control" id="lstcliente" name="lstcliente" readonly="readonly">
+                                    {{-- <option value="0">[seleccione cliente]</option> --}}
                                     @foreach($clientes as $cli)
                                         <option value="{{$cli->cod_cliente}}" selected>{{$cli->dsc_cliente}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lstlinea">Sede (*)</label>
-                                <select class="form-control" id="lstlinea" name="lstlinea">
-                                    <option value="0">[seleccione linea]</option>
+                                <label for="lstlinea">Sede</label>
+                                <select class="form-control" id="lstlinea" name="lstlinea" readonly="readonly">
+                                    {{-- <option value="0">[seleccione linea]</option> --}}
                                     @foreach($listaSede as $sede)
                                         @if($sede->num_linea==$codSede)
                                             <option value="{{$sede->num_linea}}" selected>{{$sede->dsc_nombre_direccion}}</option>
@@ -74,12 +74,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="lstequipo">Equipo</label>
-                                <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username">
+                                <input type="text" class="form-control" value="{{$alpha}}" placeholder="Equipo Seleccionado" aria-label="Recipient's username" readonly>
                                 <input type="hidden" name="lstequipo" value="{{$codEquipoAux}}">
                             </div>
                             <div class="form-group">
                                 <label for="lstcontacto">Responsable</label>
-                                <input type="text" class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value="">                                    
+                                <input type="text" class="form-control" name="lstcontacto" id="lstcontacto" placeholder="" value=""readonly>                                    
                             </div>
                             <div class="form-group">
                                 <label for="lsttipo">Tipo de incidente(*) </label>
@@ -102,7 +102,7 @@
                         <div class="card-box">
                             <div class="form-group">
                                 <label for="fecha_reporte">Fecha reporte</label>
-                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte">
+                                <input type="text" class="form-control" name="fecha_reporte" id="fecha_reporte" readonly>
                             </div>
                             <div class="form-group" style="padding-bottom:0.5rem;">
                                 <label for="lstarea">Detalle</label>
@@ -123,7 +123,7 @@
                             </div> 
                             <div class="form-group">
                                 <label for="lstestado">Estado</label>
-                                <select class="form-control" id="lstestado" name="lstestado">
+                                <select class="form-control" id="lstestado" name="lstestado" readonly>
                                     <option value="0">[seleccione estado]</option>
                                     @foreach($estado as $state)
                                         @if($state->cod_estadoincidente=='001')
@@ -345,8 +345,28 @@
         $("#lstsubtipo").select2();//
 
         $("#lstcliente").select2();//
+        $('#lstcliente').on('select2:opening', function (e) {
+            if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
+                console.log('readonly, cant be open !');
+                e.preventDefault();
+                $(this).select2('close'); 
+                return false;
+            }else{
+                console.log( 'expandable/selectable' );
+            }
+        });
 
         $("#lstlinea").select2();//
+        $('#lstlinea').on('select2:opening', function (e) {
+            if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
+                console.log('readonly, cant be open !');
+                e.preventDefault();
+                $(this).select2('close'); 
+                return false;
+            }else{
+                console.log( 'expandable/selectable' );
+            }
+        });
         
         //$("#lstcontacto").select2();
 
@@ -357,8 +377,28 @@
         // $("#lstresponsable").select2();
 
         $("#lstestado").select2();//
+        $('#lstestado').on('select2:opening', function (e) {
+            if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
+                console.log('readonly, cant be open !');
+                e.preventDefault();
+                $(this).select2('close'); 
+                return false;
+            }else{
+                console.log( 'expandable/selectable' );
+            }
+        });
 
         $("#lstcanal").select2();//
+        $('#lstcanal').on('select2:opening', function (e) {
+            if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
+                console.log('readonly, cant be open !');
+                e.preventDefault();
+                $(this).select2('close'); 
+                return false;
+            }else{
+                console.log( 'expandable/selectable' );
+            }
+        });
 
         //Busqueda de subtipos -----------------
         $('#lsttipo').change(function(){

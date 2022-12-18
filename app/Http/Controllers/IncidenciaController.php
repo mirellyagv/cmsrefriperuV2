@@ -128,7 +128,7 @@ class IncidenciaController extends Controller{
         $filtrados = $incidencias->count();
 
         $incidencias = $incidencias
-                ->orderBy('incidente.dsc_incidente')
+                ->orderBy('incidente.fch_registro')
                 ->get();
 
         $data = [];
@@ -279,7 +279,7 @@ class IncidenciaController extends Controller{
           //     $mail->Host       = 'smtp.office365.com';                    //Set the SMTP server to send through
           //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
           //     $mail->Username   = 'facturacion@escueladerefrigeracion.edu.pe';                  //SMTP username
-          //     $mail->Password   = 'Fux10100';                         //SMTP password
+          //     $mail->Password   = '';                         //SMTP password
           //     $mail->SMTPSecure = 'tls';                                  //Enable implicit TLS encryption
           //     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
           //     //Recipients
@@ -607,7 +607,7 @@ class IncidenciaController extends Controller{
                 ->join('mtoma_prioridadincidente as prioridad','incidente.cod_prioridad', '=', 'prioridad.cod_prioridad')
                 ->join('mtoma_estado_incidente as estado','incidente.cod_estadoincidente', '=', 'estado.cod_estadoincidente')
                 ->join('gsema_equipo as equipo','incidente.cod_equipo', '=', 'equipo.cod_equipo')
-                ->select('equipo.dsc_equipo','prioridad.dsc_prioridad','tipo.dsc_tipoincidente','subtipo.dsc_subtipoincidente','incidente.dsc_detalleincidente','incidente.fch_reporte','incidente.cod_responsable','estado.dsc_estadoincidente')
+                ->select('equipo.dsc_equipo','equipo.cod_equipo','prioridad.dsc_prioridad','tipo.dsc_tipoincidente','subtipo.dsc_subtipoincidente','incidente.dsc_detalleincidente','incidente.fch_reporte','incidente.cod_responsable','estado.dsc_estadoincidente')
                 ->where('incidente.cod_incidente', '=',$codIncidente)
                 ->get();
 
