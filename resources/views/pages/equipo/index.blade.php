@@ -381,7 +381,7 @@
 
                             body +=
                                 '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; ">' +
-                                '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="large" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="large" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="large" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="large" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
+                                '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="small" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="small" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="small" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="small" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
                                 '<div class="row">' +
                                 '<thead>' +
                                 '<tr class="headtable"  style="text-align:center;">' +
