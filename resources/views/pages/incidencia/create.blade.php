@@ -338,7 +338,9 @@
     //-------------------------------------
     $(document).ready(function(){
 
-        document.getElementById('fecha_reporte').value = new Date().toLocaleString();
+        var fecha = moment(new Date()).format('DD/MM/yyyy hh:mm');
+        console.log(fecha);
+        document.getElementById('fecha_reporte').value = fecha;
         //Hacemos uso del select2
         $("#lsttipo").select2();//
 
@@ -347,24 +349,24 @@
         $("#lstcliente").select2();//
         $('#lstcliente').on('select2:opening', function (e) {
             if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
-                console.log('readonly, cant be open !');
+                //console.log('readonly, cant be open !');
                 e.preventDefault();
                 $(this).select2('close'); 
                 return false;
             }else{
-                console.log( 'expandable/selectable' );
+                //console.log( 'expandable/selectable' );
             }
         });
 
         $("#lstlinea").select2();//
         $('#lstlinea').on('select2:opening', function (e) {
             if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
-                console.log('readonly, cant be open !');
+                //console.log('readonly, cant be open !');
                 e.preventDefault();
                 $(this).select2('close'); 
                 return false;
             }else{
-                console.log( 'expandable/selectable' );
+                //console.log( 'expandable/selectable' );
             }
         });
         
@@ -379,24 +381,24 @@
         $("#lstestado").select2();//
         $('#lstestado').on('select2:opening', function (e) {
             if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
-                console.log('readonly, cant be open !');
+                //console.log('readonly, cant be open !');
                 e.preventDefault();
                 $(this).select2('close'); 
                 return false;
             }else{
-                console.log( 'expandable/selectable' );
+                //console.log( 'expandable/selectable' );
             }
         });
 
         $("#lstcanal").select2();//
         $('#lstcanal').on('select2:opening', function (e) {
             if( $(this).attr('readonly') == 'readonly') { // Check if select tag is readonly.
-                console.log('readonly, cant be open !');
+                //console.log('readonly, cant be open !');
                 e.preventDefault();
                 $(this).select2('close'); 
                 return false;
             }else{
-                console.log( 'expandable/selectable' );
+                //console.log( 'expandable/selectable' );
             }
         });
 

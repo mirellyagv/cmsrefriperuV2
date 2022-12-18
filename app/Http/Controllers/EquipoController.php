@@ -232,7 +232,7 @@ class EquipoController extends Controller{
           $model = '';
         }
         $ubicacion = $item->Nivel2.'//'.$item->Nivel1.'//'.$item->Nivel0;
-        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i> <a class="urlicon" title="Reportar incidencia" style="font-size:20px; color:#ffa91c" href="javascript:void(0)" onclick="datosEquipo('."'".$item->cod_equipo."','".$item->dsc_equipo."','".$item->cod_sede."'".')"><i class="dripicons-warning"></i></a>';
+        $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i>';
         
         array_push($data, [
           "code"        => $item->cod_equipo,

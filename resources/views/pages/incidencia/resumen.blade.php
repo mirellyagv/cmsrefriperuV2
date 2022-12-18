@@ -125,13 +125,21 @@
                 <div class="col-md-6">
                     <div class="row" style="margin:1em 0;padding-left:5px;">
                         <div class="col-md-3 clasegrafico">Filtro por mes:</div>
-                        <div class="col-md-6">
-                            <select class="form-control" id="lstfiltrouno" name="lstfiltrouno">
-                                <option value="0">Diciembre</option>
-                                @for($i = 2019; $i <= 2030; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor    
-                            </select>
+                        <div class="col-md-8">
+                            <body ng-app="myApp" ng-controller="myCtrl">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">Mes</label>
+                                            <select ng-model="month" id="lstfiltrouno" class="form-control" ng-options="m for m in months"></select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">Año</label>
+                                            <select ng-model="year" class="form-control" ng-options="y for y in years"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </body>             
                         </div>   
                     </div>
                     <div class="card-box">
@@ -142,12 +150,14 @@
                     <div class="row" style="margin:1em 0;padding-left:5px;">
                         <div class="col-md-3 clasegrafico">Filtro por año:</div>
                         <div class="col-md-6">
-                            <select class="form-control" id="lstfiltrodos" name="lstfiltrodos">
-                                <option value="0">2022</option>
-                                @for($j = 2019; $j <= 2030; $j++)
-                                    <option value="{{ $j }}">{{ $j }}</option>
-                                @endfor    
-                            </select>
+                            <body ng-app="myApp1" ng-controller="myCtrl1">
+                                <div class="container">
+                                    <label class="control-label">Año</label>
+                                    <select ng-model="year1" id="lstfiltrodos" class="form-control" ng-options="y for y in years">
+                                        <option value="" disabled>Selecccione...</option>
+                                    </select>
+                                </div>
+                            </body> 
                         </div>   
                     </div>
                     <div class="card-box">
@@ -163,6 +173,30 @@
 @push('scripts')
 <script type="text/javascript">
 
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $scope.years = [];
+    $scope.year = new Date().getFullYear();
+    $scope.months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    $scope.month = $scope.months[new Date().getMonth()];
+    
+    for (var i = 0; i < 5; i++) {
+        $scope.years.push($scope.year-i);
+        //console.log($scope.year-i);
+    }  
+})
+
+var app1 = angular.module('myApp1', []);
+app1.controller('myCtrl1', function($scope, $http) {
+    $scope.years1 = [];
+    $scope.year1 = new Date().getFullYear();
+    
+    for (var i = 0; i < 5; i++) {
+        $scope.years1.push($scope.year1-i);
+        //console.log($scope.year-i);
+    }  
+})
+
 $(document).ready(function(){
     loading();
 
@@ -171,6 +205,7 @@ $(document).ready(function(){
 //Hacemos las busquedas por año:
 $("#lstfiltrouno").change(function (){
     var anio = $(this).val();
+    var mes = d.getMonth()+1;
     //
     $.ajax({
         url : "{{ url('incidencia/reporte/estados')}}",
@@ -194,12 +229,13 @@ $("#lstfiltrouno").change(function (){
 });
 //
 $("#lstfiltrodos").change(function (){
-    var year = $(this).val();
+    var year = $(this).val().split(':');
+    console.log(year[1]);
     //
     $.ajax({
         url : "{{ url('incidencia/reporte/incidencia')}}",
         type: "get",
-        data: {"year":year},
+        data: {"year":year[1]},
         beforeSend: function () {
             $("#containerdos").LoadingOverlay("show");
         },
@@ -211,7 +247,7 @@ $("#lstfiltrodos").change(function (){
             titulon   = datin.title;
             array     = datin.data;
 
-            loadingdhashboardtwo(titulon,year,array);
+            loadingdhashboardtwo(titulon,year[1],array);
         }
     });
 
@@ -221,6 +257,7 @@ $("#lstfiltrodos").change(function (){
 function loading(anio){
     var d    = new Date();
     var anio = d.getFullYear();     //sacamos el año actual
+    var mes = d.getMonth()+1;
     //---------------------------
     var titulin;
     var arreglo  = [];
@@ -231,7 +268,7 @@ function loading(anio){
     $.ajax({
         url : "{{ url('incidencia/reporte/estados')}}",
         type: "get",
-        data: {"anio":anio},
+        data: {"anio":anio,"mes":mes},
         beforeSend: function () {
             $("#containeruno").LoadingOverlay("show");
         },
@@ -243,7 +280,7 @@ function loading(anio){
             titulin  = data.title;
             arreglo  = data.data;
 
-            //console.log(arreglo);
+            //console.log(data);
 
             loadingdhashboardone(titulin,anio,arreglo);
         }
@@ -265,7 +302,7 @@ function loading(anio){
             titulon   = datin.title;
             array     = datin.data;
 
-            //console.log(array);
+            console.log(datin);
 
             loadingdhashboardtwo(titulon,anio,array);
         }
@@ -340,7 +377,7 @@ function loadingdhashboardtwo(titulon,year,array){
         xAxis: [
             {
                 type: 'category',
-                data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago','Set','Oct','Nov','Dic'],
+                data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago','Sep','Oct','Nov','Dic'],
                 axisTick: {
                     alignWithLabel: true
                 }

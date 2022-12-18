@@ -128,7 +128,7 @@ class IncidenciaController extends Controller{
         $filtrados = $incidencias->count();
 
         $incidencias = $incidencias
-                ->orderBy('incidente.fch_registro')
+                ->orderBy('incidente.fch_registro','DESC')
                 ->get();
 
         $data = [];
@@ -232,7 +232,7 @@ class IncidenciaController extends Controller{
           }else{
             $codequipo = '';
           }
-          $fecha = Carbon::now('America/Lima');
+          $fecha = $request->fecha_reporte; //Carbon::now('America/Lima')->format('Y-m-d H:i:s');
           $cliente = $request->lstcliente;
 
           // if($request->lstresponsable!='0'){
@@ -253,7 +253,7 @@ class IncidenciaController extends Controller{
             "cod_incidente" => $codeincidencia,
             "cod_tipoincidente" => $request->lsttipo,
             "cod_subtipoincidente" => $request->lstsubtipo,
-            "fch_reporte" => '',//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), //$request->fecha_reporte,
+            "fch_reporte" => DB::raw("SYSDATETIME()"),//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), //$request->fecha_reporte,
             "cod_cliente" => $request->lstcliente,
             "num_linea" => $request->lstlinea,
             "cod_contacto" => '1',  // Falta definir de donde viene este item..
@@ -263,7 +263,7 @@ class IncidenciaController extends Controller{
             "cod_equipo" => $codequipo,
             "cod_estadoincidente" => $request->lstestado,
             "cod_canalreporte" => $request->lstcanal,
-            "fch_registro" => '',//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), 
+            "fch_registro" => DB::raw("SYSDATETIME()"),//Carbon::now('America/Lima')->format('Y-m-d H:i:s'), 
             "cod_usuarioregistro" => $coduser, 
             "cod_origenregistro" =>  $codorigenreg,
             "cod_responsable" => $request->lstcontacto,

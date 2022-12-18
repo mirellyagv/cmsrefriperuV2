@@ -26,6 +26,9 @@
 <!-- css select2 -->
 <link href="{{asset('assets/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 
+{{-- angular --}}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 <!--<link href="https://www.selectiva.pe/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
 <link href="https://www.selectiva.pe/assets/vendors/select2/dist/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />-->
 
