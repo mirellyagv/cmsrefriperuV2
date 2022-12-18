@@ -141,12 +141,12 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="control-label">Mes</label>
-                                            <select ng-model="month" id="lstfiltrouno" class="form-control"
+                                            <select ng-model="month" id="lstfiltrouno1" class="form-control"
                                                 ng-options="m for m in months"></select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="control-label">Año</label>
-                                            <select ng-model="year" id="lstfiltrouno1" class="form-control"
+                                            <select ng-model="year" id="lstfiltrouno" class="form-control"
                                                 ng-options="y for y in years"></select>
                                         </div>
                                     </div>
@@ -190,9 +190,9 @@
         app.controller('myCtrl', function($scope, $http) {
             $scope.years = [];
             $scope.year = new Date().getFullYear();
-            $scope.months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
-                "Octubre", "Noviembre", "Diciembre"
-            ]
+            $scope.months = [01,02,03,04,05,06,07,08,09,10,11,12];
+            // ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+            //     "Octubre", "Noviembre", "Diciembre"];
             $scope.month = $scope.months[new Date().getMonth()];
 
             for (var i = 0; i < 5; i++) {
@@ -218,17 +218,17 @@
         });
 
         //Hacemos las busquedas por año:
-        $("#lstfiltrouno").change(function() {
-            var anio = $(this).val();
-            var mes = d.getMonth() + 1;
-            console.log('anio',anio,'mes',mes);
+        $("#lstfiltrouno, #lstfiltrouno1").change(function() {
+            var anio = $('#lstfiltrouno').val().split(':');
+            var mes = $('#lstfiltrouno1').val().split(':');
+            //console.log('anio',anio[1],'mes',mes[1]);
             //
             $.ajax({
                 url: "{{ url('incidencia/reporte/estados') }}",
                 type: "get",
                 data: {
-                    "mes": mes,
-                    "anio": anio
+                    "mes": mes[1],
+                    "anio": anio[1]
                 },
                 beforeSend: function() {
                     $("#containeruno").LoadingOverlay("show");
@@ -246,6 +246,7 @@
             });
 
         });
+       
         //
         $("#lstfiltrodos").change(function() {
             var year = $(this).val().split(':');
