@@ -519,22 +519,41 @@ class IncidenciaController extends Controller{
     public function getestadoIncidenciaAnio(Request $request){
       try{
         //Sacamos la cantidad de incidentes pendientes por año
+        //fragmento de mes  AND (DATEPART(mm,fch_reporte)='".$mes."')
+        $mes      = $request->mes;
         $anio     = $request->anio;
-        $totalp   = DB::select(DB::raw("SELECT COUNT(cod_incidente) AS cant_incidentes_pend FROM mtoca_incidente WHERE cod_estadoincidente='001' 
-                              AND DATEPART(yyyy,fch_reporte)='".$anio."'"
-        ));
+        $totalp   = DB::table('mtoca_incidente')
+                    ->select(DB::raw('COUNT(cod_incidente) AS cant_incidentes_pend'))
+                    ->where('cod_estadoincidente','=','001')
+                    ->where(DB::raw('DATEPART(yyyy,fch_reporte)'),'=',$anio)
+                    ->where(DB::raw('DATEPART(mm,fch_reporte)'),'=',$mes)
+                    ->get();
 
-        $totproc  = DB::select(DB::raw("SELECT COUNT(cod_incidente) AS cant_incidentes_proc FROM mtoca_incidente WHERE cod_estadoincidente='002' 
-                              AND DATEPART(yyyy,fch_reporte)='".$anio."'"
-        ));
+        $totproc  = DB::table('mtoca_incidente')
+                  ->select(DB::raw('COUNT(cod_incidente) AS cant_incidentes_proc'))
+                  ->where('cod_estadoincidente','=','002')
+                  ->where(DB::raw('DATEPART(yyyy,fch_reporte)'),'=',$anio)
+                  ->where(DB::raw('DATEPART(mm,fch_reporte)'),'=',$mes)
+                  ->get();
+        
 
-        $totatend = DB::select(DB::raw("SELECT COUNT(cod_incidente) AS cant_incidentes_cerr FROM mtoca_incidente WHERE cod_estadoincidente='003' 
-                              AND DATEPART(yyyy,fch_reporte)='".$anio."'"
-        ));
+        $totatend = DB::table('mtoca_incidente')
+                  ->select(DB::raw('COUNT(cod_incidente) AS cant_incidentes_cerr'))
+                  ->where('cod_estadoincidente','=','003')
+                  ->where(DB::raw('DATEPART(yyyy,fch_reporte)'),'=',$anio)
+                  ->where(DB::raw('DATEPART(mm,fch_reporte)'),'=',$mes)
+                  ->get();
 
-        $totcanc  = DB::select(DB::raw("SELECT COUNT(cod_incidente) AS cant_incidentes_cancel FROM mtoca_incidente WHERE cod_estadoincidente='004' 
-                              AND DATEPART(yyyy,fch_reporte)='".$anio."'"
-        ));
+        
+
+        $totcanc  = DB::table('mtoca_incidente')
+                  ->select(DB::raw('COUNT(cod_incidente) AS cant_incidentes_cancel'))
+                  ->where('cod_estadoincidente','=','004')
+                  ->where(DB::raw('DATEPART(yyyy,fch_reporte)'),'=',$anio)
+                  ->where(DB::raw('DATEPART(mm,fch_reporte)'),'=',$mes)
+                  ->get();
+
+        
 
         $ctotalp  = $totalp[0]->cant_incidentes_pend;
         $ctotproc = $totproc[0]->cant_incidentes_proc;

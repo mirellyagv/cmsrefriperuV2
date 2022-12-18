@@ -146,7 +146,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="control-label">Año</label>
-                                            <select ng-model="year" class="form-control"
+                                            <select ng-model="year" id="lstfiltrouno1" class="form-control"
                                                 ng-options="y for y in years"></select>
                                         </div>
                                     </div>
@@ -221,11 +221,13 @@
         $("#lstfiltrouno").change(function() {
             var anio = $(this).val();
             var mes = d.getMonth() + 1;
+            console.log('anio',anio,'mes',mes);
             //
             $.ajax({
                 url: "{{ url('incidencia/reporte/estados') }}",
                 type: "get",
                 data: {
+                    "mes": mes,
                     "anio": anio
                 },
                 beforeSend: function() {
@@ -247,7 +249,7 @@
         //
         $("#lstfiltrodos").change(function() {
             var year = $(this).val().split(':');
-            console.log(year[1]);
+            //console.log(year[1]);
             //
             $.ajax({
                 url: "{{ url('incidencia/reporte/incidencia') }}",
@@ -273,7 +275,7 @@
         });
 
         //funcion load
-        function loading(anio) {
+        function loading(anio,mes=null) {
             var d = new Date();
             var anio = d.getFullYear(); //sacamos el año actual
             var mes = d.getMonth() + 1;
@@ -326,7 +328,7 @@
                     titulon = datin.title;
                     array = datin.data;
 
-                    console.log(datin);
+                    console.log('datin',datin);
 
                     loadingdhashboardtwo(titulon, anio, array);
                 }
