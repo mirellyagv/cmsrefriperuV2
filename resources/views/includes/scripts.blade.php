@@ -53,6 +53,8 @@
 <script src="{{asset('assets/libs/overlay/loadingoverlay.min.js')}}" type="text/javascript"></script>
 
 <!-- Graficos  -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{{asset('assets/libs/echarts/echarts.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/pages/dashboard.init.js')}}" type="text/javascript"></script>
 
