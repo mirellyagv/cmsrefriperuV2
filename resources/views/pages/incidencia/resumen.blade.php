@@ -339,10 +339,15 @@
 
         function loadingdhashboardone(titulin, anio, arreglo) {
             //Grafico 1:
+            var mes = $('#lstfiltrouno1').val().split(':');
+            var numMes = mes[1]-1;
+            var nomMes = [];
+            nomMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
+
             echarts.init(document.getElementById('containeruno')).setOption({
                 title: {
                     text: titulin,
-                    subtext: 'Mes: Diciembre',
+                    subtext: 'Mes: '+nomMes[numMes],
                     left: 'center'
                 },
                 tooltip: {
