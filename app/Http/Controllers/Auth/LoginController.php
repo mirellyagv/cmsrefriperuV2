@@ -53,7 +53,7 @@ public function login(Request $request){
             ->join('vtade_cliente_direccion_contacto as b','a.cod_cliente','=','b.cod_cliente')    
             ->where('a.cod_tipo_documento','=','DI004')
             ->where('a.dsc_documento','=',$ruc)
-            ->where('b.cod_usuario_reg','=',$user)
+            ->where('b.cod_usuario_web','=',$user)
             ->where('b.cod_clave_web','=',$pwd)
             ->get();
             $msg = $fila[0]->RUC;
