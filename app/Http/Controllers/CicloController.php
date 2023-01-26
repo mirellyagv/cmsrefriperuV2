@@ -66,6 +66,6 @@ class CicloController extends Controller
 
         $role = config('constants.roles_name.cliente');
 
-        return $role;
+        return view('pages.ciclo.index');
     }
 }
