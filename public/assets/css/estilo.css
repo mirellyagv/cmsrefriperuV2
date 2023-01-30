@@ -29,6 +29,13 @@ body{
 .centrado {
     text-align: center;
 }
+.derecha {
+    text-align: right;
+}
+.completo{
+    background-color: #1b562d;
+    color: white;
+}
 
 .navbar-custom{background:#c7c4c4 !important;}
 body[data-layout=horizontal] .navbar-custom .topnav-menu .nav-link{color:#FFF !important;}

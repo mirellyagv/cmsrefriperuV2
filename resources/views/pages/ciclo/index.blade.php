@@ -23,49 +23,49 @@
                                     <div class="col-md-3">
 
                                         <label for="" class="form-label">Año</label>
-                                        <select class="form-select form-select-md" name="" id="">
-                                            <option selected>2023</option>
-                                            <option value="">2020</option>
-                                            <option value="">2021</option>
-                                            <option value="">2022</option>
+                                        <select class="form-select form-select-md" name="anioCiclo" id="anioCiclo" onChange="creaTabla();">
+                                            <option value= "2023" selected>2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-4">
 
                                         <label for="" class="form-label">Desde:</label>
-                                        <select class="form-select form-select-md" name="" id="">
-                                            <option selected>Enero</option>
-                                            <option value="">Febrero</option>
-                                            <option value="">Marzo</option>
-                                            <option value="">Abril</option>
-                                            <option value="">Mayo</option>
-                                            <option value="">Junio</option>
-                                            <option value="">Julio</option>
-                                            <option value="">Agosto</option>
-                                            <option value="">Septiembre</option>
-                                            <option value="">Ortubre</option>
-                                            <option value="">Noviembre</option>
-                                            <option value="">Diciembre</option>
+                                        <select class="form-select form-select-md" name="mesInicio" id="mesInicio" onChange="creaTabla();">
+                                            <option value="1" selected>Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-4">
 
                                         <label for="" class="form-label">Hasta:</label>
-                                        <select class="form-select form-select-md" name="" id="">
-                                            <option selected>Enero</option>
-                                            <option value="">Febrero</option>
-                                            <option value="">Marzo</option>
-                                            <option value="">Abril</option>
-                                            <option value="">Mayo</option>
-                                            <option value="">Junio</option>
-                                            <option value="">Julio</option>
-                                            <option value="">Agosto</option>
-                                            <option value="">Septiembre</option>
-                                            <option value="">Ortubre</option>
-                                            <option value="">Noviembre</option>
-                                            <option value="">Diciembre</option>
+                                        <select class="form-select form-select-md" name="mesFin" id="mesFin" onChange="creaTabla();">
+                                            <option value="1" selected>Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
                                         </select>
                                     </div>
                                     <pre>
@@ -84,11 +84,11 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Sede:</label>
-                                            <select class="form-select form-select-md" name="" id="">
-                                                <option selected>BCP CHORRILLOS</option>
-                                                <option value="">BCP LA MOLINA</option>
-                                                <option value="">BCP MIRAFLORES</option>
-                                                <option value="">BCP SAN ISIDRO</option>
+                                            <select class="form-select form-select-md" name="sedeCiclo" id="sedeCiclo" onChange="creaTabla();">
+                                                <option selected disabled>Seleccione...</option>
+                                                @foreach($listaSede as $list)
+                                                    <option value="{{ $list->num_linea }}">{{ $list->dsc_nombre_direccion }}</option>
+                                                @endforeach 
                                             </select>
                                         </div>
                                     </div>
@@ -185,6 +185,7 @@
                                 <th scope="col">Ubicación</th>
                                 <th scope="col">Total Equipos</th>
                                 <th scope="col">Operatividad</th>
+                                <th scope="col">% Operatividad</th>
                                 <th scope="col">C/Observación</th>
                                 <th scope="col">Ene</th>
                                 <th scope="col">Feb</th>
@@ -212,58 +213,6 @@
 
     </div> <!-- end content -->
 
-    {{-- ---------------------Modal detalle Incidencia------------------------------- --}}
-    <div class="modal fade" id="modalDetalleIncidencia" tabindex="-1" role="dialog"
-        aria-labelledby="modalDetalleIncidenciaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDetalleIncidenciaLabel"></h5>
-                    <h5 class="modal-title" id="EstadoDetalleIncidencia"></h5>
-                    <h5 class="modal-title" id="EstadoDetalleIncidencia"></h5>
-                </div>
-                <div class="modal-body">
-                    <div id="detalleIncidencia-content">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="mb-1 mt-3 text-muted">Equipo</label>
-                                <input type="text" name="equipoIncidencia" id="equipoIncidencia" class="form-control"
-                                    value="" disabled>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="mb-1 mt-3 text-muted">Subtipo</label>
-                                <input type="text" name="subtipoIncidencia" id="subtipoIncidencia"
-                                    class="form-control" value="" disabled>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="mb-1 mt-3 text-muted">Tipo</label>
-                                <input type="text" name="tipoIncidencia" id="tipoIncidencia" class="form-control"
-                                    value="" disabled>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="mb-1 mt-3 text-muted">Detalle</label>
-                                <textarea name="detalleIncidencia" id="detalleIncidencia" rows="4" class="form-control" disabled></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="mb-1 mt-3 text-muted">Fecha de Culminación</label>
-                                <input type="text" name="fchCulminacionIncidencia" id="fchCulminacionIncidencia"
-                                    class="form-control" value="" disabled>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="mb-1 mt-3 text-muted">Responsable</label>
-                                <input type="text" name="responsableIncidencia" id="responsableIncidencia"
-                                    class="form-control" value="" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
@@ -273,89 +222,33 @@
             var key = window.Event ? e.which : e.keyCode
             return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
         }
-        // setLocale('es-mx');
-        // moment.locale('fr');
-        // moment().format('LLLL');
 
-        var minDate, maxDate;
+        $('#sedeCiclo').select2();
 
-        $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
-                //console.log('data',data);
-                var min = minDate.val();
-                var max = maxDate.val();
-                var date = new Date(data[1]);
-
-                if (
-                    (min === null && max === null) ||
-                    (min === null && date <= max) ||
-                    (min <= date && max === null) ||
-                    (min <= date && date <= max)
-                ) {
-                    return true;
-                }
-                return false;
+        function creaTabla(){
+            //Aqui se valida si existe la dTable para reinicializarse...
+            if ($.fn.dataTable.isDataTable('#datatablePrueba')) {
+                $('#datatablePrueba').DataTable().clear();
+                $('#datatablePrueba').DataTable().destroy();        
             }
-        );
-
-        minDate = new DateTime(document.getElementById('min'), {
-            locale: 'es-mx',
-            format: 'DD/MM/YYYY',
-            i18n: {
-                clear: 'Limpiar',
-                previous: 'Anterior',
-                next: 'Proximo',
-                months: [
-                    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
-                    'Octubre', 'Noviembre', 'Diciembre'
-                ]
-            }
-
-        });
-        maxDate = new DateTime(document.getElementById('max'), {
-            locale: 'es-mx',
-            format: 'DD/MM/YYYY',
-            i18n: {
-                clear: 'Limpiar',
-                previous: 'Anterior',
-                next: 'Proximo',
-                months: [
-                    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
-                    'Octubre', 'Noviembre', 'Diciembre'
-                ]
-            }
-        });
-
-        //Definimos la fechas para la busqueda:
-        // var dia = "01";
-        // var date = new Date(); //Se define la fecha actual
-        // var day = date.getDate();
-        // var month = date.getMonth() + 1;
-        // var year = date.getFullYear();
-
-        // if (month < 10) month = "0" + month;
-        // if (day < 10) day = "0" + day;
-
-        // var fini = year + "-" + month + "-" + dia;
-        // var fhoy = year + "-" + month + "-" + day; //Fecha de hoy
-
-        // document.getElementById('fecha_ini').value = fini;
-        // document.getElementById('fecha_hasta').value = fhoy;
-
-        $(document).ready(function() {
-            // Create date inputs
-            // minDate = new DateTime($('#min'), {
-            //     format: 'DD MMM YYYY'
-            // });
-            // maxDate = new DateTime($('#max'), {
-            //     format: 'DD MMM YYYY'
-            // });            
-
+            var sede = $('#sedeCiclo').val();
+            var mesIni = $('#mesInicio').val();
+            var mesFin = $('#mesFin').val();
+            var anio = $('#anioCiclo').val();
+            const valores =  [];
+            valores['sede']=sede;
+            valores['mesIni']=mesIni;
+            valores['mesFin']=mesFin;
+            valores['anio']=anio;
+            //console.log(valores);
+            // var codCliente = "{{$codCliente}}";
+            localStorage.setItem('aa', "{{ url('ciclo/tabla?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
+            console.log(localStorage.getItem('aa'));
             var tabla = $('#datatablePrueba').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
-                dom: 'BPftrip',
+                dom: 'Bftrip',
                 buttons: [{
                     extend: "excel", // Extend the excel button
                     text: 'Excel',
@@ -377,59 +270,77 @@
                         }
                     },
                 }, ],
-
-                searchPanes: {
-                    initCollapsed: true,
-                    i18n: {
-                        //mensaje cuando no hay datos.. 
-                        emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
-                        loadMessage: 'Cargando las opciones de filtros...',
-                        collapseMessage: 'Ocultar Todos',
-                        showMessage: 'Mostrar Todos',
-                        clearMessage: 'Limpiar Filtros',
-                        title: {
-                            _: 'Filtros Seleccionados - %d',
-                            0: 'Sin filtros Activos',
-                            1: 'Un filtro Activo'
-                        }
-                    }
-                },
                 processing: true,
                 // serverSide: true,
                 ajax: {
-                    url: '{{ url('incidencia/listar') }}',
+                    url: localStorage.getItem('aa'),
                     dataSrc: '',
                 },
-                columns: [{
-                        data: 'code'
+                columns: [
+                    {
+                        data: 'dsc_ubicacion'
                     },
                     {
-                        data: 'fech_reporte',
+                        data: 'num_equipo'
                     },
                     {
-                        data: 'nomcliente'
+                        data: 'num_equipo_operativo'
                     },
                     {
-                        data: 'tipo_incidente'
+                        data: 'porcOp'
                     },
                     {
-                        data: 'prioridad'
+                        data: 'num_observaciones'
                     },
                     {
-                        data: 'estado'
+                        data: 'enero'
                     },
                     {
-                        data: 'numpedido',
-                        class: 'centrado'
+                        data: 'febrero'
+                    },
+                    {
+                        data: 'marzo'
+                    },
+                    {
+                        data: 'abril'
+                    },
+                    {
+                        data: 'mayo'
+                    },
+                    {
+                        data: 'junio'
+                    },
+                    {
+                        data: 'julio'
+                    },
+                    {
+                        data: 'agosto'
+                    },
+                    {
+                        data: 'septiembre'
+                    },
+                    {
+                        data: 'octubre'
+                    },
+                    {
+                        data: 'noviembre'
+                    },
+                    {
+                        data: 'diciembre'
+                    },
+                    {
+                        data: 'intervenciones'
+                    },
+                    {
+                        data: 'porcAv'
+                    },
+                    {
+                        data: 'imp_total_ejecucion'
+                    },
+                    {
+                        data: 'imp_total_plan'
                     }
                 ],
-                columnDefs: [{
-                    searchPanes: {
-                        show: true
-                    },
-                    targets: [0, 2, 4, 5]
-                    //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
-                }],
                 rowReorder: false,
                 select: true,
                 responsive: true,
@@ -441,50 +352,8 @@
                 info: true,
                 // rowReorder: true
             });
-
-            // Refilter the table
-            $('#min, #max').on('change', function() {
-                tabla.draw();
-            });
-
-        });
-        // $.fn.dataTable.ext.errMode = 'throw';    
-
-        function verDetalleIncidencia(codigo) {
-            $('#modalDetalleIncidencia').modal('show');
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('incidencia/detalleIncidencia') }}",
-                data: {
-                    'cod_incidente': codigo,
-                },
-                success: function(result) {
-                    var data = result;
-                    $('#modalDetalleIncidenciaLabel').html(`PRIORIDAD - ${data[0]['dsc_prioridad']}`);
-                    $('#EstadoDetalleIncidencia').html(`ESTADO - ${data[0]['dsc_estadoincidente']}`);
-                    $('#equipoIncidencia').val(data[0]['cod_equipo'] + ' - ' + data[0]['dsc_equipo']);
-                    $('#subtipoIncidencia').val(data[0]['dsc_subtipoincidente']);
-                    $('#tipoIncidencia').val(data[0]['dsc_tipoincidente']);
-                    $('#detalleIncidencia').val(data[0]['dsc_detalleincidente']);
-                    $('#fchCulminacionIncidencia').val(data[0]['fch_reporte']);
-                    $('#responsableIncidencia').val(data[0]['cod_responsable']);
-
-                }
-            });
+           
 
         }
-
-        //No se encontraron registros
-        function getEmptyContent(mensaje = "No se encontraron registros") {
-            return "<div class=\"row\" style=\"padding-top: 10px;\">" +
-                "<div class=\"col-12\">" +
-                "<div class=\"alert alert-info text-center\">" + mensaje + "</div>" +
-                "</div>" +
-                "</div>";
-        }
-
-        // $("#btn-agregar").on('click', function() {
-        //     window.location = "{{ url('incidencia/crear') }}";
-        // });
     </script>
 @endpush
