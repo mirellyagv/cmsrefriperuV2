@@ -57,7 +57,7 @@
                             <li class="nav-item">
                                 <a href="#centro" data-toggle="tab" aria-expanded="true" class="nav-link">
                                     <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
-                                    <span class="d-none d-sm-block">Centro de responsabilidad</span>
+                                    <span class="d-none d-sm-block">Supervisor</span>
                                 </a>
                             </li>
                                         
