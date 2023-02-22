@@ -105,6 +105,7 @@
                             <tr>
                                 <th scope="col">Codigo</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Serie</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Sub-tipo</th>
                                 <th scope="col">Marca</th>
@@ -293,6 +294,9 @@
                     },
                     {
                         data : 'nombre'
+                    },
+                    {
+                        data : 'numserie'
                     },
                     {
                         data : 'nomtipo'
