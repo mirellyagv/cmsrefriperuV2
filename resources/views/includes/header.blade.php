@@ -6,7 +6,7 @@
 
                             <a href="index.html" class="logo text-center logo-dark"> 
                                 <span class="logo-lg">
-                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="90">  
+                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="70">  
                                     <!-- <span class="logo-lg-text-dark">Adminox</span> -->
                                 </span>
                                 <span class="logo-sm">
@@ -17,7 +17,7 @@
 
                             <a href="index.html" class="logo text-center logo-light">
                                 <span class="logo-lg">
-                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="90">
+                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="70">
                                     <!-- <span class="logo-lg-text-dark">Adminox</span> -->
                                 </span>
                                 <span class="logo-sm">

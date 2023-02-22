@@ -115,3 +115,7 @@ user-select: none;
 @media only screen and (max-width:500px) {
 .contentgrafico{overflow-x: scroll;}
 }
+
+.table td{
+    line-height: 0%;
+}

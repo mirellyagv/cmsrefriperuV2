@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> CRONOGRAMA DE MANTENIMIENTOS PRUEBA</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> CRONOGRAMA DE MANTENIMIENTOS</h4>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
 
-                                        <label for="" class="form-label">Año prueba</label>
+                                        <label for="" class="form-label">Año</label>
                                         <select class="form-select form-select-md" name="anioCiclo" id="anioCiclo" onChange="creaTabla();">
                                             <option value= "2023" selected>2023</option>
                                             <option value="2022">2022</option>
