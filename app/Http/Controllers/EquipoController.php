@@ -76,9 +76,9 @@ class EquipoController extends Controller{
                      ->join('gsema_tipo_equipo','equipo.cod_tipo_equipo', '=', 'gsema_tipo_equipo.cod_tipo_equipo')
                      ->join('gsema_subtipo_equipo','equipo.cod_subtipo_equipo', '=', 'gsema_subtipo_equipo.cod_subtipo_equipo')
                      ->join('feima_marca_articulo','equipo.cod_marca', '=', 'feima_marca_articulo.cod_marca')
-                     ->leftJoin('feima_modelo_articulo','equipo.cod_modelo', '=', 'feima_modelo_articulo.cod_modelo')
+                     ->leftJoin('gsema_modelo_equipo','equipo.cod_modelo', '=', 'gsema_modelo_equipo.cod_modelo')
                      ->select('equipo.cod_equipo','equipo.dsc_equipo','equipo.cod_tipo_equipo','gsema_tipo_equipo.dsc_tipo_equipo',
-                            'gsema_subtipo_equipo.dsc_subtipo_equipo','feima_marca_articulo.dsc_marca','feima_modelo_articulo.dsc_modelo','equipo.num_serie',
+                            'gsema_subtipo_equipo.dsc_subtipo_equipo','feima_marca_articulo.dsc_marca','gsema_modelo_equipo.dsc_modelo','equipo.num_serie',
                             'equipo.num_parte','equipo.fch_compra','equipo.cod_proveedor','equipo.cod_cliente','equipo.num_pedido');
 
         $total    = $equipos->count();
@@ -132,7 +132,7 @@ class EquipoController extends Controller{
             "nomtipo"     => $item->dsc_tipo_equipo,
             "nomsubtipo"  => $item->dsc_subtipo_equipo,
             "marca"       => $item->dsc_marca,
-            "modelo"      => $model,
+            "modelo"      => $item->dsc_modelo,
             "numserie"    => $item->num_serie,
             "numparte"    => $item->num_parte,
             "fechacompra" => $item->fch_compra,
