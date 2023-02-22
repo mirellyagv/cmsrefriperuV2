@@ -45,7 +45,7 @@ class EquipoController extends Controller{
                    ->select('marca.cod_marca', 'marca.dsc_marca','marca.flg_activo')
                    ->get();
 
-        $modelos = DB::table('feima_modelo_articulo as modelo')
+        $modelos = DB::table('gsema_modelo_equipo as modelo')
                    ->select('modelo.cod_modelo','modelo.dsc_modelo','modelo.flg_activo')
                    ->get();
 
