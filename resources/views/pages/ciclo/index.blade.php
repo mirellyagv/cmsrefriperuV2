@@ -183,9 +183,9 @@
                         <thead class="headtable">
                             <tr>
                                 <th scope="col">Ubicación</th>
-                                <th scope="col">Total Equipos</th>
+                                <th scope="col" style="text-align: center !important">Total Equipos</th>
                                 <th scope="col">Operatividad</th>
-                                <th scope="col">% Operatividad</th>
+                                <th scope="col" style="text-align: center !important">% Operatividad</th>
                                 <th scope="col">C/Observación</th>
                                 <th scope="col">Ene</th>
                                 <th scope="col">Feb</th>
@@ -199,10 +199,10 @@
                                 <th scope="col">Oct</th>
                                 <th scope="col">Nov</th>
                                 <th scope="col">Dic</th>
-                                <th scope="col">Total Intervenciones</th>
+                                <th scope="col" style="text-align: center !important">Total Intervenciones</th>
                                 <th scope="col">Avance</th>
-                                <th scope="col">Total Ejecutado</th>
-                                <th scope="col">Total Programado</th>
+                                <th scope="col" style="text-align: center !important">Total Ejecutado</th>
+                                <th scope="col" style="text-align: center !important">Total Programado</th>
                             </tr>
                         </thead>
                     </table>
@@ -281,16 +281,20 @@
                         data: 'dsc_ubicacion'
                     },
                     {
-                        data: 'num_equipo'
+                        data: 'num_equipo',
+                        class: 'derecha'
                     },
                     {
-                        data: 'num_equipo_operativo'
+                        data: 'num_equipo_operativo',
+                        class: 'derecha'
                     },
                     {
-                        data: 'porcOp'
+                        data: 'porcOp',
+                        class: 'derecha'
                     },
                     {
-                        data: 'num_observaciones'
+                        data: 'num_observaciones',
+                        class: 'derecha'
                     },
                     {
                         data: 'enero'
@@ -332,13 +336,16 @@
                         data: 'intervenciones'
                     },
                     {
-                        data: 'porcAv'
+                        data: 'porcAv',
+                        class: 'derecha'
                     },
                     {
-                        data: 'imp_total_ejecucion'
+                        data: 'imp_total_ejecucion',
+                        class: 'derecha'
                     },
                     {
-                        data: 'imp_total_plan'
+                        data: 'imp_total_plan',
+                        class: 'derecha'
                     }
                 ],
                 rowReorder: false,

@@ -15,7 +15,7 @@
                                 <div class="account-logo-box">
                                     <div class="text-center">
                                         <a href="index.html">
-                                            <img src="{{ asset('assets/images/logo-refriperu.png') }}" alt="" height="50"> 
+                                            <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="90"> 
                                         </a>
                                     </div>
                                     <!--<h5 class="text-uppercase mb-1 mt-4">Sign In</h5>-->

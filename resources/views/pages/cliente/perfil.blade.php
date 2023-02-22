@@ -251,7 +251,7 @@
         var body = '';
         var correo,cargo;
 
-        body +='<table id="tablecontacto" class="table table-bordered  dt-responsive nowrap" style="border-collapse:collapse; border-spacing: 0; width: 100%;">' +
+        body +='<table id="tablecontacto" class="table table-bordered  dt-responsive nowrap" style="border-collapse:collapse; border-spacing: 0; width: 100%; ">' +
                '<thead>' +
                '<tr class="headtable">' +
                '<th>N°</th>' +

@@ -1,6 +1,71 @@
 <!-- Topbar Start -->
 <div class="navbar-custom">
                     <div class="container-fluid">
+                         <!-- LOGO -->
+                         <div class="logo-box">
+
+                            <a href="index.html" class="logo text-center logo-dark"> 
+                                <span class="logo-lg">
+                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="90">  
+                                    <!-- <span class="logo-lg-text-dark">Adminox</span> -->
+                                </span>
+                                <span class="logo-sm">
+                                    <!-- <span class="logo-lg-text-dark">A</span> -->
+                                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="24">
+                                </span>
+                            </a>
+
+                            <a href="index.html" class="logo text-center logo-light">
+                                <span class="logo-lg">
+                                    <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="90">
+                                    <!-- <span class="logo-lg-text-dark">Adminox</span> -->
+                                </span>
+                                <span class="logo-sm">
+                                    <!-- <span class="logo-lg-text-dark">A</span> -->
+                                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="24">
+                                </span>
+                            </a>
+                        </div>
+                        
+                        <ul class="navigation-menu topnav-menu">
+                            
+                            <li class="has-submenu">
+                                <a href="#"></a>
+                            </li>
+
+                            @if(RoleHelper::hasAnyRole(config('constants.roles_name.cliente')))
+                                <li class="has-submenu">
+                                <a href="{{url('cliente/perfil')}}"><i class="fe-user"></i>Perfil de cliente</a>
+                                </li>
+                            @endif
+
+                            <li class="has-submenu">
+                                <a href="#"> <i class="fe-airplay"></i>Equipos</a>
+                                <ul class="submenu">
+                                    <li><a href="{{url('equipo')}}">Listado de equipos</a></li>
+                                    <!--<li><a href="index.html">Agregar equipos</a></li>-->
+                                    <li><a href="{{url('equipo/detalle')}}">Listado de ubicaciones</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="#"> <i class="fe-file-text"></i>Incidentes</a>
+                                <ul class="submenu">
+                                    <li><a href="{{url('incidencia')}}">Listado de incidentes</a></li>
+                                    {{-- <li><a href="{{url('incidencia/crear')}}">Agregar incidente</a></li> --}}
+                                    <li><a href="{{url('incidencia/resumen')}}">Resumen de incidentes</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="#"> <i class="fe-box"></i>Procesos</a>
+                                <ul class="submenu">
+                                    <li><a href="{{url('ciclo/procedure')}}">Cronograma de mantenimiento</a></li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+
                         <ul class="list-unstyled topnav-menu float-right mb-0">
 
                             <li class="dropdown notification-list">
@@ -136,7 +201,8 @@
                                     </a>
 
                                 </div>
-                            </li> --}}
+                            </li> --}} 
+                            
     
                             <li class="dropdown notification-list"> 
                                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -181,31 +247,7 @@
 
                         </ul>
     
-                        <!-- LOGO -->
-                        <div class="logo-box">
-
-                            <a href="index.html" class="logo text-center logo-dark"> 
-                                <span class="logo-lg">
-                                    <img src="{{ asset('assets/images/logo_refriperu.png') }}" alt="" height="40">  
-                                    <!-- <span class="logo-lg-text-dark">Adminox</span> -->
-                                </span>
-                                <span class="logo-sm">
-                                    <!-- <span class="logo-lg-text-dark">A</span> -->
-                                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="24">
-                                </span>
-                            </a>
-
-                            <a href="index.html" class="logo text-center logo-light">
-                                <span class="logo-lg">
-                                    <img src="{{ asset('assets/images/logo_refriperu.png') }}" alt="" height="40">
-                                    <!-- <span class="logo-lg-text-dark">Adminox</span> -->
-                                </span>
-                                <span class="logo-sm">
-                                    <!-- <span class="logo-lg-text-dark">A</span> -->
-                                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="24">
-                                </span>
-                            </a>
-                        </div>
+                       
     
                         {{-- <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                 
