@@ -22,7 +22,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
 
-                                        <label for="" class="form-label">Año</label>
+                                        <label for="" class="form-label">Año prueba</label>
                                         <select class="form-select form-select-md" name="anioCiclo" id="anioCiclo" onChange="creaTabla();">
                                             <option value= "2023" selected>2023</option>
                                             <option value="2022">2022</option>
