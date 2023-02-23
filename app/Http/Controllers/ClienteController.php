@@ -126,9 +126,10 @@ class ClienteController extends Controller
                           ->join('vtama_departamento','clidir.cod_departamento', '=', 'vtama_departamento.cod_departamento')
                           ->join('vtama_provincia','clidir.cod_provincia', '=', 'vtama_provincia.cod_provincia')
                           ->join('vtama_distrito','clidir.cod_distrito', '=', 'vtama_distrito.cod_distrito')
-                          ->select('clidir.cod_cliente','clidir.num_linea', 'clidir.dsc_direccion','clidir.dsc_referencia','vtama_pais.dsc_pais as pais',
+                          ->join('vtama_tipo_direccion','clidir.cod_tipo_direccion', '=', 'vtama_tipo_direccion.cod_tipo_direccion')
+                          ->select('clidir.cod_cliente','clidir.num_linea', 'clidir.dsc_cadena_direccion','clidir.dsc_nombre_direccion','vtama_pais.dsc_pais as pais',
                                    'vtama_departamento.dsc_departamento as departamento','vtama_provincia.dsc_provincia as provincia',
-                                   'vtama_distrito.dsc_distrito as distrito','clidir.cod_tipo_direccion','clidir.dsc_telefono_1')
+                                   'vtama_distrito.dsc_distrito as distrito','vtama_tipo_direccion.dsc_tipo_direccion','clidir.dsc_telefono_1')
                           ->where('clidir.cod_cliente', '=', $idcli )
                           ->where('clidir.flg_plan_activo', 'like', '%SI%')
                           ->orderBy('clidir.dsc_direccion')
@@ -141,14 +142,14 @@ class ClienteController extends Controller
               array_push($data, [
                 "codcliente"   => $item->cod_cliente,
                 "numlinea"     => $item->num_linea,
-                "direccion"    => $item->dsc_direccion,
-                "referencia"   => $item->dsc_referencia,
+                "direccion"    => $item->dsc_cadena_direccion,
                 "pais"         => $item->pais,
                 "departamento" => $item->departamento,
                 "provincia"    => $item->provincia,
                 "distrito"     => $item->distrito,
-                "codtipodir"   => $item->cod_tipo_direccion,
-                "telefono"     => $item->dsc_telefono_1
+                "tipo"         => $item->dsc_tipo_direccion,
+                "telefono"     => $item->dsc_telefono_1,
+                "localidad"     => $item->dsc_nombre_direccion
               ]);
             }
 
