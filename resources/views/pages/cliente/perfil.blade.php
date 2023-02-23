@@ -345,15 +345,15 @@
     function getDireccionTable(items){
         var k = 1;
         var html = '';
-        var ubicacion,referencia,direccion,codtipo,telefono;
+        var ubicacion,localidad,direccion,tipo,telefono;
 
         html +='<table id="tabledireccion" class="table table-bordered  dt-responsive nowrap" style="border-collapse:collapse; border-spacing: 0; width: 100%;">' +
                '<thead>' +
                '<tr class="headtable">' +
                '<th>N°</th>' +
-               '<th>Dirección</th>' +
-               '<th>Referencia</th>' +
                '<th>Tipo</th>' +
+               '<th>Localidad</th>' +
+               '<th>Dirección</th>' +
                '<th>Ubicacion</th>' +
                '<th>Teléfono</th>' +
             //    '<th>Detalle</th>' +
@@ -363,10 +363,10 @@
 
         $.each(items, function (index, value){
 
-        if(value.referencia!=null){
-            referencia = value.referencia;
+        if(value.localidad!=null){
+            localidad = value.localidad;
         }else{
-            referencia = '';
+            localidad = '';
         }
 
         if(value.direccion!=null){
@@ -375,10 +375,10 @@
             direccion = '';
         }
 
-        if(value.codtipodir!=null){
-            codtipo = value.codtipodir;
+        if(value.tipo!=null){
+            tipo = value.tipo;
         }else{
-            codtipo = '';
+            tipo = '';
         }
 
         if(value.telefono!=null){
@@ -391,9 +391,9 @@
 
         html += '<tr>' +
                 '<td><a class="urlicon" title="ver detalle" href="javascript::void(0)" onclick="verdetalle(' + "'" + value.codcliente + "'" + ',' + "'" + value.numlinea + "'" + ')">' + k + '</a></td>' +
+                '<td>' + tipo + '</td>' +
+                '<td>' + localidad + '</td>' +
                 '<td>' + direccion + '</td>' +
-                '<td>' + referencia + '</td>' +
-                '<td>' + codtipo + '</td>' +
                 '<td>' + ubicacion + '</td>' +
                 '<td>' + telefono + '</td>' +
             //     '<td style="text-align:center;">' +
