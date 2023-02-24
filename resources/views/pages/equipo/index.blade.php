@@ -241,7 +241,7 @@
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
-                dom: 'BPftrip',
+                dom: '<"top"fBl>Ptrip',
                 buttons: [
                         {
                             extend: "excel",                    // Extend the excel button
@@ -318,6 +318,7 @@
                 rowReorder: false,
                 select:true,
                 responsive: true,
+                scrollX:true,
                 filter: true,
                 lengthChange: true,
                 ordering: false,
