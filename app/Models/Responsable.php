@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Responsable extends Model
 {
+    public $primaryKey = 'cod_trabajador';
     protected $table = 'rhuma_trabajador';
 
     protected $fillable = [
