@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#centro" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                <a href="#supervisor" data-toggle="tab" aria-expanded="true" class="nav-link">
                                     <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
                                     <span class="d-none d-sm-block">Supervisor</span>
                                 </a>
@@ -66,8 +66,14 @@
                             <div class="tab-pane show active" id="contacto">
                                 <div id="contactos-content"></div>                    
                             </div>
-                            <div class="tab-pane" id="centro">
-                                <div id="centro-content"></div>                
+                            <div class="tab-pane" id="supervisor">
+                                <div id="supervisor-content"></div>  
+                                <label class="mb-1 mt-3 text-muted">Supervisor</label>
+                                <input type="text" name="supervisor" id="supervisor" class="form-control" value="{{$clienteDir->dsc_nombres}}" disabled/>    
+                                <label class="mb-1 mt-3 text-muted">Correo</label>
+                                <input type="text" name="correosup" id="correosup" class="form-control" value="{{$clienteDir->dsc_correo_supervisor}}" disabled/>    
+                                <label class="mb-1 mt-3 text-muted">Teléfono</label>
+                                <input type="text" name="telefonosup" id="telefonosup" class="form-control" value="{{$clienteDir->dsc_telefono_supervisor}}" disabled/>    
                             </div>    
                         </div>
                         
@@ -170,44 +176,9 @@
             }
         });
 
-        //2do ajax: Listado de centros
-        $.ajax({
-            type: "GET",
-            url:  "{{url('cliente/centro_responsabilidad')}}",
-            data: {
-                  "codecli": codigocli,
-            },
-            beforeSend:function(){
-                $("#centro-content").LoadingOverlay("show");
-            },
-            complete:function(){
-                $("#centro-content").LoadingOverlay("hide");
-            },
-            success:function(result){
-                var data = result;
-                //console.log(data.items.length);
-                if(data.items.length > 0){
-                    $("#centro-content").html(getCentroResponsabilidadTable(data.items));
+      
 
-                    $("#tablecentro").DataTable({
-                        responsive: true,
-                        filter: false,
-                        lengthChange: true,
-                        ordering: false,
-                        orderMulti: false,
-                        paging : true,
-                        info: true,
-                        language:{
-                          "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                        }
-                    });
-                }else{
-                    $("#centro-content").html(getEmptyContent());
-                }
-            }
-        });
-
-        //3er ajax: Listado de clientes-dirección
+        //2do ajax: Listado de clientes-dirección
         $.ajax({
             type: "GET",
             url:  "{{url('cliente/direccion')}}",
@@ -291,55 +262,6 @@
                 '</table>';
         
         return body;          
-    }
-
-    function getCentroResponsabilidadTable(items){
-        var i = 1;
-        var html = '';
-        var centro,estado;
-
-        html +='<table id="tablecentro" class="table table-bordered  dt-responsive nowrap" style="border-collapse:collapse; border-spacing: 0; width: 100%;">' +
-               '<thead>' +
-               '<tr class="headtable">' +
-               '<th>N°</th>' +
-               '<th>Codigo</th>' +
-               '<th>Nombre</th>' +
-               '<th>Estado</th>' +
-               '<th>Centro Superior</th>' +
-               '</tr>' +
-               '</thead>' +
-               '<tbody>';
-
-        $.each(items, function (index, value){
-
-        if(value.nom_centro!=null){
-            centro = value.nom_centro;
-        }else{
-            centro = '';
-        }
-
-        if(value.estado!=null){
-            estado = value.estado;
-        }else{
-            estado = '';
-        }
-
-        html += '<tr>' +
-                '<td>' + i + '</td>' +
-                '<td>' + value.cod_centro + '</td>' +
-                '<td>' + centro + '</td>' +
-                '<td>' + estado + '</td>' +
-                '<td>' + value.code_sup + '</td>' +
-                '</tr>';
-
-        i++;
-
-        });
-
-        html += '</tbody>' +
-                '</table>';
-        
-        return html;
     }
 
     function getDireccionTable(items){
