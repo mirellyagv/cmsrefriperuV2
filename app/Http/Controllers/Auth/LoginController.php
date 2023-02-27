@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Cache\RateLimiter;
-
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -48,18 +48,19 @@ public function login(Request $request){
             break;
         
         default:
-            $fila = DB::table('vtama_cliente as a')
-            ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web','b.num_linea','c.cod_responsable_cuenta')
-            ->join('vtade_cliente_direccion_contacto as b','a.cod_cliente','=','b.cod_cliente')    
-            ->join('vtade_cliente_direccion as c','c.cod_cliente','=','b.cod_cliente' )  
-            ->where('c.num_linea','=','b.num_linea')   
-            ->where('a.cod_tipo_documento','=','DI004')
-            ->where('a.dsc_documento','=',$ruc)
-            ->where('b.cod_usuario_web','=',$user)
-            ->where('b.cod_clave_web','=',$pwd)
-            ->get();
-            $msg = $fila[0]->RUC;
-            break;
+        $fila = DB::table('vtama_cliente as a')
+        ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web','b.num_linea','c.cod_responsable_cuenta')
+        ->join('vtade_cliente_direccion_contacto as b','a.cod_cliente','=','b.cod_cliente')
+        ->join('vtade_cliente_direccion as c', function (JoinClause $join) {
+            $join->on('c.cod_cliente', '=', 'b.cod_cliente')->on('b.num_linea','=','c.num_linea');
+        })
+        ->where('a.cod_tipo_documento','=','DI004')
+        ->where('a.dsc_documento','=',$ruc)
+        ->where('b.cod_usuario_web','=',$user)
+        ->where('b.cod_clave_web','=',$pwd)
+        ->get();
+        $msg = $fila[0]->RUC;
+        break;
     };
 
     $num  = sizeof($fila);   
