@@ -49,9 +49,10 @@ public function login(Request $request){
         
         default:
             $fila = DB::table('vtama_cliente as a')
-            ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web','b.num_linea')
+            ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web','b.num_linea','c.cod_responsable_cuenta')
             ->join('vtade_cliente_direccion_contacto as b','a.cod_cliente','=','b.cod_cliente')    
-            
+            ->join('vtade_cliente_direccion as c','c.cod_cliente','=','b.cod_cliente' )  
+            ->where('c.num_linea','=','b.num_linea')   
             ->where('a.cod_tipo_documento','=','DI004')
             ->where('a.dsc_documento','=',$ruc)
             ->where('b.cod_usuario_web','=',$user)
