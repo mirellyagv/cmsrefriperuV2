@@ -15,6 +15,7 @@ use App\Models\ClienteCentroResponsabilidad;
 use App\Models\ClienteDireccion;
 use App\Models\ClienteDireccionContacto;
 use App\Models\UbicacionDireccion;
+use App\Models\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -40,12 +41,15 @@ class ClienteController extends Controller
 
     
     public function getClientePerfil(Request $request){
-
+        
         $codcli  = $request->session()->get('cod_cli'); 
+        $supervisor  = $request->session()->get('supervisor'); 
+
         $cliente = Cliente::where('cod_cliente', $codcli)->firstOrFail();
         $clientePlus = ClienteDireccionContacto::where('cod_cliente',$codcli)->firstOrFail();
-        
-        return view('pages.cliente.perfil',compact('cliente','codcli','clientePlus'));
+        $clienteDir = Responsable :: where('cod_trabajador',$supervisor)->firstOrFail();
+
+        return view('pages.cliente.perfil',compact('cliente','codcli','clientePlus','clienteDir'));
 
     }
 
