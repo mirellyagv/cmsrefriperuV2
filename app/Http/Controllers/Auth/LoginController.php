@@ -49,8 +49,9 @@ public function login(Request $request){
         
         default:
             $fila = DB::table('vtama_cliente as a')
-            ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web')
+            ->select('a.cod_cliente as Codigo', 'a.dsc_documento as RUC', 'b.cod_usuario_reg', 'b.cod_usuario_web','b.num_linea')
             ->join('vtade_cliente_direccion_contacto as b','a.cod_cliente','=','b.cod_cliente')    
+            
             ->where('a.cod_tipo_documento','=','DI004')
             ->where('a.dsc_documento','=',$ruc)
             ->where('b.cod_usuario_web','=',$user)
@@ -68,11 +69,13 @@ public function login(Request $request){
         //Se hace la validacion de los roles
         if($rol=='1'){              //Cliente
             //Se captura la data:
-            $code    = $fila[0]->Codigo;            //Codigo de cliente
-            $ruc_ses = $fila[0]->RUC;               //Ruc de cliente
-            $coduser = $fila[0]->cod_usuario_reg;   //Cod. usuario registrado  
-            $usuario = $fila[0]->cod_usuario_web;   //Cod. usuario web
-            
+            $code       = $fila[0]->Codigo;                  //Codigo de cliente
+            $ruc_ses    = $fila[0]->RUC;                     //Ruc de cliente
+            $coduser    = $fila[0]->cod_usuario_reg;         //Cod. usuario registrado  
+            $usuario    = $fila[0]->cod_usuario_web;         //Cod. usuario web
+            $sede       = $fila[0]->num_linea;               //Cod. Sede
+            $supervisor = $fila[0]->cod_responsable_cuenta;  //Cod. resposanble cuenta
+
             //Se debe crear la session...
             $request->session()->regenerate();
 
@@ -83,6 +86,8 @@ public function login(Request $request){
             Session::put('coduser_reg', $coduser);
             Session::put('usuario', $usuario);
             Session::put('numeruc', $ruc_ses);
+            Session::put('sede', $sede);
+            Session::put('supervisor', $supervisor);
 
             Session::put('rol', 'Cliente');
 
