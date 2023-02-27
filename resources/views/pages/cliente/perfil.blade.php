@@ -69,11 +69,11 @@
                             <div class="tab-pane" id="supervisor">
                                 <div id="supervisor-content"></div>  
                                 <label class="mb-1 mt-3 text-muted">Supervisor</label>
-                                <input type="text" name="supervisor" id="supervisor" class="form-control" value="{{$clienteDir->dsc_nombres}}" disabled/>    
+                                <input type="text" name="supervisor" id="supervisor" class="form-control" value="{{$clienteDir->dsc_nombres}} {{$clienteDir->dsc_apellido_paterno}} {{$clienteDir->dsc_apellido_materno}}" disabled/>    
                                 <label class="mb-1 mt-3 text-muted">Correo</label>
-                                <input type="text" name="correosup" id="correosup" class="form-control" value="{{$clienteDir->dsc_correo_supervisor}}" disabled/>    
+                                <input type="text" name="correosup" id="correosup" class="form-control" value="{{$clienteDir->dsc_mail}}" disabled/>    
                                 <label class="mb-1 mt-3 text-muted">Teléfono</label>
-                                <input type="text" name="telefonosup" id="telefonosup" class="form-control" value="{{$clienteDir->dsc_telefono_supervisor}}" disabled/>    
+                                <input type="text" name="telefonosup" id="telefonosup" class="form-control" value="{{$clienteDir->dsc_telefono_1}}" disabled/>    
                             </div>    
                         </div>
                         
