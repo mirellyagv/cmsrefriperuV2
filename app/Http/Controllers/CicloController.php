@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\Ciclo;
 use App\Models\Incidencia;
+use App\Models\Cliente;
 use App\Http\Controllers\IncidenciaController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 
 class CicloController extends Controller
@@ -38,9 +40,10 @@ class CicloController extends Controller
                   ->get();
 
         //Sacamos el total de incidedentes
-        $ctotal   = IncidenciaController::totalIncidencias();       
+        $ctotal   = IncidenciaController::totalIncidencias();   
+        $cliente  = Cliente::where('cod_cliente', $codCliente)->firstOrFail();         
 
-        return view('pages.ciclo.index',compact('listado','ctotal','codCliente'));
+        return view('pages.ciclo.index',compact('listado','ctotal','codCliente','cliente'));
     }
 
     public function getProcedmiento(Request $Request){
@@ -50,7 +53,7 @@ class CicloController extends Controller
       $mesFin = $Request->mesFin;
       $anio = $Request->anio;
 
-          $fila = DB::select('EXEC usp_Consultar_ProgramacionTrabajo ?,?,?,?,?,?,?,?,?,?,?',[1,'CLI0000364',$sede,'','',$anio,'','','',$mesIni,$mesFin]);
+          $fila = DB::select('EXEC usp_Consultar_ProgramacionTrabajo ?,?,?,?,?,?,?,?,?,?,?',[1,'CLI0000364',$sede,'',$anio,'','','',0,$mesIni,$mesFin]);
 
           foreach ($fila as $key) {
             if($key->num_equipo != 0){
@@ -58,21 +61,21 @@ class CicloController extends Controller
             } else{
               $key->porcOp = '100%';
             }
-            $key->enero = $key->enero.'/'.$key->enero_t;
-            $key->febrero = $key->febrero.'/'.$key->febrero_t;
-            $key->marzo = $key->marzo.'/'.$key->marzo_t;
-            $key->abril = $key->abril.'/'.$key->abril_t;
-            $key->mayo = $key->mayo.'/'.$key->mayo_t;
-            $key->junio = $key->junio.'/'.$key->junio_t;
-            $key->julio = $key->julio.'/'.$key->julio_t;
-            $key->agosto = $key->agosto.'/'.$key->agosto_t;
-            $key->septiembre = $key->septiembre.'/'.$key->septiembre_t;
-            $key->octubre = $key->octubre.'/'.$key->octubre_t;
-            $key->noviembre = $key->noviembre.'/'.$key->noviembre_t;
-            $key->diciembre = $key->diciembre.'/'.$key->diciembre_t;
-            $key->intervenciones = $key->num_programado.'/'.$key->num_intervenciones;
+            $key->enero = $key->enero_t.'/'.$key->enero;
+            $key->febrero = $key->febrero_t.'/'.$key->febrero;
+            $key->marzo = $key->marzo_t.'/'.$key->marzo;
+            $key->abril = $key->abril_t.'/'.$key->abril;
+            $key->mayo = $key->mayo_t.'/'.$key->mayo;
+            $key->junio = $key->junio_t.'/'.$key->junio;
+            $key->julio = $key->julio_t.'/'.$key->julio;
+            $key->agosto = $key->agosto_t.'/'.$key->agosto;
+            $key->septiembre = $key->septiembre_t.'/'.$key->septiembre;
+            $key->octubre = $key->octubre_t.'/'.$key->octubre;
+            $key->noviembre = $key->noviembre_t.'/'.$key->noviembre;
+            $key->diciembre = $key->diciembre_t.'/'.$key->diciembre;
+            $key->intervenciones = $key->total_t.'/'.$key->num_programado;
             if($key->num_programado != 0){
-              $key->porcAv = round(($key->num_intervenciones*100)/$key->num_programado,2).'%';
+              $key->porcAv = round(($key->total_t*100)/$key->num_programado,0).'%';
             } else{
               $key->porcAv = '100%';
             }
