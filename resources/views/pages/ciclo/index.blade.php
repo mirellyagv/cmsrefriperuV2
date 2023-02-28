@@ -54,7 +54,7 @@
 
                                         <label for="" class="form-label">Hasta:</label>
                                         <select class="form-select form-select-md" name="mesFin" id="mesFin" onChange="creaTabla();">
-                                            <option value="1" selected>Enero</option>
+                                            <option value="1" selected>Diciembre</option>
                                             <option value="2">Febrero</option>
                                             <option value="3">Marzo</option>
                                             <option value="4">Abril</option>
@@ -71,11 +71,11 @@
                                     <pre>
                                     </pre>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="dsc_razon_social">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cliente</label>
                                             <input type="text" @disabled(true) class="form-control"
-                                                name="" value="BANCO DE CREDITO DEL PERÚ" id=""
+                                                name="dsc_razon_social" value="BANCO DE CREDITO" id="dsc_razon_social"
                                                 aria-describedby="helpId" placeholder="">
                                             {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
                                         </div>
@@ -182,11 +182,11 @@
                     <table id="datatablePrueba" class="table  table-bordered">
                         <thead class="headtable">
                             <tr>
-                                <th scope="col">Ubicación</th>
-                                <th scope="col" style="text-align: center !important">Total Equipos</th>
-                                <th scope="col">Operatividad</th>
-                                <th scope="col" style="text-align: center !important">% Operatividad</th>
-                                <th scope="col">C/Observación</th>
+                                <th scope="col">Ubicaciones</th>
+                                <th scope="col" style="text-align: center !important">Equipos</th>
+                                <th scope="col">Ope</th>
+                                <th scope="col" style="text-align: center !important">% Ope</th>
+                                <th scope="col">C/Obs</th>
                                 <th scope="col">Ene</th>
                                 <th scope="col">Feb</th>
                                 <th scope="col">Mar</th>
@@ -199,10 +199,9 @@
                                 <th scope="col">Oct</th>
                                 <th scope="col">Nov</th>
                                 <th scope="col">Dic</th>
-                                <th scope="col" style="text-align: center !important">Total Intervenciones</th>
+                                <th scope="col" style="text-align: center !important">Total</th>
                                 <th scope="col">Avance</th>
-                                <th scope="col" style="text-align: center !important">Total Ejecutado</th>
-                                <th scope="col" style="text-align: center !important">Total Programado</th>
+                                <th scope="col" style="text-align: center !important">Costo</th>
                             </tr>
                         </thead>
                     </table>
@@ -222,7 +221,9 @@
             var key = window.Event ? e.which : e.keyCode
             return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
         }
-
+        
+        
+      
         $('#sedeCiclo').select2();
 
         function creaTabla(){
@@ -343,10 +344,6 @@
                         data: 'imp_total_ejecucion',
                         class: 'derecha'
                     },
-                    {
-                        data: 'imp_total_plan',
-                        class: 'derecha'
-                    }
                 ],
                 rowReorder: false,
                 select: true,
@@ -355,7 +352,7 @@
                 lengthChange: true,
                 ordering: false,
                 orderMulti: false,
-                paging: true,
+                paging: false,
                 info: true,
                 // rowReorder: true
             });
