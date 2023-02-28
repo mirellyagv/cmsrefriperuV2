@@ -75,7 +75,7 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cliente</label>
                                             <input type="text" @disabled(true) class="form-control"
-                                                name="dsc_razon_social" value="BANCO DE CREDITO" id="dsc_razon_social"
+                                                name="dsc_razon_social" value="{{$cliente->dsc_razon_social}}"
                                                 aria-describedby="helpId" placeholder="">
                                             {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
                                         </div>
