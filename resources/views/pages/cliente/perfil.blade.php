@@ -179,7 +179,7 @@
       
 
         //2do ajax: Listado de clientes-dirección
-        $.ajax({
+        $.ajax( {
             type: "GET",
             url:  "{{url('cliente/direccion')}}",
             data: {
