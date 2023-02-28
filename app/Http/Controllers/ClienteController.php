@@ -53,6 +53,7 @@ class ClienteController extends Controller
 
     }
 
+
     public function getContactoCliente(Request $request){
         try{
             $codecli    = $request->codcli;
