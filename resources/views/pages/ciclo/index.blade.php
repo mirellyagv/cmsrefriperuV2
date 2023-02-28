@@ -71,13 +71,10 @@
                                     <pre>
                                     </pre>
 
-                                    <div class="col-md-6" id="dsc_razon_social">
+                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cliente</label>
-                                            <input type="text" @disabled(true) class="form-control"
-                                                name="dsc_razon_social" value="BANCO DE CREDITO" id="dsc_razon_social"
-                                                aria-describedby="helpId" placeholder="">
-                                            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
+                                            <input type="text" name="dsc_razon_social" id="dsc_razon_social" class="form-control" value="{{$cliente->dsc_razon_social}}" disabled/>    
                                         </div>
                                     </div>
 
@@ -216,14 +213,13 @@
 
 @push('scripts')
     <script type="text/javascript">
+
         //solo numeros
         function soloNumeros(e) {
             var key = window.Event ? e.which : e.keyCode
             return ((key >= 48 && key <= 57) || (key == 8) || (key == 45))
         }
         
-        
-      
         $('#sedeCiclo').select2();
 
         function creaTabla(){
