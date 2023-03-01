@@ -34,7 +34,7 @@ Route::group(['middleware' => 'autenticado'], function (){
   Route::get('/home','ClienteController@getClientePerfil');
 
   Route::prefix('ciclo')->group(function (){
-	   Route::get('cliente', 'CicloController@getIndexCiclo');
+	   Route::get('incidencia', 'CicloController@getIndexCiclo');
      Route::get('procedure','CicloController@getDetalleEquipo');
      Route::get('tabla{sede?}{mesIni?}{mesFin?}{anio?}','CicloController@getProcedmiento');
 	});
