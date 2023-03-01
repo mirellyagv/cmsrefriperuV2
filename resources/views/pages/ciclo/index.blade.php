@@ -54,7 +54,7 @@
 
                                         <label for="" class="form-label">Hasta:</label>
                                         <select class="form-select form-select-md" name="mesFin" id="mesFin" onChange="creaTabla();">
-                                            <option value="1" selected>Diciembre</option>
+                                            <option value="1">Enero</option>
                                             <option value="2">Febrero</option>
                                             <option value="3">Marzo</option>
                                             <option value="4">Abril</option>
@@ -65,7 +65,7 @@
                                             <option value="9">Septiembre</option>
                                             <option value="10">Octubre</option>
                                             <option value="11">Noviembre</option>
-                                            <option value="12">Diciembre</option>
+                                            <option value="12" selected >Diciembre</option>
                                         </select>
                                     </div>
                                     <pre>
@@ -74,7 +74,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cliente</label>
-                                            <input type="text" name="dsc_razon_social" id="dsc_razon_social" class="form-control" value="{{$cliente->dsc_razon_social}}" disabled/>    
+                                            <input type="text" name="dsc_razon_social" id="dsc_razon_social" class="form-control" value="BANCO DE CREDITO DEL PERU" disabled/>    
                                         </div>
                                     </div>
 
@@ -140,7 +140,7 @@
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Preventivo</label>
                                                             <input type="text"
-                                                              class="form-control" value="1060" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="12" name="" id="" aria-describedby="helpId" placeholder="">
                                                           </div>
                                                     </div>
                                                     <div class="col-md-4">
