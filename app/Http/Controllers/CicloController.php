@@ -35,13 +35,7 @@ class CicloController extends Controller
     
     public function getIndexCiclo(Request $request){
         $cod_cliente = $request->session()->get('cod_cli');
-        //$sede = $request->sede;
-        //$mesIni = $request->mesIni;
-        //$mesFin = $request->mesFin;
-        //$anio = $request->anio;
-
-        $cliente  = Cliente::where('cod_cliente', $cod_cliente)->firstOrFail();
-        //$indicador = DB::select('EXEC usp_ConsultarVarias_DetalleProgramacion ?,?,?,?,?,?,?,?,?,?,?,?',[6,$cod_cliente,$sede,$anio,0,'','','',0,'','',$mesIni,$mesFin]);
+       
         $listado  = DB::table('sgema_ciclo as ciclo')
                   ->select('ciclo.cod_ciclo', 'ciclo.dsc_ciclo','ciclo.dsc_observacion','ciclo.flg_activo')
                   ->get();
@@ -49,7 +43,7 @@ class CicloController extends Controller
         //Sacamos el total de incidedentes
         $ctotal   = IncidenciaController::totalIncidencias();   
 
-        return view('pages.ciclo.index',compact('listado','ctotal','cod_cliente','cliente'));
+        return view('pages.ciclo.index',compact('listado','ctotal','cod_cliente'));
     }
 
     public function getProcedmiento(Request $Request){
@@ -61,7 +55,7 @@ class CicloController extends Controller
       $cliente = $Request->session()->get('cod_cli');  
 
           $fila = DB::select('EXEC usp_Consultar_ProgramacionTrabajo ?,?,?,?,?,?,?,?,?,?,?',[1,$cliente,$sede,'',$anio,'','','',0,$mesIni,$mesFin]);
-
+         
           foreach ($fila as $key) {
             if($key->num_equipo != 0){
               $key->porcOp = round(($key->num_equipo_operativo*100)/$key->num_equipo,2).'%';
@@ -81,6 +75,7 @@ class CicloController extends Controller
             $key->noviembre = $key->noviembre_t.'/'.$key->noviembre;
             $key->diciembre = $key->diciembre_t.'/'.$key->diciembre;
             $key->intervenciones = $key->total_t.'/'.$key->num_programado;
+            
             if($key->num_programado != 0){
               $key->porcAv = round(($key->total_t*100)/$key->num_programado,0).'%';
             } else{
@@ -96,15 +91,27 @@ class CicloController extends Controller
             }else{
               $key->imp_total_plan = number_format($key->imp_total_plan, 2, ',', '.');
             }
-
           }
           return $fila;
-
     }
+
+    public function getIndicador(Request $request){
+
+      $sede = $Request->sede;
+      $mesIni = $Request->mesIni;
+      $mesFin = $Request->mesFin;
+      $anio = $Request->anio;
+      $cliente = $Request->session()->get('cod_cli');  
+
+      $indicador = DB::select('EXEC usp_ConsultarVarias_DetalleProgramacion ?,?,?,?,?,?,?,?,?,?,?,?',[6,$cliente,$sede,$anio,0,'','','',0,'',$mesIni,$mesFin]);
+
+      return $indicador;   
+  }
 
 
     public function getDetalleEquipo(Request $request){
       $codCliente = $request->session()->get('cod_cli');
+
       $listaSede  = DB::table('vtade_cliente_direccion as direccion')
                       ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
                       ->where('direccion.flg_plan_activo','=','SI')
@@ -115,4 +122,5 @@ class CicloController extends Controller
 
       return view('pages.ciclo.index',compact( 'listaSede','codCliente','cliente'));    
   }
+
 }
