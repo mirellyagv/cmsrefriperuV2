@@ -113,7 +113,7 @@
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Total</label>
                                                             <input type="text"
-                                                              class="form-control" value="1060" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="cant_total_tipo" id="cant_total_tipo" aria-describedby="helpId" placeholder="" >
                                                               {{-- <small>Total</small> --}}
                                                           </div>
                                                     </div>
@@ -122,7 +122,7 @@
                                                         <div class="mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="98" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="98" name="" id="" aria-describedby="helpId" placeholder="" >
                                                               {{-- <small>Avance General</small> --}}
                                                         </div>
                                                     </div>                                                    
@@ -243,7 +243,12 @@
             //console.log(valores);
             // var codCliente = "{{$codCliente}}";
             localStorage.setItem('aa', "{{ url('ciclo/tabla?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
+            localStorage.setItem('bb', "{{ url('ciclo/indicador?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
+    
             console.log(localStorage.getItem('aa'));
+
+            $indicador=  console.log(localStorage.getItem('bb'));
+
             var tabla = $('#datatablePrueba').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
@@ -355,8 +360,6 @@
                 info: true,
                 // rowReorder: true
             });
-           
-
         }
     </script>
 @endpush
