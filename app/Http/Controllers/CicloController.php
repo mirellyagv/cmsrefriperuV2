@@ -111,7 +111,8 @@ class CicloController extends Controller
                       ->where('direccion.cod_cliente', '=', $codCliente)
                       ->orderBy('direccion.dsc_nombre_direccion')
                       ->get();
+      $cliente  = Cliente::where('cod_cliente', $codCliente)->firstOrFail(); 
 
-      return view('pages.ciclo.index',compact( 'listaSede','codCliente'));    
+      return view('pages.ciclo.index',compact( 'listaSede','codCliente','cliente'));    
   }
 }

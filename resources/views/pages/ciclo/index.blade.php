@@ -74,7 +74,10 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cliente</label>
-                                            <input type="text" name="dsc_razon_social" id="dsc_razon_social" class="form-control" value="BANCO DE CREDITO DEL PERU" disabled/>    
+                                            <input type="text" @disabled(true) class="form-control"
+                                                name="dsc_razon_social" value="{{$cliente->dsc_razon_social}}"
+                                                aria-describedby="helpId" placeholder="">
+                                            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
                                         </div>
                                     </div>
 
