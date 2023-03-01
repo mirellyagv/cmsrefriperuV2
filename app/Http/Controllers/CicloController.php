@@ -34,16 +34,22 @@ class CicloController extends Controller
     */
     
     public function getIndexCiclo(Request $request){
-        $codCliente = $request->session()->get('cod_cli');
+        $cod_cliente = $request->session()->get('cod_cli');
+        //$sede = $request->sede;
+        //$mesIni = $request->mesIni;
+        //$mesFin = $request->mesFin;
+        //$anio = $request->anio;
+
+        $cliente  = Cliente::where('cod_cliente', $cod_cliente)->firstOrFail();
+        //$indicador = DB::select('EXEC usp_ConsultarVarias_DetalleProgramacion ?,?,?,?,?,?,?,?,?,?,?,?',[6,$cod_cliente,$sede,$anio,0,'','','',0,'','',$mesIni,$mesFin]);
         $listado  = DB::table('sgema_ciclo as ciclo')
                   ->select('ciclo.cod_ciclo', 'ciclo.dsc_ciclo','ciclo.dsc_observacion','ciclo.flg_activo')
                   ->get();
-
+          
         //Sacamos el total de incidedentes
         $ctotal   = IncidenciaController::totalIncidencias();   
-        $cliente  = Cliente::where('cod_cliente', $codCliente)->firstOrFail();         
 
-        return view('pages.ciclo.index',compact('listado','ctotal','codCliente','cliente'));
+        return view('pages.ciclo.index',compact('listado','ctotal','cod_cliente','cliente'));
     }
 
     public function getProcedmiento(Request $Request){
@@ -52,8 +58,9 @@ class CicloController extends Controller
       $mesIni = $Request->mesIni;
       $mesFin = $Request->mesFin;
       $anio = $Request->anio;
+      $cliente = $Request->session()->get('cod_cli');  
 
-          $fila = DB::select('EXEC usp_Consultar_ProgramacionTrabajo ?,?,?,?,?,?,?,?,?,?,?',[1,'CLI0000364',$sede,'',$anio,'','','',0,$mesIni,$mesFin]);
+          $fila = DB::select('EXEC usp_Consultar_ProgramacionTrabajo ?,?,?,?,?,?,?,?,?,?,?',[1,$cliente,$sede,'',$anio,'','','',0,$mesIni,$mesFin]);
 
           foreach ($fila as $key) {
             if($key->num_equipo != 0){
@@ -94,6 +101,7 @@ class CicloController extends Controller
           return $fila;
 
     }
+
 
     public function getDetalleEquipo(Request $request){
       $codCliente = $request->session()->get('cod_cli');
