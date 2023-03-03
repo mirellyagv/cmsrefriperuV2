@@ -122,7 +122,7 @@
                                                         <div class="mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="98" name="" id="" aria-describedby="helpId" placeholder="" >
+                                                              class="form-control" value="" name="" id="por_programacion" aria-describedby="helpId" placeholder="" >
                                                               {{-- <small>Avance General</small> --}}
                                                         </div>
                                                     </div>                                                    
@@ -143,7 +143,7 @@
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Preventivo</label>
                                                             <input type="text"
-                                                              class="form-control" value="12" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="" id="cant_preventivo" aria-describedby="helpId" placeholder="">
                                                           </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -151,7 +151,7 @@
                                                         <div class="input-group mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="98" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="" id="cant_correctivo" aria-describedby="helpId" placeholder="">
                                                               {{-- <span class="input-group-text" id="basic-addon1">%</span> --}}
                                                         </div>
                                                     </div> 
@@ -160,7 +160,7 @@
                                                         <div class="input-group mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="98" name="" id="" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="" id="cant_instalacion" aria-describedby="helpId" placeholder="">
                                                               {{-- <span class="input-group-text" id="basic-addon1">%</span> --}}
                                                         </div>
                                                     </div>                                                   
@@ -243,11 +243,25 @@
             //console.log(valores);
             // var codCliente = "{{$codCliente}}";
             localStorage.setItem('aa', "{{ url('ciclo/tabla?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
-            localStorage.setItem('bb', "{{ url('ciclo/indicador?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
-    
-            console.log(localStorage.getItem('aa'));
-
-            $indicador=  console.log(localStorage.getItem('bb'));
+          
+            $.ajax({
+                        type: 'GET',
+                        url: "{{ url('ciclo/indicador') }}",
+                        data: {
+                            'sede': sede,
+                            'mesIni': mesIni,
+                            'mesFin': mesFin,
+                            'anio': anio
+                        },
+                        success: function(result) {
+                            //console.log(result[0]['cant_total_tipo']);
+                            document.getElementById('cant_total_tipo').value=result[0]["cant_total_tipo"];
+                            document.getElementById('por_programacion').value=result[0]["por_programacion"];
+                            document.getElementById('cant_preventivo').value=result[0]["cant_preventivo"];
+                            document.getElementById('cant_correctivo').value=result[0]["cant_correctivo"];
+                            document.getElementById('cant_instalacion').value=result[0]["cant_instalacion"];
+                        }
+                    });
 
             var tabla = $('#datatablePrueba').DataTable({
                 language: {
@@ -362,4 +376,6 @@
             });
         }
     </script>
+
+
 @endpush
