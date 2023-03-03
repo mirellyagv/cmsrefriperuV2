@@ -95,7 +95,7 @@ class CicloController extends Controller
           return $fila;
     }
 
-    public function getIndicador(Request $request){
+    public function getIndicador(Request $Request){
 
       $sede = $Request->sede;
       $mesIni = $Request->mesIni;
