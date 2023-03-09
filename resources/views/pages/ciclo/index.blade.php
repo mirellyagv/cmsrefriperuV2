@@ -113,7 +113,7 @@
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Total</label>
                                                             <input type="text"
-                                                              class="form-control" value="" name="cant_total_tipo" id="cant_total_tipo" aria-describedby="helpId" placeholder="" >
+                                                              class="form-control" value="" name="cant_total_tipo" id="cant_total_tipo" aria-describedby="helpId" placeholder="" disabled >
                                                               {{-- <small>Total</small> --}}
                                                           </div>
                                                     </div>
@@ -122,7 +122,7 @@
                                                         <div class="mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="" name="" id="por_programacion" aria-describedby="helpId" placeholder="" >
+                                                              class="form-control" value="" name="" id="por_programacion" aria-describedby="helpId" placeholder=""  disabled >
                                                               {{-- <small>Avance General</small> --}}
                                                         </div>
                                                     </div>                                                    
@@ -143,7 +143,7 @@
                                                         <div class="mb-3">
                                                             <label for="" class="form-label">Preventivo</label>
                                                             <input type="text"
-                                                              class="form-control" value="" name="" id="cant_preventivo" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="cant_preventivo" id="cant_preventivo" aria-describedby="helpId" placeholder=""  disabled>
                                                           </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -151,7 +151,7 @@
                                                         <div class="input-group mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="" name="" id="cant_correctivo" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="" id="cant_correctivo" aria-describedby="helpId" placeholder=""  disabled> 
                                                               {{-- <span class="input-group-text" id="basic-addon1">%</span> --}}
                                                         </div>
                                                     </div> 
@@ -160,7 +160,7 @@
                                                         <div class="input-group mb-3">
                                                             
                                                             <input type="text"
-                                                              class="form-control" value="" name="" id="cant_instalacion" aria-describedby="helpId" placeholder="">
+                                                              class="form-control" value="" name="" id="cant_instalacion" aria-describedby="helpId" placeholder=""  disabled>
                                                               {{-- <span class="input-group-text" id="basic-addon1">%</span> --}}
                                                         </div>
                                                     </div>                                                   
@@ -243,7 +243,7 @@
             //console.log(valores);
             // var codCliente = "{{$codCliente}}";
             localStorage.setItem('aa', "{{ url('ciclo/tabla?sede=')}}"+sede+"&mesIni="+mesIni+"&mesFin="+mesFin+"&anio="+anio)
-          
+                       
             $.ajax({
                         type: 'GET',
                         url: "{{ url('ciclo/indicador') }}",
@@ -262,7 +262,7 @@
                             document.getElementById('cant_instalacion').value=result[0]["cant_instalacion"];
                         }
                     });
-
+                  
             var tabla = $('#datatablePrueba').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
@@ -291,6 +291,8 @@
                 }, ],
                 processing: true,
                 // serverSide: true,
+                
+                    
                 ajax: {
                     url: localStorage.getItem('aa'),
                     dataSrc: '',
