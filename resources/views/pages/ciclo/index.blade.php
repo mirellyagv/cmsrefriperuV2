@@ -182,10 +182,10 @@
                     <table id="datatablePrueba" class="table  table-bordered">
                         <thead class="headtable">
                             <tr>
-                                <th scope="col">Ubicaciones</th>
-                                <th scope="col" style="text-align: center !important">Equipos</th>
-                                <th scope="col">Ope</th>
-                                <th scope="col" style="text-align: center !important">% Ope</th>
+                                <th scope="col" style="background:#ED3D3B;">Ubicaciones</th>
+                                <th scope="col" style="background:#ED3D3B;text-align: center !important">Equipos</th>
+                                <th scope="col" style="background:#ED3D3B;">Ope</th>
+                                <th scope="col" style="background:#ED3D3B;text-align: center !important">% Ope</th>
                                 <th scope="col">C/Obs</th>
                                 <th scope="col">Ene</th>
                                 <th scope="col">Feb</th>
@@ -199,9 +199,9 @@
                                 <th scope="col">Oct</th>
                                 <th scope="col">Nov</th>
                                 <th scope="col">Dic</th>
-                                <th scope="col" style="text-align: center !important">Total</th>
-                                <th scope="col">Avance</th>
-                                <th scope="col" style="text-align: center !important">Costo</th>
+                                <th scope="col" style="background:#A52929;text-align: center !important">Total</th>
+                                <th scope="col" style="background:#A52929;">Avance</th>
+                                <th scope="col" style="background:#008080;text-align: center !important">Costo</th>
                             </tr>
                         </thead>
                     </table>
@@ -316,43 +316,56 @@
                         class: 'derecha'
                     },
                     {
-                        data: 'enero'
+                        data: 'enero',
+                        class: 'centrado'
                     },
                     {
-                        data: 'febrero'
+                        data: 'febrero',
+                        class: 'centrado'
                     },
                     {
-                        data: 'marzo'
+                        data: 'marzo',
+                        class: 'centrado'
                     },
                     {
-                        data: 'abril'
+                        data: 'abril',
+                        class: 'centrado'
                     },
                     {
-                        data: 'mayo'
+                        data: 'mayo',
+                        class: 'centrado'
                     },
                     {
-                        data: 'junio'
+                        data: 'junio',
+                        class: 'centrado'
                     },
                     {
-                        data: 'julio'
+                        data: 'julio',
+                        class: 'centrado'
                     },
                     {
-                        data: 'agosto'
+                        data: 'agosto',
+                        class: 'centrado'
                     },
                     {
-                        data: 'septiembre'
+                        data: 'septiembre',
+                        class: 'centrado'
                     },
                     {
-                        data: 'octubre'
+                        data: 'octubre',
+                        class: 'centrado'
                     },
                     {
-                        data: 'noviembre'
+                        data: 'noviembre',
+                        class: 'centrado'
                     },
                     {
-                        data: 'diciembre'
+                        data: 'diciembre',
+                        class: 'centrado'
                     },
                     {
-                        data: 'intervenciones'
+                        data: 'intervenciones',
+                        class: 'centrado'
                     },
                     {
                         data: 'porcAv',
@@ -363,6 +376,40 @@
                         class: 'derecha'
                     },
                 ],
+                createdRow: function(row, data, index) {
+                    //color avance
+                    var newPorAv = data.porcAv.slice(0,-1);
+                    newPorAv = parseFloat(newPorAv);
+                    if (newPorAv <= 100 && newPorAv > 80) {
+                        $('td:eq(18)', row).css('background-color', '#2E8B57');
+                        $('td:eq(18)', row).css('color', 'White'); 
+                    }else if (newPorAv <= 80 && newPorAv > 50) {
+                        $('td:eq(18)', row).css('background-color', '#98fb98');
+                    }else if (newPorAv <= 50 && newPorAv > 20) {
+                        $('td:eq(18)', row).css('background-color', '#ffd700');
+                    }else if (newPorAv <= 20) {
+                        $('td:eq(18)', row).css('background-color', '#ff4500');
+                        $('td:eq(18)', row).css('color', 'White'); 
+                    }else{
+                        $('td:eq(18)', row).css('background-color', 'White'); 
+                    }
+                    //color operatividad
+                    var newPorOp = data.porcOp.slice(0,-1);
+                    newPorOp = parseFloat(newPorOp);
+                    if (newPorOp <= 100 && newPorOp > 80) {
+                        $('td:eq(3)', row).css('background-color', '#2E8B57');
+                        $('td:eq(3)', row).css('color', 'White'); 
+                    }else if (newPorOp <= 80 && newPorOp > 50) {
+                        $('td:eq(3)', row).css('background-color', '#98fb98');
+                    }else if (newPorOp <= 50 && newPorOp > 20) {
+                        $('td:eq(3)', row).css('background-color', '#ffd700');
+                    }else if (newPorOp <= 20) {
+                        $('td:eq(3)', row).css('background-color', '#ff4500');
+                        $('td:eq(3)', row).css('color', 'White'); 
+                    }else{
+                        $('td:eq(3)', row).css('background-color', 'White'); 
+                    }
+                },
                 rowReorder: false,
                 select: true,
                 responsive: true,

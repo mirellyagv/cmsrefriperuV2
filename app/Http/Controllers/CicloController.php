@@ -62,19 +62,19 @@ class CicloController extends Controller
             } else{
               $key->porcOp = '100%';
             }
-            $key->enero = $key->enero_t.'/'.$key->enero;
-            $key->febrero = $key->febrero_t.'/'.$key->febrero;
-            $key->marzo = $key->marzo_t.'/'.$key->marzo;
-            $key->abril = $key->abril_t.'/'.$key->abril;
-            $key->mayo = $key->mayo_t.'/'.$key->mayo;
-            $key->junio = $key->junio_t.'/'.$key->junio;
-            $key->julio = $key->julio_t.'/'.$key->julio;
-            $key->agosto = $key->agosto_t.'/'.$key->agosto;
-            $key->septiembre = $key->septiembre_t.'/'.$key->septiembre;
-            $key->octubre = $key->octubre_t.'/'.$key->octubre;
-            $key->noviembre = $key->noviembre_t.'/'.$key->noviembre;
-            $key->diciembre = $key->diciembre_t.'/'.$key->diciembre;
-            $key->intervenciones = $key->total_t.'/'.$key->num_programado;
+            $key->enero = ($key->enero == 0) ? '-' : $key->enero_t.'/'.$key->enero;
+            $key->febrero = ($key->febrero == 0) ? '-' : $key->febrero_t.'/'.$key->febrero;
+            $key->marzo = ($key->marzo == 0) ? '-' : $key->marzo_t.'/'.$key->marzo;
+            $key->abril = ($key->abril == 0) ? '-' : $key->abril_t.'/'.$key->abril;
+            $key->mayo = ($key->mayo == 0) ? '-' : $key->mayo_t.'/'.$key->mayo;
+            $key->junio = ($key->junio == 0) ? '-' : $key->junio_t.'/'.$key->junio;
+            $key->julio = ($key->julio == 0) ? '-' : $key->julio_t.'/'.$key->julio;
+            $key->agosto = ($key->agosto == 0) ? '-' : $key->agosto_t.'/'.$key->agosto;
+            $key->septiembre = ($key->septiembre == 0) ? '-' : $key->septiembre_t.'/'.$key->septiembre;
+            $key->octubre = ($key->octubre == 0) ? '-' : $key->octubre_t.'/'.$key->octubre;
+            $key->noviembre = ($key->noviembre == 0) ? '-' : $key->noviembre_t.'/'.$key->noviembre;
+            $key->diciembre = ($key->diciembre == 0) ? '-' : $key->diciembre_t.'/'.$key->diciembre;
+            $key->intervenciones = ($key->num_programado == 0) ? '-' : $key->total_t.'/'.$key->num_programado;
             
             if($key->num_programado != 0){
               $key->porcAv = round(($key->total_t*100)/$key->num_programado,0).'%';
