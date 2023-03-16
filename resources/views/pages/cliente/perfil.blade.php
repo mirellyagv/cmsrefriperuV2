@@ -33,14 +33,14 @@
                             <label class="mb-1 mt-3 text-muted">N° RUC</label>
                             <input type="text" name="numruc" id="numruc" class="form-control" value="{{$cliente->dsc_documento}}" disabled/>
                         </div>
-                        <div class="">
+                        {{-- <div class="">
                             <label class="mb-1 mt-3 text-muted">Email</label>
                             <input type="text" name="email" id="email" class="form-control" value="{{$clientePlus->dsc_correo}}" disabled/>
                         </div>
                         <div class="">
                             <label class="mb-1 mt-3 text-muted">Teléfono</label>
                             <input type="text" name="telefono" id="telefono" class="form-control" value="{{$clientePlus->dsc_telefono1}}" disabled/>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
                 <div class="col-lg-6">
@@ -49,24 +49,23 @@
                         <!--<p>&nbsp;</p>-->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a href="#contacto" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                                    <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
-                                    <span class="d-none d-sm-block">Contactos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#supervisor" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                <a href="#supervisor" data-toggle="tab" aria-expanded="true" class="nav-link active">
                                     <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
                                     <span class="d-none d-sm-block">Supervisor</span>
                                 </a>
                             </li>
-                                        
+                            <li class="nav-item">
+                                <a href="#contacto" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                                    <span class="d-none d-sm-block">Contactos</span>
+                                </a>
+                            </li>                                        
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane show active" id="contacto">
+                            <div class="tab-pane" id="contacto">
                                 <div id="contactos-content"></div>                    
                             </div>
-                            <div class="tab-pane" id="supervisor">
+                            <div class="tab-pane  show active" id="supervisor">
                                 <div id="supervisor-content"></div>  
                                 <label class="mb-1 mt-3 text-muted">Supervisor</label>
                                 <input type="text" name="supervisor" id="supervisor" class="form-control" value="{{$clienteDir->dsc_nombres}} {{$clienteDir->dsc_apellido_paterno}} {{$clienteDir->dsc_apellido_materno}}" disabled/>    

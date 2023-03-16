@@ -15,7 +15,7 @@
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div> --}}
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS / Listado de equipos</h4>
                     </div>
                 </div>
             </div>
@@ -90,11 +90,11 @@
             </div> --}}
 
             <div class="row fondocabecera">
-                <div class="col-12">
+                {{-- <div class="col-12">
                     <div class="table-responsive titleform">
                         <h4 class="header-title headertitle"><i class="fe-copy"></i> Listado de equipos</h4>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12">
                     <div id="equipo-content"></div>
                 </div>
@@ -241,7 +241,7 @@
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
-                dom: '<"top"fBl>Ptrip',
+                dom: '<"top"lf>rt<"bottom"PBip>' ,
                 buttons: [
                         {
                             extend: "excel",                    // Extend the excel button

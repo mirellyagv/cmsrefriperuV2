@@ -20,6 +20,28 @@
                             <div class="card-body">
 
                                 <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Cliente</label>
+                                            <input type="text" @disabled(true) class="form-control"
+                                                name="dsc_razon_social" value="{{$cliente->dsc_razon_social}}"
+                                                aria-describedby="helpId" placeholder="">
+                                            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Sede:</label>
+                                            <select class="form-select form-select-md" name="sedeCiclo" id="sedeCiclo" onChange="creaTabla();">
+                                                <option selected disabled>Seleccione...</option>
+                                                @foreach($listaSede as $list)
+                                                    <option value="{{ $list->num_linea }}">{{ $list->dsc_nombre_direccion }}</option>
+                                                @endforeach 
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
 
                                         <label for="" class="form-label">Año</label>
@@ -70,28 +92,6 @@
                                     </div>
                                     <pre>
                                     </pre>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Cliente</label>
-                                            <input type="text" @disabled(true) class="form-control"
-                                                name="dsc_razon_social" value="{{$cliente->dsc_razon_social}}"
-                                                aria-describedby="helpId" placeholder="">
-                                            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Sede:</label>
-                                            <select class="form-select form-select-md" name="sedeCiclo" id="sedeCiclo" onChange="creaTabla();">
-                                                <option selected disabled>Seleccione...</option>
-                                                @foreach($listaSede as $list)
-                                                    <option value="{{ $list->num_linea }}">{{ $list->dsc_nombre_direccion }}</option>
-                                                @endforeach 
-                                            </select>
-                                        </div>
-                                    </div>
 
                                 </div>
 

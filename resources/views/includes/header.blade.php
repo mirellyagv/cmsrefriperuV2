@@ -4,7 +4,7 @@
                          <!-- LOGO -->
                          <div class="logo-box">
 
-                            <a href="index.html" class="logo text-center logo-dark"> 
+                            <a href="https://refriperu.com.pe/" target="_blank" class="logo text-center logo-dark"> 
                                 <span class="logo-lg">
                                     <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="70">  
                                     <!-- <span class="logo-lg-text-dark">Adminox</span> -->
@@ -15,7 +15,7 @@
                                 </span>
                             </a>
 
-                            <a href="index.html" class="logo text-center logo-light">
+                            <a href="https://refriperu.com.pe/" target="_blank" class="logo text-center logo-light">
                                 <span class="logo-lg">
                                     <img src="{{ asset('assets/images/logoHorizRP.png') }}" alt="" height="70">
                                     <!-- <span class="logo-lg-text-dark">Adminox</span> -->
