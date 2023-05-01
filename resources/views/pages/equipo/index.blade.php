@@ -15,7 +15,7 @@
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div> --}}
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS / Listado de equipos</h4>
                     </div>
                 </div>
             </div>
@@ -89,18 +89,12 @@
 
             </div> --}}
 
-            <div class="row fondocabecera">
-                <div class="col-12">
-                    <div class="table-responsive titleform">
-                        <h4 class="header-title headertitle"><i class="fe-copy"></i> Listado de equipos</h4>
-                    </div>
-                </div>
+            <div class="row fondocabecera" style=" padding-top: 0;">
                 <div class="col-12">
                     <div id="equipo-content"></div>
                 </div>
-
                 <div class="table-responsive-md">
-                    <table id="datatablePrueba" class="table  table-bordered">
+                    <table id="datatablePrueba" class="table  table-bordered" width='100%'>
                         <thead class="headtable">
                             <tr>
                                 <th scope="col">Codigo</th>
@@ -216,7 +210,7 @@
                         <div class="tab-pane" id="intervencion">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="intervencion-content"></div>
+                                    <div id="intervencion-content" style="margin-top: -1rem;"></div>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +235,7 @@
                 language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
                 },
-                dom: '<"top"fBl>Ptrip',
+                dom: '<"top"Bf>tr<"bottom"Plp>' ,
                 buttons: [
                         {
                             extend: "excel",                    // Extend the excel button
@@ -386,7 +380,7 @@
 
                             body +=
                                 '<table id="tbl-det-equipo" class="table table-bordered dt-responsive" style="border-collapse:collapse; border-spacing:0; width:100%; ">' +
-                                '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; margin-top:1rem;padding-right:1rem;"><ion-icon size="small" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="small" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="small" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="small" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
+                                '<div class="col-md-12" style="margin-bottom:-2em; text-align:right; padding-right:1rem;"><ion-icon size="small" style="color:#2D8B57;vertical-align: sub;" name="ellipse"></ion-icon>Atendido <ion-icon size="small" style="color:#FFD603;vertical-align: sub;" name="ellipse"></ion-icon>En proceso <ion-icon size="small" style="color:#FF4601;vertical-align: sub;" name="ellipse"></ion-icon>Pendiente <ion-icon size="small" style="color:#A9A9A9;vertical-align: sub;" name="ellipse"></ion-icon>Sin orden de trabajo</div></div>'+
                                 '<div class="row">' +
                                 '<thead>' +
                                 '<tr class="headtable"  style="text-align:center;">' +
@@ -395,8 +389,6 @@
                                 '<th style="width:15%;">Fecha Ejecutado</th>' +
                                 '<th style="width:10%;">Tipo Intervención</th>' +
                                 '<th style="width:40%;">Responsable</th>' +
-                                '<th style="width:5%;">Plan Asociado</th>' +
-                                '<th style="width:20%;">Orden Trabajo Asociado</th>' +
                                 '</tr>' +
                                 '</thead>' +
                                 '<tbody>';
@@ -434,9 +426,6 @@
                                     '<td>' + fchEjec + '</td>' +
                                     '<td>' + value.dsc_tipo_plan + '</td>' +
                                     '<td>' + value.dsc_responsable + '</td>' +
-                                    '<td style="text-align:center;">' + value.num_plan +
-                                    '</td>' +
-                                    '<td>' + value.cod_orden_trabajo + '</td>' +
                                     '</tr>';
                             });
 

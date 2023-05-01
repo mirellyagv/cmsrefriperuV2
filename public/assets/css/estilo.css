@@ -47,7 +47,7 @@ body[data-layout=horizontal] .navbar-custom .topnav-menu .nav-link{color:#FFF !i
 .urlicon:active{color:#134682 !important;}
 .page-title{color:#134682;}
 .margeninterior{padding:1rem;}
-.card-box{padding:0 1rem !important;}
+.card-box{padding:1rem !important;}
 .headtable{background:#134682;color:#FFF;}
 .contenedorinputs{background:#FFF;margin-bottom:3em;}
 .contenedorbuttons{text-align:center;margin-bottom:1em;}
@@ -120,4 +120,8 @@ user-select: none;
     padding-top: 0;
     padding-bottom: 0;
     vertical-align: middle;
+}
+
+table.dataTable tbody>tr.selected{
+    line-height: unset;
 }
