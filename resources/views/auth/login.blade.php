@@ -29,9 +29,9 @@
                                         <div class="form-group row">
                                             <div class="col-12">
                                              <label for="rol">Rol:</label>
-                                             <select name="lstrol" class="form-control" id="lstrol">
+                                             <select name="lstrol" class="form-control" id="lstrol" disabled>
                                                  <option value="0">[Seleccione rol]</option>
-                                                 <option value="1">Cliente</option>
+                                                 <option value="1" selected >Cliente</option>
                                                  <option value="2">RefriPerú</option>
                                                  <!--<option value="3">Proveedor</option>-->
                                              </select>   

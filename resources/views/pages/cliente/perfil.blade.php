@@ -24,15 +24,19 @@
                 <div class="col-lg-6">
                     <form class="card-box">
                         <h4 class="header-title headertitle">Datos personales</h4>
-
+                        <div class="">
+                            <label class="mb-1 mt-3 text-muted">N° RUC</label>
+                            <input type="text" name="numruc" id="numruc" class="form-control" value="{{$cliente->dsc_documento}}" disabled/>
+                        </div>
                         <div class="">
                             <label class="mb-1 mt-3 text-muted">Razon social</label>
                             <input type="text" name="razonsocial" id="razonsocial" class="form-control" value="{{$cliente->dsc_razon_social}}" disabled>
                         </div>
                         <div class="">
-                            <label class="mb-1 mt-3 text-muted">N° RUC</label>
-                            <input type="text" name="numruc" id="numruc" class="form-control" value="{{$cliente->dsc_documento}}" disabled/>
+                            <label class="mb-1 mt-3 text-muted">Sede con acceso</label>
+                            <input type="text" name="razonsocial" id="razonsocial" class="form-control" value="{{$sede}}" disabled>
                         </div>
+                       
                         {{-- <div class="">
                             <label class="mb-1 mt-3 text-muted">Email</label>
                             <input type="text" name="email" id="email" class="form-control" value="{{$clientePlus->dsc_correo}}" disabled/>
@@ -129,13 +133,21 @@
 @push('scripts')
 <script type="text/javascript">
 
-    $(document).ready(function(){
+window.onload= function () {
         //Sacamos el codigo del cliente: 
         var codigocli = '{{$codcli}}';
 
         loadPageData(codigocli);
 
-    });
+        var cod_supervisor = '@php echo(session('supervisor')) @endphp';
+        console.log(cod_supervisor);
+        if(cod_supervisor=="TRA00001")
+        {
+            document.getElementById("supervisor").value="SIN SUPERVISOR";
+            document.getElementById("correosup").value="";
+            document.getElementById("telefonosup").value="";
+        }
+}
 
     function loadPageData(codigocli){
         //1er ajax: Listado de contactos

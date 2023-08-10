@@ -37,6 +37,7 @@ Route::group(['middleware' => 'autenticado'], function (){
 	   Route::get('/', 'CicloController@getIndexCiclo');
      Route::get('procedure','CicloController@getDetalleEquipo');
      Route::get('tabla{sede?}{mesIni?}{mesFin?}{anio?}','CicloController@getProcedmiento');
+     Route::get('listadoplan{sede?}{mesIni?}{mesFin?}{anio?}','CicloController@getListadoPlan');
      Route::get('indicador{sede?}{mesIni?}{mesFin?}{anio?}','CicloController@getIndicador');
 	});
 
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'autenticado'], function (){
 
   Route::prefix('equipo')->group(function (){
     Route::get('/','EquipoController@getIndexEquipo')->name('equipo');
+    Route::get('sedes','EquipoController@getListadoSede');
     Route::get('listar','EquipoController@getListadoEquipo');
     Route::get('listar2{sede?}{ubicacion?}','EquipoController@getListadoEquipo2');
     Route::get('exportar', 'EquipoController@getExportarEquipo');
@@ -89,8 +91,8 @@ Route::group(['middleware' => 'autenticado'], function (){
   Route::prefix('clientedireccioncontacto')->group(function (){
     Route::post('contacto','ClienteDireccionContactoController@postBuscarContacto');
   });
-
-
+  
+  
   Route::group(['middleware' => 'role:Cliente'], function (){       //['middleware' => 'Rol']
     
     Route::prefix('cliente')->group(function (){
@@ -107,6 +109,13 @@ Route::group(['middleware' => 'autenticado'], function (){
 
   });
 
-
+  Route::prefix('mantenimiento')->group(function (){
+    Route::get('/', 'MantenimientoController@getIndexMantenimiento')->name('mantenimiento');;
+    Route::get('sedes','MantenimientoController@getListadoSede');
+    Route::get('listadoplan{sede?}{mesIni?}{mesFin?}{anio?}','MantenimientoController@getListadoPlan');
+    Route::get('listadoequipo{sede?}{mesIni?}{mesFin?}{anio?}','MantenimientoController@getListadoEquipo');
+    Route::get('listaParametro/{num_plan?}{cod_item?}','MantenimientoController@getListaParametro');
+    Route::get('listaObservacion/{cod_item?}','MantenimientoController@getListaObservacion');
+  });
 
 });

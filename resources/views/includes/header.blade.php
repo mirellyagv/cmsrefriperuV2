@@ -42,10 +42,14 @@
                             <li class="has-submenu">
                                 <a href="#"> <i class="fe-airplay"></i>Equipos</a>
                                 <ul class="submenu">
-                                    <li><a href="{{url('equipo')}}">Listado de equipos</a></li>
+                                    <li><a href="{{url('equipo/sedes')}}">Listado de equipos</a></li>
                                     <!--<li><a href="index.html">Agregar equipos</a></li>-->
                                     <li><a href="{{url('equipo/detalle')}}">Listado de ubicaciones</a></li>
                                 </ul>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{{url('mantenimiento/sedes')}}"><i class="fe-settings"></i>Mantenimientos</a>
                             </li>
 
                             <li class="has-submenu">
@@ -208,7 +212,7 @@
                                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                     <img src="{{ asset('assets/images/users/admin-image.jpg') }}" alt="user-image" class="rounded-circle"> 
                                     <span class="pro-user-name ml-1">
-                                        Bienvenido: {{ session('usuario') }} <i class="mdi mdi-chevron-down"></i> 
+                                        {{ session('dsc_usuario') }} <i class="mdi mdi-chevron-down"></i> 
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">

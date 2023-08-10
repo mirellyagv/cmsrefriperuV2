@@ -42,6 +42,8 @@ class ClienteController extends Controller
     
     public function getClientePerfil(Request $request){
         
+        $sede = $request->session()->get('dsc_sede'); 
+
         $codcli  = $request->session()->get('cod_cli'); 
         $supervisor  = $request->session()->get('supervisor'); 
 
@@ -49,7 +51,7 @@ class ClienteController extends Controller
         $clientePlus = ClienteDireccionContacto::where('cod_cliente',$codcli)->firstOrFail();
         $clienteDir = Responsable :: where('cod_trabajador',$supervisor)->firstOrFail();
 
-        return view('pages.cliente.perfil',compact('cliente','codcli','clientePlus','clienteDir'));
+        return view('pages.cliente.perfil',compact('cliente','codcli','clientePlus','clienteDir','sede'));
 
     }
 
@@ -66,6 +68,7 @@ class ClienteController extends Controller
                           ->get();
 
             $total     = $contactos->count();
+           
             $filtrados = 0;
             $data      = [];
             foreach ($contactos as $item){

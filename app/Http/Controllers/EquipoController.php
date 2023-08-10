@@ -13,6 +13,7 @@ use App\Models\Modelo;
 use App\Models\TipoEquipo;
 use App\Models\SubTipoEquipo;
 use App\Models\Equipo;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
 
 //Libreria Excel
@@ -60,6 +61,39 @@ class EquipoController extends Controller{
         return view('pages.equipo.index',compact('marcas', 'modelos', 'tipos', 'subtipos'));
     }
 
+
+    
+    public function getListadoSede(Request $request){
+      $codCliente = $request->session()->get('cod_cli');
+      $admin=$request->session()->get('admin');
+      $sede=$request->session()->get('sede');
+
+
+      if($admin=='NO'){
+      $listaSede  = DB::table('vtade_cliente_direccion as direccion')
+                      ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
+                      ->where('direccion.flg_plan_activo','=','SI')
+                      ->where('direccion.cod_cliente', '=', $codCliente)
+                      ->where('direccion.num_linea', '=', $sede)
+                      ->orderBy('direccion.dsc_nombre_direccion')
+                      ->get();
+      
+    }else
+    {
+      $listaSede  = DB::table('vtade_cliente_direccion as direccion')
+                      ->select('direccion.dsc_nombre_direccion', 'direccion.num_linea')
+                      ->where('direccion.flg_plan_activo','=','SI')
+                      ->where('direccion.cod_cliente', '=', $codCliente)
+                      ->orderBy('direccion.dsc_nombre_direccion')
+                      ->get();
+    }
+     $cliente  = Cliente::where('cod_cliente', $codCliente)->firstOrFail();
+
+    
+
+      return view('pages.equipo.index',compact( 'listaSede','cliente'));    
+  }
+
     public function getListadoEquipo(Request $request){
         $numserie  = $request->numserie;
         $tipo      = $request->tipo;
@@ -68,20 +102,25 @@ class EquipoController extends Controller{
         $codmarca  = $request->codmarca;
         $codmodel  = $request->codmodel;
 
+        $cliente = Session()->get('cod_cli');
+        $sede = $request->num_linea;
         //Se define la session del usuario
         $role      = Session()->get('rol');
 
         //Se hace la busqueda
-        $equipos   = DB::table('gsema_equipo as equipo')
-                     ->join('gsema_tipo_equipo','equipo.cod_tipo_equipo', '=', 'gsema_tipo_equipo.cod_tipo_equipo')
-                     ->join('gsema_subtipo_equipo','equipo.cod_subtipo_equipo', '=', 'gsema_subtipo_equipo.cod_subtipo_equipo')
-                     ->join('feima_marca_articulo','equipo.cod_marca', '=', 'feima_marca_articulo.cod_marca')
-                     ->leftJoin('gsema_modelo_equipo','equipo.cod_modelo', '=', 'gsema_modelo_equipo.cod_modelo')
-                     ->select('equipo.cod_equipo','equipo.dsc_equipo','equipo.cod_tipo_equipo','gsema_tipo_equipo.dsc_tipo_equipo',
-                            'gsema_subtipo_equipo.dsc_subtipo_equipo','feima_marca_articulo.dsc_marca','gsema_modelo_equipo.dsc_modelo','equipo.num_serie',
-                            'equipo.num_parte','equipo.fch_compra','equipo.cod_proveedor','equipo.cod_cliente','equipo.num_pedido');
-
-        $total    = $equipos->count();
+       // $equipos   = DB::table('gsema_equipo as equipo')
+        //             ->join('gsema_tipo_equipo','equipo.cod_tipo_equipo', '=', 'gsema_tipo_equipo.cod_tipo_equipo')
+        //             ->join('gsema_subtipo_equipo','equipo.cod_subtipo_equipo', '=', 'gsema_subtipo_equipo.cod_subtipo_equipo')
+         //            ->join('feima_marca_articulo','equipo.cod_marca', '=', 'feima_marca_articulo.cod_marca')
+          //           ->leftJoin('gsema_modelo_equipo','equipo.cod_modelo', '=', 'gsema_modelo_equipo.cod_modelo')
+           //          ->leftJoin('vtade_orden_docweb','equipo.cod_equipo', '=', 'vtade_orden_docweb.cod_equipo')
+           //          ->select('equipo.cod_equipo','equipo.dsc_equipo','equipo.cod_tipo_equipo','gsema_tipo_equipo.dsc_tipo_equipo',
+             //               'gsema_subtipo_equipo.dsc_subtipo_equipo','feima_marca_articulo.dsc_marca','gsema_modelo_equipo.dsc_modelo','equipo.num_serie',
+              //              'equipo.num_parte','equipo.fch_compra','equipo.cod_proveedor','equipo.cod_cliente','equipo.num_pedido','vtade_orden_docweb.webUrl');
+                    
+        $equipos = DB::select('EXEC usp_mto_web_Consultar_Equipo ?,?,?',[1,$cliente,$sede]);
+        
+       // $total    = $equipos->count();
 
         if (!empty($numserie))
             $equipos = $equipos->where('equipo.num_serie', 'like', '%' . $numserie . '%');
@@ -101,17 +140,18 @@ class EquipoController extends Controller{
         if (!empty($codmodel))
             $equipos = $equipos->where('equipo.cod_modelo', '=', $codmodel);
 
+
         //Hacemos la validacion aqui:
-        if($role == config('constants.roles_name.cliente')){
-          $codcli  = Session()->get('cod_cli');
-          $equipos = $equipos->where('equipo.cod_cliente', '=', $codcli);
-        }
+        //if($role == config('constants.roles_name.cliente')){
+         // $codcli  = Session()->get('cod_cli');
+         // $equipos = $equipos->where('equipo.cod_cliente', '=', $codcli);
+       // }
 
-        $filtrados = $equipos->count();
+       // $filtrados = $equipos->count();
 
-        $equipos   = $equipos
-                    ->orderBy('equipo.dsc_equipo')
-                    ->get();
+       // $equipos   = $equipos
+        //            ->orderBy('equipo.dsc_equipo')
+         //           ->get();
 
         $data = [];
         foreach ($equipos as $item){
@@ -123,7 +163,20 @@ class EquipoController extends Controller{
           }
 
           //error falta definir dsc_sede...
-          $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>';
+          $botonVer='<button type="button" class="btn btn-primary"  title="Ver mas información del equipo" onclick="verdetalle('."'".$item->cod_equipo."'".')"><i class="dripicons-search"></i></button>';
+         // $ver ='<a class="urlicon" title="Ver detalle" href="javascript:void(0)" style="font-size:20px" onclick="verdetalle('."'".$item->cod_equipo."'".')" ><i class="dripicons-preview"></i></a>';
+          $verCertificado='';
+          
+
+          if($item->dsc_pdf== null || $item->dsc_pdf == ''){
+            $verCertificado='';
+          }else
+          {
+            $ArchivoCO= $item->idArchivoDoc;
+            if($ArchivoCO==NULL || $ArchivoCO==''){$ArchivoCO='NN'; }
+            $verCertificado='<button type="button" class="btn btn-success"  title="Ver Certificado Operativo" onclick="VerCertificadoOperativo('."'".$ArchivoCO."'".','."'".$item->webUrl."'".')"><i class="dripicons-document"></i></button>';
+            //$verCertificado='<a class="urlicon" title="Ver Certificado Operativo" href="javascript:void(0)" style="font-size:14px" onclick="VerCertificadoOperativo('."'".$ArchivoCO."'".','."'".$item->webUrl."'".')" ><i class="dripicons-preview"></i></a>';
+          }
 
           array_push($data, [
             "code"        => $item->cod_equipo,
@@ -134,9 +187,12 @@ class EquipoController extends Controller{
             "marca"       => $item->dsc_marca,
             "modelo"      => $item->dsc_modelo,
             "numserie"    => $item->num_serie,
-            "numparte"    => $item->num_parte,
-            "fechacompra" => $item->fch_compra,
-            "numpedido"   => $ver
+            "VerCO"       => $botonVer.$verCertificado,
+            "flg_observacion"    => $item->flg_observacion,
+            "dsc_ubicacion"    => $item->dsc_ubicacion,
+            "dsc_estado"    => $item->dsc_estado,
+            "cod_activo"    => $item->cod_activo,
+            "dsc_capacidad"    => $item->dsc_capacidad
           ]);
         }
 
@@ -382,6 +438,9 @@ class EquipoController extends Controller{
           return $this->errorResponse();
         }  
     }
+
+
+    
 
 
 }

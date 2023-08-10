@@ -6,6 +6,12 @@
         <div class="container-fluid">
             <!-- start page title -->
             <div class="row">
+
+           
+            
+
+                                  
+
                 <div class="col-12">
                     <div class="page-title-box">
                         {{-- <div class="page-title-right">
@@ -15,9 +21,31 @@
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div> --}}
-                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS / Listado de equipos</h4>
+                        <h4 class="page-title lineatitle"><i class="fe-file-text"></i> GESTIÓN DE EQUIPOS / LISTADO DE EQUIPOS</h4>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Cliente:</label>
+                                                <input type="text"  class="form-control"
+                                                    name="dsc_razon_social" value="{{$cliente->dsc_razon_social}}"
+                                                    aria-describedby="helpId" placeholder="" disabled>
+                                            </div>
+                    </div>
+                    <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Sede:</label>
+                                                <select class="form-select form-select-md" name="sedeCiclo" id="sedeCiclo" onChange="ListarEquipos();">
+                                                    <option selected disabled>Seleccione...</option>
+                                                    @foreach($listaSede as $list)
+                                                        <option value="{{ $list->num_linea }}">{{ $list->dsc_nombre_direccion }}</option>
+                                                    @endforeach 
+                                                </select>
+                                            </div>
+                    </div>
+                </div>
+
             </div>
 
             {{-- <div class="row">
@@ -97,14 +125,18 @@
                     <table id="datatablePrueba" class="table  table-bordered" width='100%'>
                         <thead class="headtable">
                             <tr>
-                                <th scope="col">Codigo</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Serie</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Sub-tipo</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Modelo</th>
-                                <th scope="col">Opciones</th>
+                                <th scope="col" style="text-align: center !important">Nombre</th>
+                                <th scope="col" style="text-align: center !important" width="8%">Serie</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Tipo</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Sub-tipo</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Marca</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Modelo</th>
+                                <th scope="col" style="text-align: center !important">Capacidad</th>
+                                <th scope="col" style="text-align: center !important">Cod Activo</th>
+                                <th scope="col" style="text-align: center !important">Ubicación</th>
+                                <th scope="col" style="text-align: center !important">Obs</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Estado</th>
+                                <th scope="col" style="text-align: center !important" width="9%">Acciones</th>
                             </tr>
                         </thead>
                     </table>
@@ -121,8 +153,8 @@
         <div class="modal-dialog modal-lg" role="document" style="max-width:80% !important">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalDetalleEquipoLabel"></h5>
-                    <h5 class="modal-title" id="EstadoDetalleEquipo"></h5>
+                    <h3 class="modal-title" id="modalDetalleEquipoLabel"></h3>
+                    <h3 class="modal-title" id="EstadoDetalleEquipo"></h3>
                     {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
@@ -148,6 +180,25 @@
                     <div class="tab-content">
                         <div class="tab-pane show active" id="detalleEquipo">
                             <div id="detalleEquipo-content">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="mb-1 mt-3 text-muted">N° de Serie</label>
+                                        <input type="text" name="numSerieEquipo" id="numSerieEquipo"
+                                            class="form-control" value="" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="mb-1 mt-3 text-muted">Act. Fijo</label>
+                                        <input type="text" name="actFijoEquipo" id="actFijoEquipo"
+                                            class="form-control" value="" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="mb-1 mt-3 text-muted">Inventario</label>
+                                        <input type="text" name="inventarioEquipo" id="inventarioEquipo"
+                                            class="form-control" value="" disabled>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="mb-1 mt-3 text-muted">Tipo</label>
@@ -172,37 +223,26 @@
                                             value="" disabled>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="mb-1 mt-3 text-muted">Act. Fijo</label>
-                                        <input type="text" name="actFijoEquipo" id="actFijoEquipo"
-                                            class="form-control" value="" disabled>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="mb-1 mt-3 text-muted">Inventario</label>
-                                        <input type="text" name="inventarioEquipo" id="inventarioEquipo"
-                                            class="form-control" value="" disabled>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="mb-1 mt-3 text-muted">N° de Serie</label>
-                                        <input type="text" name="numSerieEquipo" id="numSerieEquipo"
-                                            class="form-control" value="" disabled>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <label class="mb-1 mt-3 text-muted">Sede</label>
                                         <input type="text" name="sedeEquipo" id="sedeEquipo" class="form-control"
                                             value="" disabled>
                                         <input type="hidden" name="codSede" id="codSede" class="form-control"
                                             value="">
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <label class="mb-1 mt-3 text-muted">Ubicación</label>
                                         <input type="text" name="ubicacionEquipo" id="ubicacionEquipo"
                                             class="form-control" value="" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="mb-1 mt-3 text-muted">Observacion</label>
+                                        <textarea class="form-control" name="dsc_observacion" id="dsc_observacion"
+                                         rows="3" disabled></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -230,99 +270,181 @@
         // }
 
         $(document).ready(function() {
-
-           tabla =  $('#datatablePrueba').DataTable({
-                language: {
-                url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
-                },
-                dom: '<"top"Bf>tr<"bottom"Plp>' ,
-                buttons: [
-                        {
-                            extend: "excel",                    // Extend the excel button
-                            text: 'Excel',
-                            className: 'btn btn-success',
-                            excelStyles: {                      // Add an excelStyles definition
-                                cells: "2",                     // to row 2
-                                style: {                        // The style block
-                                    font: {                     // Style the font
-                                        name: "Arial",          // Font name
-                                        size: "14",             // Font size
-                                        color: "FFFFFF",        // Font Color
-                                        b: false,               // Remove bolding from header row
-                                    },
-                                    fill: {                     // Style the cell fill (background)
-                                        pattern: {              // Type of fill (pattern or gradient)
-                                            color: "457B9D",    // Fill color
-                                        }
-                                    }
-                                }
-                            },
-                        },
-                    ],
-                
-                searchPanes: {
-                    initCollapsed: true,
-                    i18n: {
-                        //mensaje cuando no hay datos.. 
-                        emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
-                        loadMessage: 'Cargando las opciones de filtros...',
-                        collapseMessage: 'Ocultar Todos',
-                        showMessage: 'Mostrar Todos',
-                        clearMessage: 'Limpiar Filtros',
-                    title: {
-                            _: 'Filtros Seleccionados - %d',
-                            0: 'Sin filtros Activos',
-                            1: 'Un filtro Activo'
-                        }   
-                    }
-                },
-                processing: true,
-                // serverSide: true,
-                ajax: {
-                    url: '{{url('equipo/listar')}}',
-                    dataSrc: '',
-                },
-                columns: [
-                    {
-                        data : 'code'
-                    },
-                    {
-                        data : 'nombre'
-                    },
-                    {
-                        data : 'numserie'
-                    },
-                    {
-                        data : 'nomtipo'
-                    },
-                    {
-                        data : 'nomsubtipo'
-                    },
-                    {
-                        data : 'marca'
-                    },
-                    {
-                        data : 'modelo'
-                    },
-                    {
-                        data : 'numpedido',
-                        class: 'centrado'
-                    }
-                ],
-                rowReorder: false,
-                select:true,
-                responsive: true,
-                scrollX:true,
-                filter: true,
-                lengthChange: true,
-                ordering: false,
-                orderMulti: false,
-                paging : true,
-                info: true,
-                // rowReorder: true
-            });                    
+           // ListarEquipos();
         });
 
+
+        function ListarEquipos()
+        {
+            $('#datatablePrueba').DataTable().clear();
+            $('#datatablePrueba').DataTable().destroy();  
+
+            tabla =  $('#datatablePrueba').DataTable({
+
+            language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
+            },
+            dom: 'PtriBfp',
+            //dom: '<"top"Bf>tr<"bottom"Plp>' ,
+            buttons: [
+                    {
+                        extend: "excel",                    // Extend the excel button
+                        text: 'Excel',
+                        className: 'btn btn-success',
+                        excelStyles: {                      // Add an excelStyles definition
+                            cells: "2",                     // to row 2
+                            style: {                        // The style block
+                                font: {                     // Style the font
+                                    name: "Arial",          // Font name
+                                    size: "14",             // Font size
+                                    color: "FFFFFF",        // Font Color
+                                    b: false,               // Remove bolding from header row
+                                },
+                                fill: {                     // Style the cell fill (background)
+                                    pattern: {              // Type of fill (pattern or gradient)
+                                        color: "457B9D",    // Fill color
+                                    }
+                                }
+                            }
+                        },
+                    },
+                ],
+
+            searchPanes: {
+                initCollapsed: true,
+                i18n: {
+                    //mensaje cuando no hay datos.. 
+                    emptyMessage: "</i></b>No hay Registros que mostrar..</b></i>",
+                    loadMessage: 'Cargando las opciones de filtros...',
+                    collapseMessage: 'Ocultar Todos',
+                    showMessage: 'Mostrar Todos',
+                    clearMessage: 'Limpiar Filtros',
+                title: {
+                        _: 'Filtros Seleccionados - %d',
+                        0: 'Sin filtros Activos',
+                        1: 'Un filtro Activo'
+                    }   
+                }
+            },
+            processing: true,
+            // serverSide: true,
+            ajax: {
+                url: '{{url('equipo/listar')}}',
+                dataSrc: '',
+                data: {
+                       'num_linea': document.getElementById("sedeCiclo").value,
+                      },
+            },
+            columns: [
+                {
+                    data : 'nombre'
+                },
+                {
+                    data : 'numserie'
+                },
+                {
+                    data : 'nomtipo'
+                },
+                {
+                    data : 'nomsubtipo'
+                },
+                {
+                    data : 'marca'
+                },
+                {
+                    data : 'modelo'
+                },
+                {
+                    data : 'dsc_capacidad'
+                },
+                {
+                    data : 'cod_activo',
+                    class: 'centrado'
+                },
+                {
+                    data : 'dsc_ubicacion'
+                },
+                {
+                    data : 'flg_observacion',
+                    class: 'centrado'
+                },
+                {
+                    data : 'dsc_estado',
+                    class: 'centrado'
+                },
+                {
+                    data : 'VerCO',
+                    class: 'centrado'
+                }
+            ],
+            columnDefs: [
+                {
+                    searchPanes: {
+                        show: false
+                    },
+                    targets: [0,1,5,6,7,11]
+                    //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
+                },
+                {
+                    searchPanes: {
+                        show: true
+                    },
+                    targets: [2,3,4,8,9,10]
+                    //render: DataTable.render.datetime('DD/MM/YYYY', 'es-mx'),
+                }
+                ],  
+                createdRow: function(row, data, index) {
+
+                var estado = data.dsc_estado;
+
+                if (estado == 'OPERATIVO' ) {
+                    $('td:eq(10)', row).css('background-color', '#2E8B57');
+                    $('td:eq(10)', row).css('color', 'White'); 
+                }else if (estado == 'INOPERATIVO') {
+                    $('td:eq(10)', row).css('background-color', '#FF4601');
+                    $('td:eq(10)', row).css('color', 'White'); 
+                }else  {
+                    $('td:eq(10)', row).css('background-color', '#FFD603');
+                    $('td:eq(10)', row).css('color', 'Black'); 
+                }
+
+                },
+
+            rowReorder: false,
+            select:true,
+            responsive: true,
+            //scrollX:false,
+            filter: true,
+            lengthChange: true,
+            ordering: false,
+            orderMulti: false,
+            paging : false,
+            info: true,
+            // rowReorder: true
+            });                 
+        }
+
+        var Token='NO';
+        
+        function VerCertificadoOperativo(idArchivoCO,webUrlCO) {
+            if(Token=='NO'){
+                $.ajax({
+                    type : "GET",
+                    url:"https://webapigeneraleskunaq.azurewebsites.net/api/OneDrive/ObtenerUrlDocumento/20547386176/"+idArchivoCO,
+                    dataType: 'json',
+                    success: function(result) {
+                        var webCO= result["response"]["webUrl"];
+                        console.log(result);
+                        window.open(webCO,'_blank'); 
+                        Token='SI';
+                        }
+                });
+            }else{
+                window.open(webUrlCO,'_blank');
+            }
+        }
+
+       
         function verdetalle(codigo) {
             $('#modalDetalleEquipo').modal('show');
             var cod_modelo = '';
@@ -345,7 +467,7 @@
                     cod_modelo = data[0]['cod_modelo'];
                     dscEquipo = data[0]['dsc_equipo'];
                     codEquipo = data[0]['cod_equipo'];
-                    $('#modalDetalleEquipoLabel').html(codigo + '-' + data[0]['dsc_equipo']);
+                    $('#modalDetalleEquipoLabel').html('EQUIPO : ' + data[0]['dsc_equipo']);
                     $('#EstadoDetalleEquipo').html(data[0]['dsc_estado']);
                     $('#tipoEquipo').val(data[0]['dsc_tipo_equipo']);
                     $('#subtipoEquipo').val(data[0]['dsc_subtipo_equipo']);
@@ -357,6 +479,7 @@
                     $('#ubicacionEquipo').val(data[0]['dsc_ubicacion']);
                     $('#sedeEquipo').val(data[0]['dsc_sede']);
                     $('#codSede').val(data[0]['cod_sede']);
+                    $('#dsc_observacion').val(data[0]['dsc_observacion']);
 
                     $.ajax({
                         type: 'GET',
@@ -384,11 +507,11 @@
                                 '<div class="row">' +
                                 '<thead>' +
                                 '<tr class="headtable"  style="text-align:center;">' +
-                                '<th style="width:5%;">Ejec</th>' +
-                                '<th style="width:15%;">Fecha Programado</th>' +
-                                '<th style="width:15%;">Fecha Ejecutado</th>' +
-                                '<th style="width:10%;">Tipo Intervención</th>' +
-                                '<th style="width:40%;">Responsable</th>' +
+                                '<th style="text-align:center;" width="5%">Ejec</th>' +
+                                '<th style="text-align:center;" width="15%">Fecha Programado</th>' +
+                                '<th style="text-align:center;" width="15%">Fecha Ejecutado</th>' +
+                                '<th style="text-align:center;" width="10%">Tipo Intervención</th>' +
+                                '<th style="text-align:center;" width="40%">Responsable</th>' +
                                 '</tr>' +
                                 '</thead>' +
                                 '<tbody>';
