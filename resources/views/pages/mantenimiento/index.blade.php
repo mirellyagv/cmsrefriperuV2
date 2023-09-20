@@ -628,9 +628,13 @@ header("Access-Control-Allow-Origin: http://cmsrefriperuv2.test:8080");
             language: {
             url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json'
             },
-            //dom: '<"top"Plp>tr<>tr<"bottom"Bf>' ,
+            dom: '<"top"lfP>tr<"bottom"Bp>' ,
             //dom: '<"bottom"Bf>tr<"top"Plp>',
-            dom: 'PtriBfp',
+            //dom: 'PtriBfp',
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ],
             buttons: [
                     {
                         extend: "excel",                    // Extend the excel button
@@ -770,7 +774,7 @@ header("Access-Control-Allow-Origin: http://cmsrefriperuv2.test:8080");
             lengthChange: true,
             ordering: true,
             orderMulti: false,
-            paging : false,
+            paging : true,
             info: true,
             // rowReorder: true
             });                   

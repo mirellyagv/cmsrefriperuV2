@@ -19,7 +19,7 @@
                                         </a>
                                     </div>
                                     <!--<h5 class="text-uppercase mb-1 mt-4">Sign In</h5>-->
-                                    <p class="mb-0" style="text-align:center;">Bienvenidos al gestor de contenidos</p>
+                                    <p class="mb-0" style="text-align:center;">Bienvenidos al portal de clientes</p>
                                 </div>
 
                                 <div class="account-content mt-4">

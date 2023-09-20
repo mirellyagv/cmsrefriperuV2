@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<title>REFRIPERU | Gestor de contenidos</title>
+<title>REFRIPERU | Portal Cliente</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
@@ -7,7 +7,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="{{asset('images/pages/favicon.png')}}">
+<link rel="shortcut icon" href="{{asset('images/icono.png')}}">
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
